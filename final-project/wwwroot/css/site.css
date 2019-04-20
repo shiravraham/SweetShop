@@ -1,17 +1,17 @@
 ﻿:root {
-  --main-bg-color: #c98281; 
-  --sub-bg-color: white; 
+  --main-bg-color: #D4C9D1; 
+  --sub-bg-color: #252940; 
 
 }
 
 body {
     padding-top: 50px;
     padding-bottom: 20px;
+	color: white;
 }
 
 a{
 	color: white;
-
 }
 
 nav{
@@ -19,9 +19,8 @@ nav{
 }
 
 button{
-    background-color: var(--sub-bg-color);
-    color: var(--main-bg-color);
-
+    background-color: var(--main-bg-color);
+    color: white;
     border: 1px solid var(--sub-bg-color);
     border-radius: 5px;
     height: 50px;
@@ -31,7 +30,6 @@ button{
 
 button:hover {
     background-color: var(--sub-bg-color);
-    color: var(--main-bg-color);
 }
 
 .body-content {
