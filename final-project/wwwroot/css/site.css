@@ -68,3 +68,42 @@ a{
     min-width: 700px;
 	padding: 50px;
 }
+
+/***
+About
+****/
+.service-item{
+	text-align: center;
+}
+
+.service-item .icon{
+	border: 1px #b3b3b3 solid;
+	margin: 0 auto;
+	border-radius: 100%;
+	width: 110px;
+	height: 110px;
+	display: block;
+	margin-bottom: 60px;
+}
+
+.service-item .icon i{
+	line-height: 110px;
+	font-size: 45px;	
+	color: var(--sub-bg-color);
+}
+
+.service-item .icon:hover{
+	background-color: var(--main-bg-color);
+	border-color: var(--sub-bg-color);
+}
+
+.service-item .icon:hover i{
+	color: #fff;
+}
+.service-item h3{
+	margin-bottom: 60px;
+}
+
+.service-item .icon .icon-pen{
+	background: url('img/icon/pen.png');
+}

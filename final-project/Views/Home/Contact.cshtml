@@ -1,25 +1,55 @@
-﻿@{
-    ViewData["Title"] = "Contact";
-}
-<h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
-
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
-
-<address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
-
-<div id="map"></div>
-<script>
-
-</script>
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrF-NjIY94P7MSrny3iDbj4PNd4hb0e_E&callback=initMap">
-</script>
+﻿<section id="contact">
+		<div class="container">
+			<header>
+				<h2>Get in Touch</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore.
+				</p>
+			</header>
+			<div class="map-wrapper">
+				<div class="map-canvas" id="map-canvas">Loading map...</div>
+				<div class="marker">
+					<span>We Are Here</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-8">
+					<form class="row">
+						<div class="form-group col-md-6">
+							<input name="name" type="text" placeholder="Your Name" class="form-control" />
+						</div>
+						<div class="form-group col-md-6">
+							<input name="mail" type="email" placeholder="Your Email" class="form-control" />
+						</div>
+						<div class="form-group col-md-12">
+							<input name="subject" type="text" placeholder="Type Message Here..." class="form-control" />
+						</div>
+						<div class="form-group col-md-12">
+							<textarea name="message" class="form-control" rows="10" placeholder="Message"></textarea>
+						</div>
+						<div class="form-group col-md-12">
+							<button class="btn btn-lg btn-primary">Send</button>
+						</div>
+					</form>
+				</div>
+				<div class="col-md-3 col-md-offset-1">
+					<address>
+						<span>Our Address</span>
+						<p>
+							4896 Desert Broom Court<br>
+							Newark, NJ 07102<br>
+							United States
+						</p>
+					</address>
+					<address>
+						<span>Email</span>
+						<p>mail@mail.com</p>
+					</address>
+					<address>
+						<span>Phone</span>
+						<p>+00 123-456-78900</p>
+					</address>
+				</div>
+			</div>
+		</div>
+	</section>
