@@ -7,11 +7,15 @@
 body {
     padding-top: 50px;
     padding-bottom: 20px;
-	color: white;
+	color: black;
 }
 
 a{
 	color: white;
+}
+
+a:hover{
+	color: var(--main-bg-color);
 }
 
 nav{
@@ -25,8 +29,7 @@ button{
     border-radius: 5px;
     height: 50px;
     width: 160px;
-    margin: 20px;
-}
+}ןשנ
 
 button:hover {
     background-color: var(--sub-bg-color);
@@ -57,11 +60,6 @@ button:hover {
     position: relative;
     font-size: 36px;
     width: 400px;
-}
-
-a{
-    text-decoration: none;
-    color: var(--main-bg-color);
 }
 
 .content{
