@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Views\Home\About - Copy.cshtml">
+    <Content Update="Views\Home\SignIn.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>

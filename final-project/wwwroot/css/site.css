@@ -1,7 +1,8 @@
-﻿:root {
-  --main-bg-color: #D4C9D1; 
-  --sub-bg-color: #252940; 
+﻿@import url("signin.css");
 
+:root {
+    --main-bg-color: #D4C9D1;
+    --sub-bg-color: #252940;
 }
 
 body {
@@ -22,16 +23,16 @@ nav{
 	background-color: var(--main-bg-color);
 }
 
-button{
+#index-button{
     background-color: var(--main-bg-color);
     color: white;
     border: 1px solid var(--sub-bg-color);
     border-radius: 5px;
     height: 50px;
     width: 160px;
-}ןשנ
+}
 
-button:hover {
+#index-button:hover {
     background-color: var(--sub-bg-color);
 }
 
