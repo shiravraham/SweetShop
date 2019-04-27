@@ -11,6 +11,10 @@ body {
 	color: black;
 }
 
+.view-container{
+    padding: 40px;
+}
+
 a{
 	color: white;
 }
