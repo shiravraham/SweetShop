@@ -1,0 +1,40 @@
+﻿<div class="container view-container">
+    <div class="card card-signin my-5">
+        <div class="card-body">
+            <h5 class="card-title text-center">Sign Up</h5>
+            <form class="form-signin">
+                <div class="horizontal">
+                    <div class="form-label-group">
+                        <input id="first-name" class="form-control" placeholder="First Name" required autofocus>
+                        <label for="first-name">First Name</label>
+                    </div>
+
+                    <div class="form-label-group">
+                        <input id="last-name" class="form-control" placeholder="Last Name" required autofocus>
+                        <label for="last-name">Last Name</label>
+                    </div>
+                </div>
+                <div class="form-label-group">
+                    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                    <label for="inputEmail">Email address</label>
+                </div>
+
+                <div class="form-label-group">
+                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                    <label for="inputPassword">Password</label>
+                </div>
+
+                <div class="form-label-group">
+                    <input type="password" id="confirm-password" class="form-control" placeholder="Confirm Password" required>
+                    <label for="confirm-password">Confirm Password</label>
+                </div>
+
+                <button class="btn btn-lg btn-signin btn-block text-uppercase" type="submit">Sign Up</button>
+                <hr class="my-4">
+                <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fa fa-google mr-2"></i> Sign Up with Google</button>
+                <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fa fa-facebook-f mr-2"></i> Sign Up with Facebook</button>
+                <a id="register" asp-controller="Home" asp-action="SignIn">Already have an account? sign in</a>
+            </form>
+        </div>
+    </div>
+</div>

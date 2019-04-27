@@ -72,6 +72,10 @@ nav{
 	padding: 50px;
 }
 
+.horizontal{
+    display: flex;
+}
+
 /***
 About
 ****/
