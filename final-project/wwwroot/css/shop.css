@@ -99,10 +99,14 @@ body {
         vertical-align: middle;
     }
 
+#qantity {
+    height: 100%;
+}
+
 .pnl-description {
     position: relative;
     padding: 0;
-    padding-left: 0.5em;
+    /*padding-left: 0.5em;*/
 }
 
 .pnl-label {
@@ -157,20 +161,20 @@ body {
     position: relative;
 }
 
-.pnl-tocart svg {
-    stroke: #a1a8ad;
-}
-
 .pnl-tocart {
     width: 32px;
     cursor: pointer;
     position: relative;
 }
 
+.pnl-icon {
+    padding: 10px;
+}
 
 @media screen and (min-width: 320px) {
     .pnl-wrapper {
-        height: 70px
+        height: 70px;
+        padding: 1.5em;
     }
 
     .pnl-label, .pnl-price {
@@ -184,10 +188,6 @@ body {
 
     .pnl-ic-wrapper {
         transform: scale(0.75)
-    }
-
-    .pnl-description {
-        padding-left: 1.0em
     }
 }
 
@@ -204,10 +204,6 @@ body {
 
     .grid-tile {
         padding: 0 0 1.0em 1.0em
-    }
-
-    .pnl-description {
-        padding-left: 1.5em
     }
 
     .pnl-wrapper {
@@ -239,10 +235,6 @@ body {
 
     .pnl-wrapper {
         height: 60px
-    }
-
-    .pnl-description {
-        padding-left: 0.5em
     }
 
     .pnl-label, .pnl-price {
@@ -326,10 +318,6 @@ body {
     .pnl-ic-wrapper {
         transform: scale(0.75)
     }
-
-    .pnl-description {
-        padding-left: 1.0em
-    }
 }
 
 
@@ -358,14 +346,6 @@ body {
         width: 33.3333%
     }
 }
-
-
-@media screen and (min-width: 1300px) {
-    .pnl-description {
-        padding-left: 1.5em
-    }
-}
-
 
 @media screen and (min-width: 1440px) {
     .inner {
