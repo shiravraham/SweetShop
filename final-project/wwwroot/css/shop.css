@@ -1,16 +1,11 @@
-﻿
-
-
-* {
+﻿* {
     margin: 0;
     padding: 0
 }
 
-
 body {
     background-color: #f9f9f9;
 }
-
 
 .layout {
     width: 100%;
@@ -36,14 +31,14 @@ body {
     transition: all 0.3s
 }
 
-    .grid:before, .grid:after {
+.grid:before, .grid:after {
         content: " ";
         display: table
-    }
+}
 
-    .grid:after {
+.grid:after {
         clear: both
-    }
+}
 
 .grid-tile {
     width: 100%;
@@ -82,12 +77,6 @@ body {
         cursor: -moz-grabbing;
     }
 
-
-.item-pnl {
-    /*position: relative;*/
-    width: 100%;
-}
-
 .pnl-wrapper {
     width: 100%;
     height: 60px;
@@ -106,7 +95,6 @@ body {
 .pnl-description {
     position: relative;
     padding: 0;
-    /*padding-left: 0.5em;*/
 }
 
 .pnl-label {
@@ -169,6 +157,7 @@ body {
 
 .pnl-icon {
     padding: 10px;
+    cursor: pointer;
 }
 
 @media screen and (min-width: 320px) {
@@ -335,11 +324,6 @@ body {
         padding: 0 0 1.5em 1.5em
     }
 }
-
-
-@media screen and (min-width: 912px) {
-}
-
 
 @media screen and (min-width: 1024px) {
     .grid-tile {
