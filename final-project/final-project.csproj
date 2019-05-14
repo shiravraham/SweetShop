@@ -14,6 +14,9 @@
     <Content Update="Views\Admin\EditProducts.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Home\Checkout.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Home\Cart.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
