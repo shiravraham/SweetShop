@@ -46,9 +46,9 @@ nav{
 }
 
 #map {
+    position: relative;
+    width: 600px;
     height: 400px;
-    width: 400px;
-    background-color: grey;
 }
 
 #site-img{
