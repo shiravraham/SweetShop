@@ -1,4 +1,5 @@
 ﻿@import url("signin.css");
+@import url("shop.css");
 
 :root {
     --main-bg-color: #D4C9D1;
@@ -13,6 +14,7 @@ body {
 
 .view-container{
     padding: 40px;
+    min-width: 700px;
 }
 
 a{
