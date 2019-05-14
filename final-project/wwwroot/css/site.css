@@ -1,5 +1,6 @@
 ﻿@import url("signin.css");
 @import url("shop.css");
+@import url("cart.css");
 
 :root {
     --main-bg-color: #D4C9D1;
