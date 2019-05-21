@@ -1,3 +1,46 @@
 ﻿<div class="container view-container">
-This is your cart
+    <div class="panel-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Description</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <img src="https://lorempixel.com/400/200/fashion/2/" class="cart-img">
+                        </td>
+                        <td><strong>Product 1</strong></td>
+                        <td>
+                            <form class="form-inline">
+                                <input id="qantity" type="number" name="quantity" value=1 min="1" max="100">
+                            </form>
+                        </td>
+                        <td>$54.00</td>
+                        <td>
+                            $54.00<i class="cart-trash fa fa-trash-o"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-right">Total Product</td>
+                        <td>$86.00</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-right">Total Shipping</td>
+                        <td>$2.00</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-right"><strong>Total</strong></td>
+                        <td>$88.00</td>
+                    </tr>
+                </tbody>
+            </table>
+                    <a asp-controller="Home" asp-action="Shop" id="cart-continue-btn" class="btn btn-primary" data-dismiss="modal">Continue Shopping</a>
+                    <a asp-controller="Home" asp-action="Checkout" id="cart-checkout-btn" class="pull-right btn btn-success">Checkout</a>
+    </div>
 </div>
