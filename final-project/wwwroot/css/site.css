@@ -1,4 +1,7 @@
 ﻿@import url("signin.css");
+@import url("shop.css");
+@import url("cart.css");
+@import url("checkout.css");
 
 :root {
     --main-bg-color: #D4C9D1;
@@ -13,6 +16,7 @@ body {
 
 .view-container{
     padding: 40px;
+    min-width: 700px;
 }
 
 a{
@@ -46,9 +50,9 @@ nav{
 }
 
 #map {
+    position: relative;
+    width: 600px;
     height: 400px;
-    width: 400px;
-    background-color: grey;
 }
 
 #site-img{
@@ -113,4 +117,36 @@ About
 
 .service-item .icon .icon-pen{
 	background: url('img/icon/pen.png');
+}
+
+/* Share Button - Twitter style */
+
+#fb-share-button {
+    background: #3b5998;
+    border-radius: 3px;
+    font-weight: 600;
+    padding: 5px 8px;
+    display: inline-block;
+    position: static;
+    float: right;
+    margin-right: 10px;
+}
+
+#fb-share-button:hover {
+    cursor: pointer;
+    background: #213A6F
+}
+
+#fb-share-button svg {
+    width: 18px;
+    fill: white;
+    vertical-align: middle;
+    border-radius: 2px
+}
+
+#fb-share-button span {
+    vertical-align: middle;
+    color: white;
+    font-size: 14px;
+    padding: 0 3px
 }
