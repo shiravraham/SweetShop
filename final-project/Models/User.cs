@@ -5,11 +5,11 @@ namespace final_project.Models
 {
     public class User
 {
-        public int Id;
-        public string FullName;
-        public string Address;
-        public string Email;
-        public string Gender;
-        public UserType UserType;
-}
+        [Key]
+        public int Id { get; set; }
+        public string FullName { get; set; }
+        public string Address { get; set; }
+        public string Email { get; set; }
+        public UserType UserType { get; set; }
+    }
 }

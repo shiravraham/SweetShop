@@ -21,7 +21,8 @@ namespace final_project.Controllers
 
         public IActionResult Index()
         {
-            return View(_context.User.ToList());
+            var a = _context.User;
+            return View();
         }
         public IActionResult Cart()
         {
