@@ -3,8 +3,14 @@
     padding: 0
 }
 
-body {
-    background-color: #f9f9f9;
+#search{
+    margin-bottom: 10px;
+}
+
+#search-button{
+    background-color: var(--sub-bg-color);
+    margin-left: 5px;
+    width: 20%;
 }
 
 .layout {
@@ -20,8 +26,6 @@ body {
 
 .inner {
     max-width: 100%;
-    padding: 0 0.5em;
-    padding-top: 0.5em;
     transition: all 0.3s;
 }
 
@@ -43,8 +47,8 @@ body {
 .grid-tile {
     width: 100%;
     position: relative;
+    padding: 10px;
     float: left;
-    padding: 0 0 0.5em 0.5em;
     box-sizing: border-box;
     transition: all 0.3s;
 }
@@ -182,17 +186,8 @@ body {
 
 
 @media screen and (min-width: 360px) {
-    .inner {
-        padding: 0 1.0em;
-        padding-top: 1.0em
-    }
-
     .grid {
         margin: 0 0 0 -1.0em
-    }
-
-    .grid-tile {
-        padding: 0 0 1.0em 1.0em
     }
 
     .pnl-wrapper {
@@ -205,17 +200,8 @@ body {
  */
 
 @media screen and (min-width: 480px) {
-    .inner {
-        padding: 0 0.5em;
-        padding-top: 0.5em
-    }
-
     .grid {
         margin: 0 0 0 -0.5em
-    }
-
-    .grid-tile {
-        padding: 0 0 0.5em 0.5em
     }
 
     .grid-tile {
@@ -275,20 +261,10 @@ body {
     }
 }
 
-
-
 @media screen and (min-width: 600px) {
-    .inner {
-        padding: 0 1.0em;
-        padding-top: 1.0em
-    }
 
     .grid {
         margin: 0 0 0 -1.0em
-    }
-
-    .grid-tile {
-        padding: 0 0 1.0em 1.0em
     }
 
     .pnl-wrapper {
@@ -311,17 +287,9 @@ body {
 
 
 @media screen and (min-width: 768px) {
-    .inner {
-        padding: 0 1.5em;
-        padding-top: 1.5em
-    }
 
     .grid {
         margin: 0 0 0 -1.5em
-    }
-
-    .grid-tile {
-        padding: 0 0 1.5em 1.5em
     }
 }
 

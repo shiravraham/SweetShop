@@ -9,8 +9,6 @@
 }
 
 body {
-    padding-top: 50px;
-    padding-bottom: 20px;
 	color: black;
 }
 
@@ -64,7 +62,7 @@ nav{
 }
 
 #welcome-text{
-	margin-top: 50px;
+	padding-top: 50px;
     color: var(--sub-bg-color);
     position: relative;
     font-size: 36px;
