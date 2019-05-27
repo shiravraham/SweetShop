@@ -5,13 +5,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using final_project.Models;
+using final_project.Data;
 
 namespace final_project.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly SweetShopContext _context;
+
+
+        public HomeController(SweetShopContext context)
+        {
+            _context = context;
+        }
+
         public IActionResult Index()
         {
+            var a = _context.User;
             return View();
         }
         public IActionResult Cart()
