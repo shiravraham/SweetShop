@@ -30,7 +30,7 @@ nav{
 }
 
 #index-button{
-    background-color: var(--main-bg-color);
+    background-color: var(--sub-bg-color);
     color: white;
     border: 1px solid var(--sub-bg-color);
     border-radius: 5px;
@@ -39,7 +39,7 @@ nav{
 }
 
 #index-button:hover {
-    background-color: var(--sub-bg-color);
+    background-color: var(--main-bg-color);
 }
 
 .body-content {

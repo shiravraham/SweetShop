@@ -3,6 +3,75 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+@{
+    ViewData["Title"] = "Shop";
+}
+
 <div class="container view-container">
-    This is where you edit the products
+    <div class="layout">
+        <section class="inner">
+            <ul class="grid">
+
+                <div id="search" class="horizontal">
+                    <input type="search" class="form-control ds-input" />
+                    <button id="search-button" class="btn btn-primary btn-sm">Search</button>
+                </div>
+
+                @* This is where we do foreach *@
+                <li class="grid-tile">
+                    <div class="item">
+                        <div class="item-img" style="background-image: url('https://www.momastore.org/wcsstore/MOMASTORE1/images/products/96511_A2_Print_NYC_8x10_In.jpg'); background-size: auto auto; background-size: 150%; background-position: center 30%;"></div>
+                        <div class="pnl-wrapper">
+                            <div class="pnl-description">
+                                <span class="pnl-label">Product Name</span>
+                                <span class="pnl-price">$100,00</span>
+                            </div>
+                            <i class="pnl-icon fa fa-pencil fa-lg"></i>
+                            <i class="pnl-icon fa fa-trash fa-lg"></i>
+
+                        </div>
+                    </div>
+                </li>
+                <li class="grid-tile">
+                    <div class="item">
+                        <div class="item-img" style="background-image: url('https://www.momastore.org/wcsstore/MOMASTORE1/images/products/96511_A2_Print_NYC_8x10_In.jpg'); background-size: auto auto; background-size: 150%; background-position: center 30%;"></div>
+                        <div class="pnl-wrapper">
+                            <div class="pnl-description">
+                                <span class="pnl-label">Product Name</span>
+                                <span class="pnl-price">$100,00</span>
+                            </div>
+                            <input id="qantity" type="number" name="quantity" value=1 min="1" max="100">
+                            <i class="pnl-icon fa fa-plus-circle fa-lg"></i>
+                        </div>
+                    </div>
+                </li>
+                <li class="grid-tile">
+                    <div class="item">
+                        <div class="item-img" style="background-image: url('https://www.momastore.org/wcsstore/MOMASTORE1/images/products/96511_A2_Print_NYC_8x10_In.jpg'); background-size: auto auto; background-size: 150%; background-position: center 30%;"></div>
+                        <div class="pnl-wrapper">
+                            <div class="pnl-description">
+                                <span class="pnl-label">Product Name</span>
+                                <span class="pnl-price">$100,00</span>
+                            </div>
+                            <input id="qantity" type="number" name="quantity" value=1 min="1" max="100">
+                            <i class="pnl-icon fa fa-plus-circle fa-lg"></i>
+                        </div>
+                    </div>
+                </li>
+                <li class="grid-tile">
+                    <div class="item">
+                        <div class="item-img" style="background-image: url('https://www.momastore.org/wcsstore/MOMASTORE1/images/products/96511_A2_Print_NYC_8x10_In.jpg'); background-size: auto auto; background-size: 150%; background-position: center 30%;"></div>
+                        <div class="pnl-wrapper">
+                            <div class="pnl-description">
+                                <span class="pnl-label">Product Name</span>
+                                <span class="pnl-price">$100,00</span>
+                            </div>
+                            <input id="qantity" type="number" name="quantity" value=1 min="1" max="100">
+                            <i class="pnl-icon fa fa-plus-circle fa-lg"></i>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </div>
 </div>

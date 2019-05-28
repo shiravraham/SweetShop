@@ -69,11 +69,13 @@ namespace finalproject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Username = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true),
                     FullName = table.Column<string>(nullable: true),
                     Address = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
@@ -81,9 +83,9 @@ namespace finalproject.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_User_UserType_UserTypeId",
+                        name: "FK_Users_UserType_UserTypeId",
                         column: x => x.UserTypeId,
                         principalTable: "UserType",
                         principalColumn: "Id",
@@ -110,9 +112,9 @@ namespace finalproject.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Orders_User_userId",
+                        name: "FK_Orders_Users_userId",
                         column: x => x.userId,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -133,8 +135,8 @@ namespace finalproject.Migrations
                 column: "CategoryID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_User_UserTypeId",
-                table: "User",
+                name: "IX_Users_UserTypeId",
+                table: "Users",
                 column: "UserTypeId");
         }
 
@@ -150,7 +152,7 @@ namespace finalproject.Migrations
                 name: "OrderStatuses");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Categories");

@@ -97,13 +97,17 @@ namespace finalproject.Migrations
 
                     b.Property<string>("FullName");
 
+                    b.Property<string>("Password");
+
                     b.Property<int?>("UserTypeId");
+
+                    b.Property<string>("Username");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserTypeId");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("final_project.Models.UserType", b =>

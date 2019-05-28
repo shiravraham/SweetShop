@@ -8,7 +8,7 @@ namespace final_project.Data
         public SweetShopContext(DbContextOptions<SweetShopContext> options) : base(options)
         {
         }
-        public DbSet<User> User { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<UserType> UserType { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Order> Orders { get; set; }

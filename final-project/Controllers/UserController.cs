@@ -20,7 +20,7 @@ namespace final_project.Controllers
 
         public IActionResult Get()
         {
-            var a = _context.User;
+            var a = _context.Users;
             return View();
         }
 
