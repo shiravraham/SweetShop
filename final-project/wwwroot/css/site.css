@@ -150,7 +150,7 @@ About
 }
 
 /*VIDEO*/
-header {
+.video-header {
     position: relative;
     background-color: black;
     height: 75vh;
@@ -159,7 +159,7 @@ header {
     overflow: hidden;
 }
 
-    header video {
+    .video-header video {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -174,12 +174,12 @@ header {
         transform: translateX(-50%) translateY(-50%);
     }
 
-    header .container {
+    .video-header .container {
         position: relative;
         z-index: 2;
     }
 
-    header .overlay {
+    .video-header .overlay {
         position: absolute;
         top: 0;
         left: 0;
@@ -191,11 +191,13 @@ header {
     }
 
 @media (pointer: coarse) and (hover: none) {
-    header {
+    .video-header {
         background: url('https://source.unsplash.com/XT5OInaElMw/1600x900') black no-repeat center center scroll;
     }
 
-        header video {
+        .video-header video {
             display: none;
         }
 }
+
+/*END VIDEO*/

@@ -7,9 +7,9 @@ namespace final_project.Models
     {
         [Key]
         public int ID { get; set; }
+        public Category Category { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
-        public Category Category { get; set; }
         public string ImgPath { get; set; }
     }
 }

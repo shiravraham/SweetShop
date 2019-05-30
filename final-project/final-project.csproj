@@ -6,6 +6,30 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\lib\bootstrap\4.3.1\**" />
+    <Compile Remove="wwwroot\lib\jquery\3.0.0\**" />
+    <Compile Remove="wwwroot\lib\popper.js\1.14.0\**" />
+    <Content Remove="wwwroot\lib\bootstrap\4.3.1\**" />
+    <Content Remove="wwwroot\lib\jquery\3.0.0\**" />
+    <Content Remove="wwwroot\lib\popper.js\1.14.0\**" />
+    <EmbeddedResource Remove="wwwroot\lib\bootstrap\4.3.1\**" />
+    <EmbeddedResource Remove="wwwroot\lib\jquery\3.0.0\**" />
+    <EmbeddedResource Remove="wwwroot\lib\popper.js\1.14.0\**" />
+    <None Remove="wwwroot\lib\bootstrap\4.3.1\**" />
+    <None Remove="wwwroot\lib\jquery\3.0.0\**" />
+    <None Remove="wwwroot\lib\popper.js\1.14.0\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20190530080037_InitialCreate.cs" />
+    <Compile Remove="Migrations\20190530080037_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20190530080329_InitialCreate.cs" />
+    <Compile Remove="Migrations\20190530080329_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20190530080800_InitialCreate2.cs" />
+    <Compile Remove="Migrations\20190530080800_InitialCreate2.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
 	<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.1">
 	  <PrivateAssets>all</PrivateAssets>
@@ -38,10 +62,6 @@
     <Content Update="Views\Shared\_AdminLayout.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\NewFolder\" />
   </ItemGroup>
 
 </Project>
