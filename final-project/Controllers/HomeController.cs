@@ -30,8 +30,8 @@ namespace final_project.Controllers
 
         public IActionResult Shop()
         {
-            ViewData["Message"] = "shop message";
-
+            List<Product> products = _context.Products.ToList();
+            ViewBag.Products = products;
             return View();
         }
 
