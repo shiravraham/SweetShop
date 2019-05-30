@@ -5,13 +5,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using final_project.Models;
+using final_project.Data;
 
 namespace final_project.Controllers
 {
     public class AdminController : Controller
     {
+        private readonly SweetShopContext _context;
+
+        public AdminController(SweetShopContext context)
+        {
+            _context = context;
+        }
+
         public IActionResult Orders()
         {
+
             return View();
         }
         public IActionResult Statistics()
@@ -21,6 +30,8 @@ namespace final_project.Controllers
 
         public IActionResult EditProducts()
         {
+            List<Product> products = _context.Products.ToList();
+            ViewBag.Products = products;
             return View();
         }
     }

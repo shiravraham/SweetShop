@@ -13,7 +13,6 @@ namespace final_project.Controllers
     {
         private readonly SweetShopContext _context;
 
-
         public HomeController(SweetShopContext context)
         {
             _context = context;
