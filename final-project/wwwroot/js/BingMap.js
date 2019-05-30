@@ -34,7 +34,6 @@ function GetMap() {
     }
 }
 
-
 function pushpinClicked(e) {
     //Make sure the infobox has metadata to display.
     if (e.target.metadata) {
