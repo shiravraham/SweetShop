@@ -30,7 +30,7 @@ nav{
 }
 
 #index-button{
-    background-color: var(--main-bg-color);
+    background-color: var(--sub-bg-color);
     color: white;
     border: 1px solid var(--sub-bg-color);
     border-radius: 5px;
@@ -39,7 +39,7 @@ nav{
 }
 
 #index-button:hover {
-    background-color: var(--sub-bg-color);
+    background-color: var(--main-bg-color);
 }
 
 .body-content {
@@ -62,7 +62,7 @@ nav{
 }
 
 #welcome-text{
-	margin-top: 50px;
+	padding-top: 50px;
     color: var(--sub-bg-color);
     position: relative;
     font-size: 36px;
@@ -148,3 +148,56 @@ About
     font-size: 14px;
     padding: 0 3px
 }
+
+/*VIDEO*/
+.video-header {
+    position: relative;
+    background-color: black;
+    height: 75vh;
+    min-height: 25rem;
+    width: 100%;
+    overflow: hidden;
+}
+
+    .video-header video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: 0;
+        -ms-transform: translateX(-50%) translateY(-50%);
+        -moz-transform: translateX(-50%) translateY(-50%);
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+    }
+
+    .video-header .container {
+        position: relative;
+        z-index: 2;
+    }
+
+    .video-header .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: black;
+        opacity: 0.5;
+        z-index: 1;
+    }
+
+@media (pointer: coarse) and (hover: none) {
+    .video-header {
+        background: url('https://source.unsplash.com/XT5OInaElMw/1600x900') black no-repeat center center scroll;
+    }
+
+        .video-header video {
+            display: none;
+        }
+}
+
+/*END VIDEO*/

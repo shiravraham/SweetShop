@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -6,11 +6,44 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
+    <Compile Remove="wwwroot\lib\bootstrap\4.3.1\**" />
+    <Compile Remove="wwwroot\lib\jquery\3.0.0\**" />
+    <Compile Remove="wwwroot\lib\popper.js\1.14.0\**" />
+    <Content Remove="wwwroot\lib\bootstrap\4.3.1\**" />
+    <Content Remove="wwwroot\lib\jquery\3.0.0\**" />
+    <Content Remove="wwwroot\lib\popper.js\1.14.0\**" />
+    <EmbeddedResource Remove="wwwroot\lib\bootstrap\4.3.1\**" />
+    <EmbeddedResource Remove="wwwroot\lib\jquery\3.0.0\**" />
+    <EmbeddedResource Remove="wwwroot\lib\popper.js\1.14.0\**" />
+    <None Remove="wwwroot\lib\bootstrap\4.3.1\**" />
+    <None Remove="wwwroot\lib\jquery\3.0.0\**" />
+    <None Remove="wwwroot\lib\popper.js\1.14.0\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190530080037_InitialCreate.cs" />
+    <Compile Remove="Migrations\20190530080037_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20190530080329_InitialCreate.cs" />
+    <Compile Remove="Migrations\20190530080329_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20190530080800_InitialCreate2.cs" />
+    <Compile Remove="Migrations\20190530080800_InitialCreate2.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.1">
+	  <PrivateAssets>all</PrivateAssets>
+	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	</PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Admin\Statistics.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Admin\Orders.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Admin\EditProducts.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
