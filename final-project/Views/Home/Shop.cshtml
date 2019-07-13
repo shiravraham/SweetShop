@@ -1,37 +1,47 @@
 ﻿@{
     ViewData["Title"] = "Shop";
     List<Product> products = ViewBag.Products;
+    List<Category> categories = ViewBag.categories;
 }
-
 <div class="container view-container">
     <div class="layout">
         <section class="inner">
-            <ul class="grid">
-
-                <div id="search" class="horizontal">
-                    <input type="search" class="form-control ds-input" />
-                    <button id="search-button" class="btn btn-primary btn-sm">Search</button>
-                </div>
-
-                @{ foreach (Product product in products)
-                    {
-                        <li class="grid-tile">
-                            <div class="item">
-                                <img class="item-img" src=@product.ImgPath />
-                                <div class="pnl-wrapper">
-                                    <div class="pnl-description">
-                                        <span class="pnl-label">@product.Name</span>
-                                        <span class="pnl-price">@product.Price</span>
-                                    </div>
-                                    <input id="qantity" type="number" name="quantity" value=1 min="1" max="100">
-                                    <i class="pnl-icon fa fa-plus-circle fa-lg"></i>
-
-                                </div>
-                            </div>
-                        </li>
+            <div id="search" class="horizontal">
+				<form id="searchForm" class="horizontal" asp-action="Shop" asp-controller="Home" method="POST">
+                    <input id="searchText" name="searchText" type="search" class="form-control ds-input" />
+                    <select name="category">
+                        <option value=0>Choose category</option>
+                    @{ foreach (Category category in categories)
+                        {
+                            <option value=@category.ID >@category.Name</option>
+                        }
                     }
+                    </select>
+                    <input type="number" name="minPrice" placeholder="Min price"/><span>-</span> 
+                    <input type="number" name="maxPrice" placeholder="Max price"/>
+                    <input type="submit" id="search-button" class="btn btn-primary btn-sm" value="Search">
+                </form>
+            </div>
+			<ul class="grid">
+            @{ foreach (Product product in products)
+                {
+                    <li class="grid-tile">
+                        <div class="item">
+                            <img class="item-img" src=@product.ImgPath />
+                            <div class="pnl-wrapper">
+                                <div class="pnl-description">
+                                    <span class="pnl-label">@product.Name</span>
+                                    <span class="pnl-price">@product.Price</span>
+                                </div>
+                                <input id="qantity" type="number" name="quantity" value=1 min="1" max="100">
+                                <i class="pnl-icon fa fa-plus-circle fa-lg"></i>
+
+                            </div>
+                        </div>
+                    </li>
                 }
-            </ul>
+            }
+			</ul>
 
             <!-- Modal -->
             <div class="modal fade" id="DeleteConfirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

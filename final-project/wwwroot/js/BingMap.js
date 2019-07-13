@@ -37,7 +37,7 @@ function GetMap() {
             //Store some metadata with the pushpin.
             pin.metadata = {
                 title: branches[key].branchName,
-                description: 'החנות מספר אחת ב' + branches[key].branchName
+                description: branches[key].addressInfo
             };
 
             //Add a click event handler to the pushpin.

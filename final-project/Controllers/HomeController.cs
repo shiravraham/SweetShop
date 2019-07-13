@@ -28,9 +28,47 @@ namespace final_project.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult Shop()
         {
             List<Product> products = _context.Products.ToList();
+            ViewBag.Products = products;
+
+            List<Category> categories = _context.Categories.ToList();
+            ViewBag.Categories = categories;
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Shop(string searchText, int category, int minPrice, int maxPrice)
+        {
+            List<Category> categories = _context.Categories.ToList();
+            ViewBag.Categories = categories;
+
+            List<Product> products;
+
+            if (searchText != null)
+            { 
+                products = _context.Products.Where((p) => p.Name.Contains(searchText)).ToList();
+            } else
+            {
+                products = _context.Products.ToList();
+            }
+
+            if (category != 0)
+            {
+                products = products.Where((p) => p.Category.ID == category).ToList();
+            }
+
+            if (maxPrice <= 0)
+            {
+                maxPrice = int.MaxValue;
+            }
+
+            products = products.Where((p) => p.Price >= minPrice && p.Price <= maxPrice).ToList();
+
             ViewBag.Products = products;
             return View();
         }
