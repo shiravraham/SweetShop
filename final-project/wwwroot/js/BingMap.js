@@ -14,23 +14,38 @@ function GetMap() {
 
     //Assign the infobox to a map instance.
     infobox.setMap(map);
+    
+    $.ajax({
+        type: "GET",
+        url: '/Branch/getBranches',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: successFunc,
+        error: errorFunc
+    })
 
-    let randomLocations = Microsoft.Maps.TestDataGenerator.getLocations(5, map.getBounds());
+    function errorFunc() {
+        alert("is it too late now to say sorry?");
+    }
 
-    for (var i = 0; i < randomLocations.length; i++) {
-        var pin = new Microsoft.Maps.Pushpin(randomLocations[i]);
+    function successFunc(branches) {
+        let randomLocations = Microsoft.Maps.TestDataGenerator.getLocations(5, map.getBounds());
 
-        //Store some metadata with the pushpin.
-        pin.metadata = {
-            title: 'Pin ' + i,
-            description: 'Discription for pin' + i
-        };
+        for (var key in branches) {
+            let pin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(branches[key].locationX, branches[key].locationY));
 
-        //Add a click event handler to the pushpin.
-        Microsoft.Maps.Events.addHandler(pin, 'click', pushpinClicked);
+            //Store some metadata with the pushpin.
+            pin.metadata = {
+                title: branches[key].branchName,
+                description: branches[key].addressInfo
+            };
 
-        //Add pushpin to the map.
-        map.entities.push(pin);
+            //Add a click event handler to the pushpin.
+            Microsoft.Maps.Events.addHandler(pin, 'click', pushpinClicked);
+
+            //Add pushpin to the map.
+            map.entities.push(pin);
+        }
     }
 }
 

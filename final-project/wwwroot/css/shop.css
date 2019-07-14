@@ -3,14 +3,29 @@
     padding: 0
 }
 
-#search{
+#search {
     margin-bottom: 10px;
+}
+
+#searchForm {
+    width: -webkit-fill-available;
+}
+
+#searchForm > * {
+    margin-right: 3px;
 }
 
 #search-button{
     background-color: var(--sub-bg-color);
     margin-left: 5px;
     width: 20%;
+}
+
+input[type="number"] {
+    width: 5vw;
+}
+::-webkit-input-placeholder {
+    font-size:small;
 }
 
 .layout {
@@ -65,7 +80,7 @@
 
 .item-img {
     width: 100%;
-    padding-bottom: 115%;
+    height: 36vh;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
