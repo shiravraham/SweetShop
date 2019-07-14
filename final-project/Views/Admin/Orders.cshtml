@@ -1,9 +1,33 @@
 ﻿
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    List<Order> orders = ViewBag.Orders;
 }
 
 <h2>Orders</h2>
 
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Costumer</th>
+            <th scope="col">Status</th>
+            <th scope="col">Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ foreach (Order order in orders)
+            {
+                <tr>
+                    <th>@order.Id</th>
+                    <td>@order.User.FullName</td>
+                    <td>@order.Status.Name
+                    <td>@order.OrderDate.ToShortDateString()</td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
 
 

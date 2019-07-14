@@ -8,7 +8,7 @@ namespace final_project.Models
     {
         [Key]
         public int Id { get; set; }
-        public User user { get; set; }
+        public User User { get; set; }
         public OrderStatus Status { get; set; }
         public DateTime OrderDate { get; set; }
 

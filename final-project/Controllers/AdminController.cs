@@ -20,6 +20,10 @@ namespace final_project.Controllers
 
         public IActionResult Orders()
         {
+            List<Order> orders = _context.Orders.ToList();
+            List<User> users = _context.Users.ToList();
+            List<OrderStatus> statuses = _context.OrderStatuses.ToList();
+            ViewBag.Orders = orders;
 
             return View();
         }
