@@ -11,8 +11,8 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Costumer</th>
-            <th scope="col">Status</th>
             <th scope="col">Date</th>
+            <th scope="col">Status</th>
         </tr>
     </thead>
     <tbody>
@@ -21,8 +21,8 @@
                 <tr>
                     <th>@order.Id</th>
                     <td>@order.User.FullName</td>
-                    <td>@order.Status.Name
                     <td>@order.OrderDate.ToShortDateString()</td>
+                    <td>@order.Status.Name
                 </tr>
             }
         }

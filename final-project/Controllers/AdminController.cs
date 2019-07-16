@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using final_project.Models;
 using final_project.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace final_project.Controllers
 {
@@ -35,8 +36,33 @@ namespace final_project.Controllers
         public IActionResult EditProducts()
         {
             List<Product> products = _context.Products.ToList();
+            List<Category> categories = _context.Categories.ToList();
+
             ViewBag.Products = products;
+            ViewBag.Categories = categories;
             return View();
+        }
+
+        public IActionResult RemoveProduct(int id)
+        {
+            _context.Remove(_context.Products.Single(p => p.ID == id));
+            _context.SaveChanges();
+            return Redirect("/Admin/EditProducts");
+        }
+
+        public IActionResult AddProduct(string name, int categoryId, int price)
+        {
+            Product newProduct = new Product()
+            {
+                Name = "product1",
+                Category = _context.Categories.Single(c => c.ID == 2),
+                Price = 50,
+                
+            };
+
+            _context.Add(newProduct);
+            _context.SaveChanges();
+            return Redirect("/Admin/EditProducts");
         }
     }
 }

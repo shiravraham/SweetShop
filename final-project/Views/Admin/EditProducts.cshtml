@@ -2,66 +2,83 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewData["Title"] = "Shop";
     List<Product> products = ViewBag.Products;
+    List<Category> categories = ViewBag.Categories;
 }
 
-<div class="container view-container">
-    <div class="layout">
-        <section class="inner">
-            <ul class="grid">
+    <div class="container view-container">
+        <a data-toggle="modal" data-target="#DeleteConfirmation">
 
-                <div id="search" class="horizontal">
-                    <input type="search" class="form-control ds-input" />
-                    <button id="search-button" class="btn btn-primary btn-sm">Search</button>
-                </div>
+            <button id="add-button" type="button" class="btn btn-success">Add</button>
+</a>
+            <br />
 
-                @{ foreach (Product product in products)
-                    {
-                        <li class="grid-tile">
-                            <div class="item">
-                                @*<div class="item-img" style="background-image: url('https://www.momastore.org/wcsstore/MOMASTORE1/images/products/96511_A2_Print_NYC_8x10_In.jpg'); background-size: auto auto; background-size: 150%; background-position: center 30%;"></div>*@
-                                @{string productPath = "/images/Products/ChocolateCheescake.jpg";}
-                                <img class="item-img" src=@productPath />
-                                <div class="pnl-wrapper">
-                                    <div class="pnl-description">
-                                        <span class="pnl-label">@product.Name</span>
-                                        <span class="pnl-price">@product.Price</span>
+            <div class="layout">
+                <section class="inner">
+                    <ul class="grid">
+
+                        @{ foreach (Product product in products)
+                            {
+                                <li class="grid-tile">
+                                    <div class="item">
+                                        @*<div class="item-img" style="background-image: url('https://www.momastore.org/wcsstore/MOMASTORE1/images/products/96511_A2_Print_NYC_8x10_In.jpg'); background-size: auto auto; background-size: 150%; background-position: center 30%;"></div>*@
+                                        @{string productPath = "/images/Products/ChocolateCheescake.jpg";}
+                                        <img class="item-img" src=@productPath />
+                                        <div class="pnl-wrapper">
+                                            <div class="pnl-description">
+                                                <span class="pnl-label">@product.Name</span>
+                                                <span class="pnl-price">@product.Price</span>
+                                            </div>
+                                            <a>
+                                                <i class="pnl-icon fa fa-pencil fa-lg"></i>
+                                            </a>
+                                            <!-- Button trigger modal -->
+                                            <a asp-route-id="@product.ID" asp-controller="Admin" asp-action="RemoveProduct">
+                                                <i class="pnl-icon fa fa-trash fa-lg"></i>
+                                            </a>
+
+                                            <a data-toggle="modal" data-target="#DeleteConfirmation">
+                                                <i class="pnl-icon fa fa-trash fa-lg"></i>
+                                            </a>
+                                        </div>
                                     </div>
-                                    <i class="pnl-icon fa fa-pencil fa-lg"></i>
+                                </li>
+                            }
+                        }
+                    </ul>
 
-                                    <!-- Button trigger modal -->
-                                    <button type="button" class="" data-toggle="modal" data-target="#DeleteConfirmation">
-                                        <i class="pnl-icon fa fa-trash fa-lg"></i>
+                    <!--Add New Product Modal -->
+                    <div class="modal fade" id="DeleteConfirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Add New Product</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
                                     </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="AddProductForm" class="" asp-action="AddProduct" asp-controller="Admin" method="POST">
+                                        Name: <input id="" name="name" type="search" class="form-control ds-input" />
+                                        <select name="category">
+                                            <option value=0>Choose category</option>
+                                            @{ foreach (Category category in categories)
+                                                {
+                                                    <option value=@category.ID>@category.Name</option>
+                                                }
+                                            }
+                                        </select>
+                                        Price: <input id="" name="price" type="search" class="form-control ds-input" />
 
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary">
+                                        <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="AddProduct">Add Product</a>
+                                    </button>
                                 </div>
                             </div>
-                        </li>
-                    }
-                }
-            </ul>
-
-            <!-- Modal -->
-            <div class="modal fade" id="DeleteConfirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            Are you sure you want to delete this product?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                            <button type="button" class="btn btn-primary">
-                                <a class="nav-link" asp-area="" asp-controller="Stock" asp-action="Delete">Shop</a>
-                            </button>
                         </div>
                     </div>
-                </div>
+                </section>
             </div>
-        </section>
     </div>
-</div>

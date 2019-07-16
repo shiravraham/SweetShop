@@ -175,6 +175,7 @@ input[type="number"] {
 }
 
 .pnl-icon {
+    color: black;
     padding: 10px;
     cursor: pointer;
 }
@@ -319,4 +320,10 @@ input[type="number"] {
         width: 1400px;
         margin: 0 auto
     }
+}
+
+
+/*EDIT SHOP*/
+#add-button{
+    float:right;
 }
