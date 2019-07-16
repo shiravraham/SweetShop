@@ -50,13 +50,16 @@ namespace final_project.Controllers
             return Redirect("/Admin/EditProducts");
         }
 
-        public IActionResult AddProduct(string name, int categoryId, int price)
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddProduct(string name, int category, int price)
         {
             Product newProduct = new Product()
             {
-                Name = "product1",
-                Category = _context.Categories.Single(c => c.ID == 2),
-                Price = 50,
+                Name = name,
+                Category = _context.Categories.Single(c => c.ID == category),
+                Price = price,
                 
             };
 

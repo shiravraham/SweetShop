@@ -35,10 +35,6 @@
                                             <a asp-route-id="@product.ID" asp-controller="Admin" asp-action="RemoveProduct">
                                                 <i class="pnl-icon fa fa-trash fa-lg"></i>
                                             </a>
-
-                                            <a data-toggle="modal" data-target="#DeleteConfirmation">
-                                                <i class="pnl-icon fa fa-trash fa-lg"></i>
-                                            </a>
                                         </div>
                                     </div>
                                 </li>
@@ -56,10 +52,10 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
+                                    <form id="searchForm" class="" asp-action="AddProduct" asp-controller="Admin" method="POST">
                                 <div class="modal-body">
-                                    <form id="AddProductForm" class="" asp-action="AddProduct" asp-controller="Admin" method="POST">
-                                        Name: <input id="" name="name" type="search" class="form-control ds-input" />
-                                        <select name="category">
+                                        name <input id="name" name="name" type="search" class="form-control ds-input" />
+                                        category <select name="category">
                                             <option value=0>Choose category</option>
                                             @{ foreach (Category category in categories)
                                                 {
@@ -67,15 +63,12 @@
                                                 }
                                             }
                                         </select>
-                                        Price: <input id="" name="price" type="search" class="form-control ds-input" />
-
-                                    </form>
+                                        price <input type="number" name="price" />
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary">
-                                        <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="AddProduct">Add Product</a>
-                                    </button>
+                                        <input type="submit" id="search-button" class="btn btn-primary btn-sm" value="Search">
                                 </div>
+                                    </form>
                             </div>
                         </div>
                     </div>
