@@ -5,73 +5,106 @@
     List<Category> categories = ViewBag.Categories;
 }
 
-    <div class="container view-container">
-        <a data-toggle="modal" data-target="#DeleteConfirmation">
-
-            <button id="add-button" type="button" class="btn btn-success">Add</button>
+<a data-toggle="modal" data-target="#DeleteConfirmation">
+    <button id="add-button" type="button" class="btn btn-success">Add</button>
 </a>
-            <br />
 
-            <div class="layout">
-                <section class="inner">
-                    <ul class="grid">
+<div class="container view-container">
+    <div class="layout">
+        <section class="inner">
+            <ul class="grid">
 
-                        @{ foreach (Product product in products)
-                            {
-                                <li class="grid-tile">
-                                    <div class="item">
-                                        @*<div class="item-img" style="background-image: url('https://www.momastore.org/wcsstore/MOMASTORE1/images/products/96511_A2_Print_NYC_8x10_In.jpg'); background-size: auto auto; background-size: 150%; background-position: center 30%;"></div>*@
-                                        @{string productPath = "/images/Products/ChocolateCheescake.jpg";}
-                                        <img class="item-img" src=@productPath />
-                                        <div class="pnl-wrapper">
-                                            <div class="pnl-description">
-                                                <span class="pnl-label">@product.Name</span>
-                                                <span class="pnl-price">@product.Price</span>
-                                            </div>
-                                            <a>
-                                                <i class="pnl-icon fa fa-pencil fa-lg"></i>
-                                            </a>
-                                            <!-- Button trigger modal -->
-                                            <a asp-route-id="@product.ID" asp-controller="Admin" asp-action="RemoveProduct">
-                                                <i class="pnl-icon fa fa-trash fa-lg"></i>
-                                            </a>
-                                        </div>
+                @{ foreach (Product product in products)
+                    {
+                            string editId = "edit-product" + product.ID ;
+                            string editIdTarget = "#edit-product" + product.ID ;
+
+                        <li class="grid-tile">
+                            <div class="item">
+                                <img class="item-img" src=@product.ImgPath />
+                                <div class="pnl-wrapper">
+                                    <div class="pnl-description">
+                                        <span class="pnl-label">@product.Name</span>
+
+                                        <span class="pnl-price">@product.Price</span>
                                     </div>
-                                </li>
-                            }
-                        }
-                    </ul>
+                                    <!-- Button trigger modal -->
+                                    <a asp-route-id="@product.ID" asp-controller="Admin" asp-action="RemoveProduct">
+                                        <i class="pnl-icon fa fa-trash fa-lg"></i>
+                                    </a>
+                                    <a data-toggle="modal" data-target="@editIdTarget" >
+                                        <i class="pnl-icon fa fa-pencil fa-lg"></i>
 
-                    <!--Add New Product Modal -->
-                    <div class="modal fade" id="DeleteConfirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Add New Product</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                                    </a>
                                 </div>
-                                    <form id="searchForm" class="" asp-action="AddProduct" asp-controller="Admin" method="POST">
-                                <div class="modal-body">
-                                        name <input id="name" name="name" type="search" class="form-control ds-input" />
-                                        category <select name="category">
-                                            <option value=0>Choose category</option>
-                                            @{ foreach (Category category in categories)
-                                                {
-                                                    <option value=@category.ID>@category.Name</option>
+                            </div>
+                        </li>
+
+                        <!--Edit Product Modal -->
+                        <div class="modal fade" id="@editId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Edit @product.Name</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form id="searchForm" class="" asp-action="EditProduct" asp-controller="Admin" asp-route-id="@product.ID" method="POST">
+                                        <div class="modal-body">
+                                            name <input id="name" name="name" type="search" class="form-control ds-input" value="@product.Name"/>
+                                            category <select name="category">
+                                                <option selected="@product.Category.Name" value="@product.Category.ID"></option>
+                                                @{ foreach (Category category in categories)
+                                                    {
+                                                        <option value=@category.ID>@category.Name</option>
+                                                    }
                                                 }
-                                            }
-                                        </select>
-                                        price <input type="number" name="price" />
-                                </div>
-                                <div class="modal-footer">
-                                        <input type="submit" id="search-button" class="btn btn-primary btn-sm" value="Search">
-                                </div>
+                                            </select>
+                                            price <input type="number" name="price" value="@product.Price"/>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <input type="submit" id="search-button" class="btn btn-primary btn-sm" value="Update">
+                                        </div>
                                     </form>
+                                </div>
                             </div>
                         </div>
+
+                    }
+                }
+            </ul>
+
+            <!--Add New Product Modal -->
+            <div class="modal fade" id="DeleteConfirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add New Product</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form id="searchForm" class="" asp-action="AddProduct" asp-controller="Admin" method="POST">
+                            <div class="modal-body">
+                                name <input id="name" name="name" type="search" class="form-control ds-input" />
+                                category <select name="category">
+                                    <option value=0>Choose category</option>
+                                    @{ foreach (Category category in categories)
+                                        {
+                                            <option value=@category.ID>@category.Name</option>
+                                        }
+                                    }
+                                </select>
+                                price <input type="number" name="price" />
+                            </div>
+                            <div class="modal-footer">
+                                <input type="submit" id="search-button" class="btn btn-primary btn-sm" value="Add">
+                            </div>
+                        </form>
                     </div>
-                </section>
+                </div>
             </div>
+        </section>
     </div>
+</div>

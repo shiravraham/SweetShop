@@ -3,7 +3,6 @@
     List<Product> products = ViewBag.Products;
     List<Category> categories = ViewBag.categories;
 }
-
 <div class="container view-container">
     <div class="layout">
         <section class="inner">
@@ -32,6 +31,7 @@
                             <div class="pnl-wrapper">
                                 <div class="pnl-description">
                                     <span class="pnl-label">@product.Name</span>
+                                    <span class="">@product.Category.Name</span>
                                     <span class="pnl-price">@product.Price</span>
                                 </div>
                                 <input id="qantity" type="number" name="quantity" value=1 min="1" max="100">

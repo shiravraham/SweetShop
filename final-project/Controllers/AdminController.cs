@@ -67,5 +67,23 @@ namespace final_project.Controllers
             _context.SaveChanges();
             return Redirect("/Admin/EditProducts");
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditProduct(int id, string name, int category, int price)
+        {
+            Product newProduct = new Product()
+            {
+                ID = id,
+                Name = name,
+                Category = _context.Categories.Single(c => c.ID == category),
+                Price = price,
+
+            };
+
+            _context.Update(newProduct);
+            _context.SaveChanges();
+            return Redirect("/Admin/EditProducts");
+        }
     }
 }
