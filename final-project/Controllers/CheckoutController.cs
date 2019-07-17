@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using final_project.Models;
+using Microsoft.CodeAnalysis.CSharp;
+using Newtonsoft.Json.Linq;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,19 +14,11 @@ namespace final_project.Controllers
 {
     public class CheckoutController : Controller
     {
-        private Currency _currentCurrency = Currency.ILS;
+        private const string BaseCurrencyApiURL = "https://api.exchangeratesapi.io/latest?base=ILS&symbols=";
 
-        public Currency CurrentCurrency
-        {
-            get => _currentCurrency;
-            set
-            {
-                _currentCurrency = value;
-                //TODO: get current exchange rate from WebService
-            }
-        }
+        public Currency CurrentCurrency { get; set; }
 
-        public double CurrencyExchaneRate { get; set; } = 1;
+        public double CurrencyExchangeRate { get; set; }
 
         public List<Product> Cart { get; set; } = new List<Product>()
         {
@@ -33,9 +28,9 @@ namespace final_project.Controllers
         }; //TODO: get cart from session
 
         // GET: /<controller>/{choosenCurrency}
-        public IActionResult Checkout(Currency choosenCurrency)
+        public async Task<IActionResult> Checkout(Currency choosenCurrency = Currency.ILS)
         {
-            CurrentCurrency = choosenCurrency;
+            await UpdateCurrency(choosenCurrency);
             ViewBag.CurrentCurrency = CurrentCurrency;
             ViewBag.Cart = Cart;
             ViewBag.ConvertToCurrentCurrency = new Func<double,double> (ConvertToCurrentCurrency);
@@ -46,13 +41,29 @@ namespace final_project.Controllers
 
         public double GetCartSum()
         {
-            return ConvertToCurrentCurrency(Cart.Sum(x => x.Price));
+            return Cart.Sum(x => x.Price);
         }
 
         public double ConvertToCurrentCurrency(double value)
         {
-            return value * CurrencyExchaneRate;
+            return value * CurrencyExchangeRate;
         }
 
+        public async Task<double> GetCurrencyExchangeRate(Currency wantedCurrency)
+        {
+            var client = new HttpClient();
+            var response = await client.GetAsync($"{BaseCurrencyApiURL}{CurrentCurrency}");
+            response.EnsureSuccessStatusCode();
+
+            var returnVal = JObject.Parse(await response.Content.ReadAsStringAsync());
+
+            return (double)returnVal["rates"][wantedCurrency.ToString()];
+        }
+
+        public async Task UpdateCurrency(Currency newCurrency)
+        {
+            CurrentCurrency = newCurrency;
+            CurrencyExchangeRate = await GetCurrencyExchangeRate(newCurrency);
+        }
     }
 }
