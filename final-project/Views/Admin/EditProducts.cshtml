@@ -16,8 +16,8 @@
 
                 @{ foreach (Product product in products)
                     {
-                            string editId = "edit-product" + product.ID ;
-                            string editIdTarget = "#edit-product" + product.ID ;
+                        string editId = "edit-product" + product.ID;
+                        string editIdTarget = "#edit-product" + product.ID;
 
                         <li class="grid-tile">
                             <div class="item">
@@ -28,13 +28,12 @@
 
                                         <span class="pnl-price">@product.Price</span>
                                     </div>
+                                    <a data-toggle="modal" data-target="@editIdTarget">
+                                        <i class="pnl-icon fa fa-pencil fa-lg"></i>
+                                    </a>
                                     <!-- Button trigger modal -->
                                     <a asp-route-id="@product.ID" asp-controller="Admin" asp-action="RemoveProduct">
                                         <i class="pnl-icon fa fa-trash fa-lg"></i>
-                                    </a>
-                                    <a data-toggle="modal" data-target="@editIdTarget" >
-                                        <i class="pnl-icon fa fa-pencil fa-lg"></i>
-
                                     </a>
                                 </div>
                             </div>
@@ -50,27 +49,39 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form id="searchForm" class="" asp-action="EditProduct" asp-controller="Admin" asp-route-id="@product.ID" method="POST">
+
+                                    <form id="searchForm" class="" asp-action="AddProduct" asp-controller="Admin" asp-route-id="@product.ID"  method="POST">
                                         <div class="modal-body">
-                                            name <input id="name" name="name" type="search" class="form-control ds-input" value="@product.Name"/>
-                                            category <select name="category">
-                                                <option selected="@product.Category.Name" value="@product.Category.ID"></option>
-                                                @{ foreach (Category category in categories)
-                                                    {
-                                                        <option value=@category.ID>@category.Name</option>
+                                            <div class="form-group">
+                                                <label for="editName">Product Name:</label>
+                                                <input id="editName" name="name" type="search" class="form-control ds-input" value="@product.Name"/>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="addCategorySelect">Select Category</label>
+                                                <select class="form-control" id="addCategorySelect" name="category">
+                                                    <option selected="@product.Category.ID" value="@product.Category.Name"></option>
+
+                                                    @{ foreach (Category category in categories)
+                                                        {
+                                                            <option value=@category.ID>@category.Name</option>
+                                                        }
                                                     }
-                                                }
-                                            </select>
-                                            price <input type="number" name="price" value="@product.Price"/>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="addPrice">Price:</label>
+                                                <input id="addPrice" name="price" type="number" value="@product.Price"  class="form-control ds-input" />
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <input type="submit" id="search-button" class="btn btn-primary btn-sm" value="Update">
+                                            <input type="submit" id="search-button" class="btn btn-primary btn-sm" value="Edit">
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
-
                     }
                 }
             </ul>
@@ -87,16 +98,32 @@
                         </div>
                         <form id="searchForm" class="" asp-action="AddProduct" asp-controller="Admin" method="POST">
                             <div class="modal-body">
-                                name <input id="name" name="name" type="search" class="form-control ds-input" />
-                                category <select name="category">
-                                    <option value=0>Choose category</option>
-                                    @{ foreach (Category category in categories)
-                                        {
-                                            <option value=@category.ID>@category.Name</option>
+                                <div class="form-group">
+                                    <label for="addName">Product Name:</label>
+                                    <input id="addName" name="name" type="search" class="form-control ds-input" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="addCategorySelect">Select Category</label>
+                                    <select class="form-control" id="addCategorySelect" name="category">
+
+                                        @{ foreach (Category category in categories)
+                                            {
+                                                <option value=@category.ID>@category.Name</option>
+                                            }
                                         }
-                                    }
-                                </select>
-                                price <input type="number" name="price" />
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="addImage">Add Image</label>
+                                    <input name="img" type="file" class="form-control-file" id="addImage">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="addPrice">Price:</label>
+                                    <input id="addPrice" name="price" type="number" class="form-control ds-input" />
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <input type="submit" id="search-button" class="btn btn-primary btn-sm" value="Add">

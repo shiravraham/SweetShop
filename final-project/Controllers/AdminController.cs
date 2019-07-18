@@ -53,7 +53,7 @@ namespace final_project.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddProduct(string name, int category, int price)
+        public IActionResult AddProduct(string name, int category, int price, string img)
         {
             Product newProduct = new Product()
             {
