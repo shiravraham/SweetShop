@@ -26,19 +26,20 @@
             @{ foreach (Product product in products)
                 {
                     <li class="grid-tile">
-                        <div class="item">
-                            <img class="item-img" src=@product.ImgPath />
-                            <div class="pnl-wrapper">
-                                <div class="pnl-description">
-                                    <span class="pnl-label">@product.Name</span>
-                                    <span class="">@product.Category.Name</span>
-                                    <span class="pnl-price">@product.Price</span>
-                                </div>
-                                <input id="qantity" type="number" name="quantity" value=1 min="1" max="100">
-                                <i class="pnl-icon fa fa-plus-circle fa-lg"></i>
+                                    <div class="item">
+                                        <img class="item-img" src="@product.ImgPath"
+                                             asp-append-version="true" alt="@product.ImgPath" />
+                                        <div class="pnl-wrapper">
+                                            <div class="pnl-description">
+                                                <span class="pnl-label">@product.Name</span>
+                                                <span class="">@product.Category.Name</span>
+                                                <span class="pnl-price">@product.Price</span>
+                                            </div>
+                                            <input id="qantity" type="number" name="quantity" value=1 min="1" max="100">
+                                            <i class="pnl-icon fa fa-plus-circle fa-lg"></i>
 
-                            </div>
-                        </div>
+                                        </div>
+                                    </div>
                     </li>
                 }
             }
