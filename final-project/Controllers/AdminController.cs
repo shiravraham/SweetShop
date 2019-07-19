@@ -63,6 +63,43 @@ namespace final_project.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddProduct(string name, int category, int price, IFormFile img)
         {
+            string pathToSave =  await SaveImageFile(img, name);
+
+            Product newProduct = new Product()
+            {
+                Name = name,
+                Category = _context.Categories.Single(c => c.ID == category),
+                Price = price,
+                ImgPath = pathToSave
+            };
+
+            _context.Add(newProduct);
+            await _context.SaveChangesAsync();
+            return Redirect("/Admin/EditProducts");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditProduct(int id, string name, int category, int price, IFormFile img)
+        {
+            string pathToSave = await SaveImageFile(img, name);
+
+            Product newProduct = new Product()
+            {
+                ID = id,
+                Name = name,
+                Category = _context.Categories.Single(c => c.ID == category),
+                Price = price,
+                ImgPath = pathToSave
+            };
+
+            _context.Update(newProduct);
+            _context.SaveChanges();
+            return Redirect("/Admin/EditProducts");
+        }
+
+        private async Task<string> SaveImageFile(IFormFile img, string name)
+        {
             // Create a File Info 
             FileInfo fi = new FileInfo(img.FileName);
 
@@ -82,35 +119,7 @@ namespace final_project.Controllers
                 await img.CopyToAsync(stream);
             }
 
-            Product newProduct = new Product()
-            {
-                Name = name,
-                Category = _context.Categories.Single(c => c.ID == category),
-                Price = price,
-                ImgPath = pathToSave
-            };
-
-            _context.Add(newProduct);
-            await _context.SaveChangesAsync();
-            return Redirect("/Admin/EditProducts");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult EditProduct(int id, string name, int category, int price)
-        {
-            Product newProduct = new Product()
-            {
-                ID = id,
-                Name = name,
-                Category = _context.Categories.Single(c => c.ID == category),
-                Price = price,
-
-            };
-
-            _context.Update(newProduct);
-            _context.SaveChanges();
-            return Redirect("/Admin/EditProducts");
+            return pathToSave;
         }
     }
 }

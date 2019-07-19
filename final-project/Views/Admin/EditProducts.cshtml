@@ -51,12 +51,11 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-
-                                    <form id="searchForm" class="" asp-action="AddProduct" asp-controller="Admin" asp-route-id="@product.ID"  method="POST">
+                                    <form class="" asp-action="EditProduct" asp-controller="Admin" asp-route-id="@product.ID"  method="POST" enctype="multipart/form-data">
                                         <div class="modal-body">
                                             <div class="form-group">
                                                 <label for="editName">Product Name:</label>
-                                                <input id="editName" name="name" type="search" class="form-control ds-input" value="@product.Name"/>
+                                                <input id="editName" name="name" type="search" class="form-control ds-input" value="@product.Name" />
                                             </div>
 
                                             <div class="form-group">
@@ -71,10 +70,13 @@
                                                     }
                                                 </select>
                                             </div>
-
+                                            <div class="form-group">
+                                                <label for="addImage">Add Image</label>
+                                                <input name="img" type="file" class="form-control-file" id="addImage">
+                                            </div>
                                             <div class="form-group">
                                                 <label for="addPrice">Price:</label>
-                                                <input id="addPrice" name="price" type="number" value="@product.Price"  class="form-control ds-input" />
+                                                <input id="addPrice" name="price" type="number" value="@product.Price" class="form-control ds-input" />
                                             </div>
                                         </div>
                                         <div class="modal-footer">
