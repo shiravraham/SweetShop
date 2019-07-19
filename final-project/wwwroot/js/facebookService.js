@@ -9,5 +9,13 @@ $.getScript('https://connect.facebook.net/en_US/sdk.js', function () {
             method: 'share',
             href: 'https://www.facebook.com/SweetShop-1043212635885066/?modal=admin_todo_tour',
         }, function (response) { });
-    })
+    });
+
+    $("#fb-share").on('click', function () {
+        FB.ui({
+            method: 'share',
+            href: 'https://www.facebook.com/SweetShop-1043212635885066/?modal=admin_todo_tour',
+        }, function (response) { });
+    });
+
 });

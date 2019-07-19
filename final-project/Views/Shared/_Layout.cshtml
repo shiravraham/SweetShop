@@ -10,7 +10,8 @@
         <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="~/css/font-awesome.css" />
         <link rel="stylesheet" href="~/css/site.css" />
-		 <script src="~/lib/jquery/jquery-3.3.1.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Oswald:300|Sacramento&display=swap" rel="stylesheet">
+        <script src="~/lib/jquery/jquery-3.3.1.min.js"></script>
         <script src="~/lib/popper.js/umd/popper.min.js"></script>
         <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
         <script src="~/js/script.js"></script>
@@ -22,7 +23,7 @@
         <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-		 <script src="~/lib/jquery/jquery-3.3.1.min.js"></script>
+        <script src="~/lib/jquery/jquery-3.3.1.min.js"></script>
         <script src="~/lib/popper.js/umd/popper.min.js"></script>
         <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
         <script src="~/js/script.js"></script>
@@ -33,24 +34,36 @@
 
 </head>
 <body>
+    <div id="top-nav">
+        <div class="container">
+            <a id="fb-share"><i class="fa fa-facebook-f fa-lg"></i></a>
+            <div class="float-right">
+                <a class="" asp-area="" asp-controller="Registration" asp-action="SignIn">Sign In</a>
+                <a class="" asp-area="" asp-controller="Home" asp-action="Cart"><i class="fa fa-shopping-cart fa-lg"></i></a>
+            </div>
+        </div>
+        @*</nav>*@
+    </div>
+    <div id="site-header">
+        <div class="title table-cell">Sweet Shop</div>
+        @*   <div class="table-cell">cakes, cookies and more</div>*@
+    </div>
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-            <a class="navbar-brand" href="#">Sweet Shop</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
+                <div class="navbar-nav mx-auto">
                     <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Shop">Shop</a>
                     <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">About</a>
                     <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
                 </div>
-
             </div>
-            <div class="nav navbar-nav navbar-right">
-                <a class="nav-link" asp-area="" asp-controller="Registration" asp-action="SignIn">Sign In</a>
-                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Cart"><i class="fa fa-shopping-cart fa-lg"></i></a>
-            </div>
+            @*<div class="nav navbar-nav navbar-right">
+                    <a class="nav-link" asp-area="" asp-controller="Registration" asp-action="SignIn">Sign In</a>
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Cart"><i class="fa fa-shopping-cart fa-lg"></i></a>
+                </div>*@
         </div>
     </nav>
     <div>
@@ -71,7 +84,7 @@
         </footer>
     </div>
 
-    
+
 
     @RenderSection("Scripts", required: false)
 </body>

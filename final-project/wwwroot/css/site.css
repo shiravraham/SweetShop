@@ -4,12 +4,42 @@
 @import url("checkout.css");
 
 :root {
-    --main-bg-color: #D4C9D1;
+    --main-bg-color: #e6cbcb;
     --sub-bg-color: #252940;
+    --color-01: #fbf1f1;
+    --text-color: rgba(0,0,0,.5);
 }
 
 body {
-	color: black;
+    color: black;
+    font-family: 'Oswald', sans-serif;
+}
+
+#top-nav {
+    height: 35px;
+    padding: 6px;
+    background-color: var(--color-01);
+    color: var(--text-color);
+    font-size: 2vh;
+}
+
+#site-header {
+    height: 180px;
+    text-align: center;
+    display: table;
+    overflow: hidden;
+    width: 100%;
+}
+
+.title {
+    font-size: 8vh;
+    font-family: 'Sacramento', cursive;
+
+}
+
+.table-cell {
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .view-container{
@@ -17,12 +47,8 @@ body {
     min-width: 700px;
 }
 
-a{
-	color: white;
-}
-
-a:hover{
-	color: var(--main-bg-color);
+a {
+    color: var(--text-color);
 }
 
 nav{
@@ -117,7 +143,7 @@ About
 	background: url('img/icon/pen.png');
 }
 
-/* Share Button - Twitter style */
+/* Share Button */
 
 #fb-share-button {
     background: #3b5998;
