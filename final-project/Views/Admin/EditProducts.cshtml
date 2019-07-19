@@ -20,23 +20,25 @@
                         string editIdTarget = "#edit-product" + product.ID;
 
                         <li class="grid-tile">
-                            <div class="item">
-                                <img class="item-img" src=@product.ImgPath />
-                                <div class="pnl-wrapper">
-                                    <div class="pnl-description">
-                                        <span class="pnl-label">@product.Name</span>
+                                            <div class="item">
+                                                <img class="item-img" src="@product.ImgPath"
+                                                     asp-append-version="true" alt="@product.ImgPath" />
+                                                @*<img class="item-img" src=@product.Img />*@
+                                                <div class="pnl-wrapper">
+                                                    <div class="pnl-description">
+                                                        <span class="pnl-label">@product.Name</span>
 
-                                        <span class="pnl-price">@product.Price</span>
-                                    </div>
-                                    <a data-toggle="modal" data-target="@editIdTarget">
-                                        <i class="pnl-icon fa fa-pencil fa-lg"></i>
-                                    </a>
-                                    <!-- Button trigger modal -->
-                                    <a asp-route-id="@product.ID" asp-controller="Admin" asp-action="RemoveProduct">
-                                        <i class="pnl-icon fa fa-trash fa-lg"></i>
-                                    </a>
-                                </div>
-                            </div>
+                                                        <span class="pnl-price">@product.Price</span>
+                                                    </div>
+                                                    <a data-toggle="modal" data-target="@editIdTarget">
+                                                        <i class="pnl-icon fa fa-pencil fa-lg"></i>
+                                                    </a>
+                                                    <!-- Button trigger modal -->
+                                                    <a asp-route-id="@product.ID" asp-controller="Admin" asp-action="RemoveProduct">
+                                                        <i class="pnl-icon fa fa-trash fa-lg"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
                         </li>
 
                         <!--Edit Product Modal -->
@@ -96,7 +98,7 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form id="searchForm" class="" asp-action="AddProduct" asp-controller="Admin" method="POST">
+                        <form id="searchForm" class="" asp-action="AddProduct" asp-controller="Admin" method="POST" enctype="multipart/form-data">
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label for="addName">Product Name:</label>
@@ -117,7 +119,7 @@
 
                                 <div class="form-group">
                                     <label for="addImage">Add Image</label>
-                                    <input name="img" type="file" class="form-control-file" id="addImage">
+                                    <input name="img" type="file" class="form-control-file" id="addImage" >
                                 </div>
 
                                 <div class="form-group">

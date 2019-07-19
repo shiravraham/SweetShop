@@ -15,7 +15,7 @@ namespace finalproject.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -61,13 +61,13 @@ namespace finalproject.Migrations
 
                     b.Property<int?>("StatusID");
 
-                    b.Property<int?>("userId");
+                    b.Property<int?>("UserId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("StatusID");
 
-                    b.HasIndex("userId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
@@ -92,6 +92,8 @@ namespace finalproject.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("CategoryID");
+
+                    b.Property<string>("Img");
 
                     b.Property<string>("ImgPath");
 
@@ -150,9 +152,9 @@ namespace finalproject.Migrations
                         .WithMany()
                         .HasForeignKey("StatusID");
 
-                    b.HasOne("final_project.Models.User", "user")
+                    b.HasOne("final_project.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("userId");
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("final_project.Models.Product", b =>

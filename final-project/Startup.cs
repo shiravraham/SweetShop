@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using final_project.Data;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 
 namespace final_project
 {
@@ -37,6 +39,9 @@ namespace final_project
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<SweetShopContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("SweetShopContext")));
+            services.AddSingleton<IFileProvider>(
+    new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/ImageFiles"))
+);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

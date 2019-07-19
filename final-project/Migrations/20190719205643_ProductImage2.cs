@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace finalproject.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class ProductImage2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -72,7 +72,8 @@ namespace finalproject.Migrations
                     CategoryID = table.Column<int>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Price = table.Column<int>(nullable: false),
-                    ImgPath = table.Column<string>(nullable: true)
+                    ImgPath = table.Column<string>(nullable: true),
+                    Img = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -115,7 +116,7 @@ namespace finalproject.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    userId = table.Column<int>(nullable: true),
+                    UserId = table.Column<int>(nullable: true),
                     StatusID = table.Column<int>(nullable: true),
                     OrderDate = table.Column<DateTime>(nullable: false)
                 },
@@ -129,8 +130,8 @@ namespace finalproject.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Orders_Users_userId",
-                        column: x => x.userId,
+                        name: "FK_Orders_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -142,9 +143,9 @@ namespace finalproject.Migrations
                 column: "StatusID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_userId",
+                name: "IX_Orders_UserId",
                 table: "Orders",
-                column: "userId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryID",
