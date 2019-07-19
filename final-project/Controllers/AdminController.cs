@@ -94,7 +94,7 @@ namespace final_project.Controllers
             };
 
             _context.Update(newProduct);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return Redirect("/Admin/EditProducts");
         }
 
