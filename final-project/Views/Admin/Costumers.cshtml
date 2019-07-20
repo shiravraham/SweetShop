@@ -1,0 +1,30 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    List<User> costumers = ViewBag.Costumers;
+}
+
+<h2>Costumers</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Mail</th>
+            <th scope="col">Orders</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ foreach (User costumer in costumers)
+            {
+                <tr>
+                    <td>@costumer.FullName</td>
+                    <td>@costumer.Email</td>
+                    <td>8</td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
+
+

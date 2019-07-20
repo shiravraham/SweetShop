@@ -36,6 +36,15 @@ namespace final_project.Controllers
 
             return View();
         }
+
+        public IActionResult Costumers()
+        {
+            List<User> costumers = _context.Users.ToList();
+            ViewBag.Costumers = costumers;
+
+            return View();
+        }
+
         public IActionResult Statistics()
         {
             return View();
@@ -82,20 +91,18 @@ namespace final_project.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditProduct(int id, string name, int category, int price, IFormFile img)
         {
-            Product newProduct = new Product()
-            {
-                ID = id,
-                Name = name,
-                Category = _context.Categories.Single(c => c.ID == category),
-                Price = price,
-            };
+            Product productToEdit = _context.Products.Single(p => p.ID == id);
+
+            productToEdit.Name = name;
+            productToEdit.Category = _context.Categories.Single(c => c.ID == category);
+            productToEdit.Price = price;
 
             if (img != null)
             {
-                newProduct.ImgPath = await SaveImageFile(img, name);
+                productToEdit.ImgPath = await SaveImageFile(img, name);
             }
 
-            _context.Update(newProduct);
+            _context.Update(productToEdit);
             await _context.SaveChangesAsync();
             return Redirect("/Admin/EditProducts");
         }
