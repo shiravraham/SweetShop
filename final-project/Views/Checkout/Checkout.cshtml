@@ -33,9 +33,9 @@
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <a asp-controller="Checkout" asp-action="Checkout" asp-route-choosenCurrency="ILS"
                                class=@(ViewBag.CurrentCurrency == Currency.ILS ? "btn btn-secondary active" : "btn btn-secondary")><img src="~/images/israel.png" /></a>
-                            <a asp-controller="Checkout" asp-action="Checkout" asp-route-choosenCurrency="EUR" 
+                            <a asp-controller="Checkout" asp-action="Checkout" asp-route-choosenCurrency="EUR"
                                class=@(ViewBag.CurrentCurrency == Currency.EUR ? "btn btn-secondary active" : "btn btn-secondary")><img src="~/images/european-union.png" /></a>
-                            <a asp-controller="Checkout" asp-action="Checkout" asp-route-choosenCurrency="USD" 
+                            <a asp-controller="Checkout" asp-action="Checkout" asp-route-choosenCurrency="USD"
                                class=@(ViewBag.CurrentCurrency == Currency.USD ? "btn btn-secondary active" : "btn btn-secondary")><img src="~/images/united-states-of-america.png" /></a>
                         </div>
                     </div>
@@ -148,9 +148,10 @@
                     </div>
                 </div>
                 <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">
+                    Continue to checkout
+                </button>
             </form>
         </div>
     </div>
 </div>
-@*</body>*@

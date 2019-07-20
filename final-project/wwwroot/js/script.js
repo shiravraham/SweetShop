@@ -5,8 +5,8 @@
 
         ctx.beginPath();
         ctx.moveTo(1, 1);
-        ctx.lineTo(1, 50);
-        ctx.lineTo(50, 25);
+        ctx.lineTo(1, 10);
+        ctx.lineTo(10, 5);
         ctx.fillStyle = "white";
         ctx.fill();
     }
