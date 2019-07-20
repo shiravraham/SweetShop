@@ -1,4 +1,6 @@
-﻿* {
+﻿@import url("root.css");
+
+* {
     margin: 0;
     padding: 0
 }
@@ -125,13 +127,17 @@ input[type="number"] {
     display: block;
 }
 
+.pnl-category{
+    font-size: 14px;
+    color: var(--text-color);
+}
+
 .pnl-price {
     line-height: 16px;
     color: #111;
     font-weight: 700;
     font-size: 0.75em;
     display: block;
-    /*margin-top: 0.125em;*/
 }
 
 .pnl-ic-wrapper {
