@@ -82,16 +82,18 @@ namespace final_project.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditProduct(int id, string name, int category, int price, IFormFile img)
         {
-            string pathToSave = await SaveImageFile(img, name);
-
             Product newProduct = new Product()
             {
                 ID = id,
                 Name = name,
                 Category = _context.Categories.Single(c => c.ID == category),
                 Price = price,
-                ImgPath = pathToSave
             };
+
+            if (img != null)
+            {
+                newProduct.ImgPath = await SaveImageFile(img, name);
+            }
 
             _context.Update(newProduct);
             await _context.SaveChangesAsync();
