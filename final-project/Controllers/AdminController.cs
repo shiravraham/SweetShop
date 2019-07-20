@@ -16,6 +16,14 @@ namespace final_project.Controllers
 {
     public class AdminController : Controller
     {
+        public class CostumerViewModel
+        {
+            public int ID { get; set; }
+            public string FullName{ get; set; }
+            public string Email { get; set; }
+            public int OrdersNumber { get; set; }
+        }
+
         private readonly SweetShopContext _context;
         private readonly IFileProvider fileProvider;
         private readonly IHostingEnvironment hostingEnvironment;
@@ -40,8 +48,21 @@ namespace final_project.Controllers
         public IActionResult Costumers()
         {
             List<User> costumers = _context.Users.ToList();
-            ViewBag.Costumers = costumers;
+            List<Order> orders = _context.Orders.ToList();
 
+            List<CostumerViewModel> costumerView = orders.GroupBy(g => g.User.Id)
+                .Select(g => {
+                    User costumer = costumers.Single(c => c.Id == g.Key);
+                    return new CostumerViewModel
+                    {
+                        ID = g.Key,
+                        FullName = costumer.FullName,
+                        Email = costumer.Email,
+                        OrdersNumber = g.Count()
+                    };
+                }).ToList();
+
+            ViewBag.CostumersView = costumerView;
             return View();
         }
 
