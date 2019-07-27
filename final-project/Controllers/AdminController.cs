@@ -33,9 +33,35 @@ namespace final_project.Controllers
             List<User> users = _context.Users.ToList();
             List<OrderStatus> statuses = _context.OrderStatuses.ToList();
             ViewBag.Orders = orders;
+            ViewBag.statuses = statuses;
 
             return View();
         }
+        [HttpPost]
+        public IActionResult Orders(int orderId, int orderStatus, DateTime? orderDate)
+        {
+            List<Order> orders;
+
+            if (orderId != 0)
+            {
+                orders = _context.Orders.Where((order) => order.Id == orderId).ToList();
+            } else
+            {
+                orders = _context.Orders.Where((order) => (orderStatus != 0 && orderDate != null && orderStatus == order.Status.ID) ||
+                        (orderStatus != 0 && orderStatus == order.Status.ID) ||
+                        (orderDate != null && orderDate.Equals(order.OrderDate))).ToList();
+            }
+
+
+            List<OrderStatus> statuses = _context.OrderStatuses.ToList();
+            List<User> users = _context.Users.ToList();
+
+            ViewBag.Orders = orders;
+            ViewBag.statuses = statuses;
+
+            return View();
+        }
+
         public IActionResult Statistics()
         {
             return View();

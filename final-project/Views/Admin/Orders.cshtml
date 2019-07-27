@@ -2,8 +2,27 @@
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     List<Order> orders = ViewBag.Orders;
-}
+	List<OrderStatus> statuses = ViewBag.statuses;
 
+}
+<div id="search" class="horizontal">
+	<form id="searchForm" asp-action="Orders" asp-controller="Admin" method="POST">
+		<label>By ID:</label>
+		<input id="orderId" name="orderId" type="search" placeholder="type id to search.." class="form-control search-control ds-input" /> <br/>
+		<label>By status:</label>
+		<select class="form-control search-control ds-input" name="orderStatus">
+			<option value=0>Choose status</option>
+		@{ foreach (OrderStatus status in statuses)
+			{
+				<option value=@status.ID >@status.Name</option>
+			}
+		}
+		</select> </br>
+		<label>By date:</label>
+		<input type="date" class="datepicker form-control search-control ds-input" name="orderDate"/></br>
+		<input type="submit" id="search-button" class="btn form-control search-control btn-primary btn-sm" value="Search">
+	</form>
+</div>
 <h2>Orders</h2>
 
 <table class="table">
@@ -29,5 +48,3 @@
 
     </tbody>
 </table>
-
-

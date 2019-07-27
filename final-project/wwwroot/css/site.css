@@ -3,6 +3,8 @@
 @import url("shop.css");
 @import url("cart.css");
 @import url("checkout.css");
+@import url("orders.css");
+
 
 body {
     font-family: 'Oswald', sans-serif;
