@@ -68,4 +68,8 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="finalproject\Migrations\" />
+  </ItemGroup>
+
 </Project>

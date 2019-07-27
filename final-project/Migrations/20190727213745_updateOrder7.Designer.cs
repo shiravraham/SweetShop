@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using final_project.Data;
 
 namespace finalproject.Migrations
 {
     [DbContext(typeof(SweetShopContext))]
-    partial class SweetShopContextModelSnapshot : ModelSnapshot
+    [Migration("20190727213745_updateOrder7")]
+    partial class updateOrder7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,11 +59,29 @@ namespace finalproject.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Address");
+
+                    b.Property<string>("CCCvv");
+
+                    b.Property<string>("CCExpiration");
+
+                    b.Property<string>("CCName");
+
+                    b.Property<string>("CCNumber");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
                     b.Property<DateTime>("OrderDate");
 
                     b.Property<int?>("StatusID");
 
                     b.Property<int?>("UserId");
+
+                    b.Property<string>("Zip");
 
                     b.HasKey("Id");
 

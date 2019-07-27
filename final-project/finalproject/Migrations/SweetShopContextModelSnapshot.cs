@@ -3,42 +3,21 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using final_project.Data;
 
 namespace finalproject.Migrations
 {
     [DbContext(typeof(SweetShopContext))]
-    [Migration("20190719213440_RemoveProductImage")]
-    partial class RemoveProductImage
+    partial class SweetShopContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("final_project.Models.Branch", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("addressInfo");
-
-                    b.Property<string>("branchName");
-
-                    b.Property<float>("locationX");
-
-                    b.Property<float>("locationY");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Branches");
-                });
 
             modelBuilder.Entity("final_project.Models.Category", b =>
                 {
@@ -59,11 +38,29 @@ namespace finalproject.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Address");
+
+                    b.Property<string>("CCCvv");
+
+                    b.Property<string>("CCExpiration");
+
+                    b.Property<string>("CCName");
+
+                    b.Property<string>("CCNumber");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
                     b.Property<DateTime>("OrderDate");
 
                     b.Property<int?>("StatusID");
 
                     b.Property<int?>("UserId");
+
+                    b.Property<string>("Zip");
 
                     b.HasKey("Id");
 
