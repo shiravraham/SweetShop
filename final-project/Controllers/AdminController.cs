@@ -16,6 +16,14 @@ namespace final_project.Controllers
 {
     public class AdminController : Controller
     {
+        public class CostumerViewModel
+        {
+            public int ID { get; set; }
+            public string FullName{ get; set; }
+            public string Email { get; set; }
+            public int OrdersNumber { get; set; }
+        }
+
         private readonly SweetShopContext _context;
         private readonly IFileProvider fileProvider;
         private readonly IHostingEnvironment hostingEnvironment;
@@ -59,6 +67,27 @@ namespace final_project.Controllers
             ViewBag.Orders = orders;
             ViewBag.statuses = statuses;
 
+            return View();
+        }
+
+        public IActionResult Costumers()
+        {
+            List<User> costumers = _context.Users.ToList();
+            List<Order> orders = _context.Orders.ToList();
+
+            List<CostumerViewModel> costumerView = orders.GroupBy(g => g.User.Id)
+                .Select(g => {
+                    User costumer = costumers.Single(c => c.Id == g.Key);
+                    return new CostumerViewModel
+                    {
+                        ID = g.Key,
+                        FullName = costumer.FullName,
+                        Email = costumer.Email,
+                        OrdersNumber = g.Count()
+                    };
+                }).ToList();
+
+            ViewBag.CostumersView = costumerView;
             return View();
         }
 
@@ -108,20 +137,18 @@ namespace final_project.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditProduct(int id, string name, int category, int price, IFormFile img)
         {
-            Product newProduct = new Product()
-            {
-                ID = id,
-                Name = name,
-                Category = _context.Categories.Single(c => c.ID == category),
-                Price = price,
-            };
+            Product productToEdit = _context.Products.Single(p => p.ID == id);
+
+            productToEdit.Name = name;
+            productToEdit.Category = _context.Categories.Single(c => c.ID == category);
+            productToEdit.Price = price;
 
             if (img != null)
             {
-                newProduct.ImgPath = await SaveImageFile(img, name);
+                productToEdit.ImgPath = await SaveImageFile(img, name);
             }
 
-            _context.Update(newProduct);
+            _context.Update(productToEdit);
             await _context.SaveChangesAsync();
             return Redirect("/Admin/EditProducts");
         }

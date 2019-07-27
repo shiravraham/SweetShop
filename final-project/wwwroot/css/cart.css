@@ -1,20 +1,17 @@
-﻿i{
+﻿i {
     cursor: pointer;
-}
-
-.cart-img {
-    display: block;
-    max-width: 50px;
-    height: auto;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 #cart-checkout-btn {
     background-color: #252940;
     color: white;
     border: hidden;
+    transition: all 0.5s ease;
 }
+
+    #cart-checkout-btn:hover {
+        transform: translateX(15px);
+    }
 
 #cart-continue-btn {
     background-color: #5B6F94;
@@ -35,6 +32,6 @@ table tr th {
     box-shadow: rgba(0, 0, 0, 0.3) 7px 7px 7px;
 }
 
-.cart-trash{
-    float:right;
+.cart-trash {
+    float: right;
 }

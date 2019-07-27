@@ -17,12 +17,16 @@
                             <h6 class="my-0">@product.Name</h6>
                             <small class="text-muted">@product.Category.Name</small>
                         </div>
-                        <span class="text-muted"><span class="value">@ViewBag.ConvertToCurrentCurrency(product.Price).ToString("N2")</span><span class="currency">@((char)ViewBag.CurrentCurrency)</span></span>
+                        <span class="text-muted">
+                            <span class="value">@ViewBag.ConvertToCurrentCurrency(product.Price).ToString("N2")</span><span class="currency">@((char) ViewBag.CurrentCurrency)</span>
+                        </span>
                     </li>
                 }
                 <li class="list-group-item d-flex justify-content-between">
                     <span>Total (@ViewBag.CurrentCurrency)</span>
-                    <strong><span class="value">@ViewBag.CartSum.ToString("N2")</span><span class="currency">@((char)ViewBag.CurrentCurrency)</span></strong>
+                    <strong>
+                        <span class="value">@ViewBag.CartSum.ToString("N2")</span><span class="currency">@((char) ViewBag.CurrentCurrency)</span>
+                    </strong>
                 </li>
             </ul>
 
@@ -32,11 +36,17 @@
                     <div class="col-sm-5">
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <a asp-controller="Checkout" asp-action="Checkout" asp-route-choosenCurrency="ILS"
-                               class=@(ViewBag.CurrentCurrency == Currency.ILS ? "btn btn-secondary active" : "btn btn-secondary")><img src="~/images/israel.png" /></a>
-                            <a asp-controller="Checkout" asp-action="Checkout" asp-route-choosenCurrency="EUR" 
-                               class=@(ViewBag.CurrentCurrency == Currency.EUR ? "btn btn-secondary active" : "btn btn-secondary")><img src="~/images/european-union.png" /></a>
-                            <a asp-controller="Checkout" asp-action="Checkout" asp-route-choosenCurrency="USD" 
-                               class=@(ViewBag.CurrentCurrency == Currency.USD ? "btn btn-secondary active" : "btn btn-secondary")><img src="~/images/united-states-of-america.png" /></a>
+                               class=@(ViewBag.CurrentCurrency == Currency.ILS ? "btn btn-secondary active" : "btn btn-secondary")>
+                                <img src="~/images/israel.png"/>
+                            </a>
+                            <a asp-controller="Checkout" asp-action="Checkout" asp-route-choosenCurrency="EUR"
+                               class=@(ViewBag.CurrentCurrency == Currency.EUR ? "btn btn-secondary active" : "btn btn-secondary")>
+                                <img src="~/images/european-union.png"/>
+                            </a>
+                            <a asp-controller="Checkout" asp-action="Checkout" asp-route-choosenCurrency="USD"
+                               class=@(ViewBag.CurrentCurrency == Currency.USD ? "btn btn-secondary active" : "btn btn-secondary")>
+                                <img src="~/images/united-states-of-america.png"/>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -46,18 +56,20 @@
         </div>
         <div class="col-md-8 order-md-1">
             <h4 class="mb-3">Billing address</h4>
-            <form class="needs-validation" novalidate>
+            <form class="needs-validation" novalidate asp-action="AddOrder" asp-controller="Checkout" method="POST">
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="firstName">First name</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                        <input type="text"
+                               class="@(ViewBag.GetInputClass("FirstName"))"
+                               id="firstName" name="FirstName" placeholder="" value="" required>
                         <div class="invalid-feedback">
                             Valid first name is required.
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="lastName">Last name</label>
-                        <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+                        <input type="text" class="@(ViewBag.GetInputClass("LastName"))" id="lastName" name="LastName" placeholder="" value="" required>
                         <div class="invalid-feedback">
                             Valid last name is required.
                         </div>
@@ -69,44 +81,24 @@
                         Email
                         <span class="text-muted"></span>
                     </label>
-                    <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+                    <input type="email" class="@(ViewBag.GetInputClass("Email"))" id="email" name="Email" placeholder="you@example.com" required>
                     <div class="invalid-feedback">
                         Please enter a valid email address for shipping updates.
                     </div>
                 </div>
 
-                <div class="mb-3">
-                    <label for="address">Address</label>
-                    <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
-                    <div class="invalid-feedback">
-                        Please enter your shipping address.
-                    </div>
-                </div>
-
                 <div class="row">
-                    <div class="col-md-6">
-                        <label for="address2">
-                            Address 2
-                            <span class="text-muted">(Optional)</span>
-                        </label>
-                        <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-                    </div>
-
-
-                    <div class="col-md-3 mb-3">
-                        <label for="country">Country</label>
-                        <select class="custom-select d-block w-100" id="country" required>
-                            <option value="">Choose...</option>
-                            <option>Israel</option>
-                        </select>
+                    <div class="col-md-9 mb-3">
+                        <label for="address">Address</label>
+                        <input type="text" class="@(ViewBag.GetInputClass("Address"))" id="address" name="Address" placeholder="1234 Main St" required>
                         <div class="invalid-feedback">
-                            Please select a valid country.
+                            Please enter your shipping address.
                         </div>
                     </div>
 
                     <div class="col-md-3 mb-3">
                         <label for="zip">Zip</label>
-                        <input type="text" class="form-control" id="zip" placeholder="" required>
+                        <input type="text" class="@(ViewBag.GetInputClass("Zip"))" id="zip" name="Zip" pattern="\d{7}" placeholder="" required>
                         <div class="invalid-feedback">
                             Zip code required.
                         </div>
@@ -117,7 +109,7 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="cc-name">Name on card</label>
-                        <input type="text" class="form-control" id="cc-name" placeholder="" required>
+                        <input type="text" class="@(ViewBag.GetInputClass("CCName"))" id="cc-name" name="CCName" placeholder="" required>
                         <small class="text-muted">Full name as displayed on card</small>
                         <div class="invalid-feedback">
                             Name on card is required
@@ -125,7 +117,7 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="cc-number">Credit card number</label>
-                        <input type="text" class="form-control" id="cc-number" placeholder="" required>
+                        <input type="text" class="@(ViewBag.GetInputClass("CCNumber"))" id="cc-number" name="CCNumber" pattern="\d{16}" placeholder="" required>
                         <div class="invalid-feedback">
                             Credit card number is required
                         </div>
@@ -134,23 +126,27 @@
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="cc-expiration">Expiration</label>
-                        <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
+                        <input type="text" class="@(ViewBag.GetInputClass("CCExpiration"))" id="cc-expiration" name="CCExpiration" pattern="([0][1-9]|[1][0-2])/\d{2}" placeholder="12/20" required>
                         <div class="invalid-feedback">
                             Expiration date required
                         </div>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="cc-expiration">CVV</label>
-                        <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
+                        <input type="text" class="@(ViewBag.GetInputClass("CCCvv"))" id="cc-cvv" placeholder="" name="CCCvv" pattern="\d{3}" required>
                         <div class="invalid-feedback">
                             Security code required
                         </div>
                     </div>
                 </div>
                 <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">
+                    Continue to checkout
+                </button>
             </form>
         </div>
     </div>
 </div>
-@*</body>*@
+
+
+<script type="text/javascript" src="~/js/checkout.js"></script>

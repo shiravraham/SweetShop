@@ -18,31 +18,40 @@ body {
     color: var(--text-color);
     font-size: 2vh;
 }
-    #top-nav a:hover{
+
+    #top-nav a:hover {
         color: var(--text-hover-color);
         text-decoration: none;
     }
 
-    #site-header {
-        height: 180px;
-        text-align: center;
-        display: table;
-        overflow: hidden;
-        width: 100%;
-    }
+#site-header {
+    height: 180px;
+    text-align: center;
+    display: table;
+    overflow: hidden;
+    width: 100%;
+}
 
 .title {
     font-size: 8vh;
     font-family: 'Sacramento', cursive;
-
+    text-shadow: 0.5px 0.5px 11px #e4e4e4;
 }
+
+.cart-section {
+    transition: all 1s ease;
+}
+
+    .cart-section:hover {
+        transform: rotate(1080deg);
+    }
 
 .table-cell {
     display: table-cell;
     vertical-align: middle;
 }
 
-.view-container{
+.view-container {
     padding: 40px;
     min-width: 700px;
 }
@@ -51,22 +60,26 @@ a {
     color: var(--text-color);
 }
 
-nav{
-	background-color: var(--main-bg-color);
+nav {
+    background-color: var(--main-bg-color);
 }
 
-#index-button{
+#index-button {
     background-color: var(--sub-bg-color);
     color: white;
     border: 1px solid var(--sub-bg-color);
     border-radius: 5px;
     height: 50px;
     width: 160px;
+    transition: all 0.3s ease;
 }
 
-#index-button:hover {
-    background-color: var(--main-bg-color);
-}
+    #index-button:hover {
+        background-color: var(--main-bg-color);
+        -webkit-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+        transform: scale(1.2);
+    }
 
 .body-content {
     padding-left: 15px;
@@ -79,69 +92,76 @@ nav{
     height: 400px;
 }
 
-#site-img{
+#site-img {
     padding: 120px 0 0px var(--left-padding);
     background-image: url(../images/welcome.jpg);
-    background-size:cover;
-    background-repeat:no-repeat;
+    background-size: cover;
+    background-repeat: no-repeat;
     height: 600px;
 }
 
-#welcome-text{
-	padding-top: 50px;
+#welcome-text {
+    padding-top: 50px;
     color: var(--sub-bg-color);
     position: relative;
     font-size: 36px;
     width: 400px;
 }
 
-.content{
+.content {
     min-width: 700px;
-	padding: 50px;
+    padding: 50px;
 }
 
-.horizontal{
+.horizontal {
     display: flex;
 }
 
 /***
 About
 ****/
-.service-item{
-	text-align: center;
+.column {
+    -webkit-column-count: 3; /* Old Chrome, Safari and Opera */
+    -moz-column-count: 3; /* Old Firefox */
+    column-count: 3;
 }
 
-.service-item .icon{
-	border: 1px #b3b3b3 solid;
-	margin: 0 auto;
-	border-radius: 100%;
-	width: 110px;
-	height: 110px;
-	display: block;
-	margin-bottom: 60px;
+.service-item {
+    text-align: center;
 }
 
-.service-item .icon i{
-	line-height: 110px;
-	font-size: 45px;	
-	color: var(--sub-bg-color);
-}
+    .service-item .icon {
+        border: 1px #b3b3b3 solid;
+        margin: 0 auto;
+        border-radius: 100%;
+        width: 110px;
+        height: 110px;
+        display: block;
+        margin-bottom: 60px;
+    }
 
-.service-item .icon:hover{
-	background-color: var(--main-bg-color);
-	border-color: var(--sub-bg-color);
-}
+        .service-item .icon i {
+            line-height: 110px;
+            font-size: 45px;
+            color: var(--sub-bg-color);
+        }
 
-.service-item .icon:hover i{
-	color: #fff;
-}
-.service-item h3{
-	margin-bottom: 60px;
-}
+        .service-item .icon:hover {
+            background-color: var(--main-bg-color);
+            border-color: var(--sub-bg-color);
+        }
 
-.service-item .icon .icon-pen{
-	background: url('img/icon/pen.png');
-}
+            .service-item .icon:hover i {
+                color: #fff;
+            }
+
+    .service-item h3 {
+        margin-bottom: 25px;
+    }
+
+    .service-item .icon .icon-pen {
+        background: url('img/icon/pen.png');
+    }
 
 /* Share Button */
 
@@ -156,24 +176,24 @@ About
     margin-right: 10px;
 }
 
-#fb-share-button:hover {
-    cursor: pointer;
-    background: #213A6F
-}
+    #fb-share-button:hover {
+        cursor: pointer;
+        background: #213A6F
+    }
 
-#fb-share-button svg {
-    width: 18px;
-    fill: white;
-    vertical-align: middle;
-    border-radius: 2px
-}
+    #fb-share-button svg {
+        width: 18px;
+        fill: white;
+        vertical-align: middle;
+        border-radius: 2px
+    }
 
-#fb-share-button span {
-    vertical-align: middle;
-    color: white;
-    font-size: 14px;
-    padding: 0 3px
-}
+    #fb-share-button span {
+        vertical-align: middle;
+        color: white;
+        font-size: 14px;
+        padding: 0 3px
+    }
 
 /*VIDEO*/
 .video-header {
