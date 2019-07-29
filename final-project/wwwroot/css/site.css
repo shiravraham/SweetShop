@@ -5,9 +5,18 @@
 @import url("checkout.css");
 @import url("orders.css");
 
+@font-face {
+    font-family: mySacramento;
+    src: url(../fonts/Sacramento-Regular.ttf);
+}
+
+@font-face {
+    font-family: myOswald;
+    src: url(../fonts/Oswald-ExtraLight.ttf);
+}
 
 body {
-    font-family: 'Oswald', sans-serif;
+    font-family: myOswald, sans-serif;
     color: black;
 }
 
@@ -34,7 +43,7 @@ body {
 
 .title {
     font-size: 8vh;
-    font-family: 'Sacramento', cursive;
+    font-family: mySacramento, cursive;
     text-shadow: 0.5px 0.5px 11px #e4e4e4;
 }
 
