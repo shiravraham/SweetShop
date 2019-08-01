@@ -24,7 +24,7 @@
 }
 
 input[type="number"] {
-    width: 5vw;
+    border:none;
 }
 ::-webkit-input-placeholder {
     font-size:small;

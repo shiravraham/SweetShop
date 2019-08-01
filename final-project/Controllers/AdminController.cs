@@ -19,7 +19,7 @@ namespace final_project.Controllers
         public class CostumerViewModel
         {
             public int ID { get; set; }
-            public string FullName{ get; set; }
+            public string FullName { get; set; }
             public string Email { get; set; }
             public int OrdersNumber { get; set; }
         }
@@ -45,6 +45,51 @@ namespace final_project.Controllers
 
             return View();
         }
+
+        public IActionResult Categories(bool removalFailed = false)
+        {
+            List<Category> categories = _context.Categories.ToList();
+            ViewBag.Categories = categories;
+            ViewBag.RemovalFailed = removalFailed;
+
+            return View();
+        }
+
+        public IActionResult RemoveCategory(int id)
+        {
+            _context.Remove(_context.Categories.Single(c => c.ID == id));
+
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Categories", new { removalFailed = true });
+            }
+
+            return Redirect("/Admin/Categories");
+        }
+
+        public IActionResult AddCategory(string name)
+        {
+            Category newCategory = new Category() { Name = name };
+
+            _context.Add(newCategory);
+            _context.SaveChanges();
+            return Redirect("/Admin/Categories");
+        }
+
+        public IActionResult EditCategory(int id, string name)
+        {
+            Category categoryToEdit = _context.Categories.Single(c => c.ID == id);
+            categoryToEdit.Name = name;
+
+            _context.Update(categoryToEdit);
+            _context.SaveChanges();
+            return Redirect("/Admin/Categories");
+        }
+
         [HttpPost]
         public IActionResult Orders(int orderId, int orderStatus, DateTime? orderDate)
         {
@@ -53,7 +98,8 @@ namespace final_project.Controllers
             if (orderId != 0)
             {
                 orders = _context.Orders.Where((order) => order.Id == orderId).ToList();
-            } else
+            }
+            else
             {
                 orders = _context.Orders.Where((order) => (orderStatus != 0 && orderDate != null && orderStatus == order.Status.ID) ||
                         (orderStatus != 0 && orderStatus == order.Status.ID) ||
@@ -76,7 +122,8 @@ namespace final_project.Controllers
             List<Order> orders = _context.Orders.ToList();
 
             List<CostumerViewModel> costumerView = orders.GroupBy(g => g.User.Id)
-                .Select(g => {
+                .Select(g =>
+                {
                     User costumer = costumers.Single(c => c.Id == g.Key);
                     return new CostumerViewModel
                     {
@@ -113,12 +160,11 @@ namespace final_project.Controllers
             return Redirect("/Admin/EditProducts");
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddProduct(string name, int category, int price, IFormFile img)
         {
-            string pathToSave =  await SaveImageFile(img, name);
+            string pathToSave = await SaveImageFile(img, name);
 
             Product newProduct = new Product()
             {
@@ -135,7 +181,11 @@ namespace final_project.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditProduct(int id, string name, int category, int price, IFormFile img)
+        public async Task<IActionResult> EditProduct(int id,
+                                                     string name, 
+                                                     int category, 
+                                                     int price, 
+                                                     IFormFile img)
         {
             Product productToEdit = _context.Products.Single(p => p.ID == id);
 

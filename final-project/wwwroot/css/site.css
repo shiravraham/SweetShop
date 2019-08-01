@@ -109,14 +109,6 @@ nav {
     height: 600px;
 }
 
-#welcome-text {
-    padding-top: 50px;
-    color: var(--sub-bg-color);
-    position: relative;
-    font-size: 36px;
-    width: 400px;
-}
-
 .content {
     min-width: 700px;
     padding: 50px;
@@ -124,6 +116,15 @@ nav {
 
 .horizontal {
     display: flex;
+}
+
+.edit-category {
+    padding: 10px;
+}
+
+.edit-category button{
+    border: none;
+    background-color:transparent;
 }
 
 /***

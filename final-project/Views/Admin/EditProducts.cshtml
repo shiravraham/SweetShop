@@ -5,7 +5,7 @@
     List<Category> categories = ViewBag.Categories;
 }
 
-<a data-toggle="modal" data-target="#DeleteConfirmation">
+<a data-toggle="modal" data-target="#add-product-modal">
     <button id="add-button" type="button" class="btn btn-success">Add</button>
 </a>
 
@@ -23,7 +23,6 @@
                                             <div class="item">
                                                 <img class="item-img" src="@product.ImgPath"
                                                      asp-append-version="true" alt="@product.ImgPath" />
-                                                @*<img class="item-img" src=@product.Img />*@
                                                 <div class="pnl-wrapper">
                                                     <div class="pnl-description">
                                                         <span class="pnl-label">@product.Name</span>
@@ -96,7 +95,7 @@
             </ul>
 
             <!--Add New Product Modal -->
-            <div class="modal fade" id="DeleteConfirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="add-product-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
