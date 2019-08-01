@@ -21,7 +21,7 @@
 
 @{ foreach (Category category in categories)
     {
-        <form class="edit-category d-flex">
+        <form class="edit-form d-flex">
             <input id="@category.ID" value="@category.Name" name="name" type="search" class="form-control ds-input" />
             <button type="submit" asp-controller="Admin" asp-action="EditCategory" asp-route-id="@category.ID">
                 <i class="pnl-icon fa fa-save fa-lg"></i>

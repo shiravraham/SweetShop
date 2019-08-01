@@ -39,6 +39,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Admin\Branches.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Admin\Costumers.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

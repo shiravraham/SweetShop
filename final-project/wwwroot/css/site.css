@@ -118,11 +118,16 @@ nav {
     display: flex;
 }
 
-.edit-category {
+.edit-form {
     padding: 10px;
 }
 
-.edit-category button{
+.edit-form input {
+    border: none;
+    margin: 2px;
+}
+
+.edit-form button{
     border: none;
     background-color:transparent;
 }

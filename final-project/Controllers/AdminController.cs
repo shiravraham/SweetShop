@@ -35,6 +35,8 @@ namespace final_project.Controllers
             hostingEnvironment = env;
         }
 
+        #region Orders
+
         public IActionResult Orders()
         {
             List<Order> orders = _context.Orders.ToList();
@@ -45,6 +47,35 @@ namespace final_project.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Orders(int orderId, int orderStatus, DateTime? orderDate)
+        {
+            List<Order> orders;
+
+            if (orderId != 0)
+            {
+                orders = _context.Orders.Where((order) => order.Id == orderId).ToList();
+            }
+            else
+            {
+                orders = _context.Orders.Where((order) => (orderStatus != 0 && orderDate != null && orderStatus == order.Status.ID) ||
+                        (orderStatus != 0 && orderStatus == order.Status.ID) ||
+                        (orderDate != null && orderDate.Equals(order.OrderDate))).ToList();
+            }
+
+            List<OrderStatus> statuses = _context.OrderStatuses.ToList();
+            List<User> users = _context.Users.ToList();
+
+            ViewBag.Orders = orders;
+            ViewBag.statuses = statuses;
+
+            return View();
+        }
+
+        #endregion
+
+        #region Categories
 
         public IActionResult Categories(bool removalFailed = false)
         {
@@ -87,59 +118,9 @@ namespace final_project.Controllers
             _context.SaveChanges();
             return Redirect("/Admin/Categories");
         }
+        #endregion
 
-        [HttpPost]
-        public IActionResult Orders(int orderId, int orderStatus, DateTime? orderDate)
-        {
-            List<Order> orders;
-
-            if (orderId != 0)
-            {
-                orders = _context.Orders.Where((order) => order.Id == orderId).ToList();
-            }
-            else
-            {
-                orders = _context.Orders.Where((order) => (orderStatus != 0 && orderDate != null && orderStatus == order.Status.ID) ||
-                        (orderStatus != 0 && orderStatus == order.Status.ID) ||
-                        (orderDate != null && orderDate.Equals(order.OrderDate))).ToList();
-            }
-
-
-            List<OrderStatus> statuses = _context.OrderStatuses.ToList();
-            List<User> users = _context.Users.ToList();
-
-            ViewBag.Orders = orders;
-            ViewBag.statuses = statuses;
-
-            return View();
-        }
-
-        public IActionResult Costumers()
-        {
-            List<User> costumers = _context.Users.ToList();
-            List<Order> orders = _context.Orders.ToList();
-
-            List<CostumerViewModel> costumerView = orders.GroupBy(g => g.User.Id)
-                .Select(g =>
-                {
-                    User costumer = costumers.Single(c => c.Id == g.Key);
-                    return new CostumerViewModel
-                    {
-                        ID = g.Key,
-                        FullName = costumer.FullName,
-                        Email = costumer.Email,
-                        OrdersNumber = g.Count()
-                    };
-                }).ToList();
-
-            ViewBag.CostumersView = costumerView;
-            return View();
-        }
-
-        public IActionResult Statistics()
-        {
-            return View();
-        }
+        #region Products
 
         public IActionResult EditProducts()
         {
@@ -180,9 +161,9 @@ namespace final_project.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditProduct(int id,
-                                                     string name, 
-                                                     int category, 
-                                                     int price, 
+                                                     string name,
+                                                     int category,
+                                                     int price,
                                                      IFormFile img)
         {
             Product productToEdit = _context.Products.Single(p => p.ID == id);
@@ -200,6 +181,84 @@ namespace final_project.Controllers
             await _context.SaveChangesAsync();
             return Redirect("/Admin/EditProducts");
         }
+
+        #endregion
+
+        #region Branches
+
+        public IActionResult Branches()
+        {
+            List<Branch> branches = _context.Branches.ToList();
+            ViewBag.Branches = branches;
+            return View();
+        }
+
+        public IActionResult RemoveBranch(int id)
+        {
+            _context.Remove(_context.Branches.Single(b => b.ID == id));
+            _context.SaveChanges();
+            return Redirect("/Admin/Branches");
+        }
+
+        public IActionResult EditBranch(int id, string name, string address, float x, float y)
+        {
+            Branch branchToEdit = _context.Branches.Single(b => b.ID == id);
+
+            branchToEdit.branchName = name;
+            branchToEdit.addressInfo = address;
+            branchToEdit.locationX = x;
+            branchToEdit.locationY = y;
+
+            _context.Update(branchToEdit);
+            _context.SaveChanges();
+            return Redirect("/Admin/Branches");
+        }
+
+        public IActionResult AddBranch(int id, string name, string address, float x, float y)
+        {
+            Branch branchToEdit = new Branch()
+            {
+                branchName = name,
+                addressInfo = address,
+                locationX = x,
+                locationY = y
+            };
+
+            _context.Add(branchToEdit);
+            _context.SaveChanges();
+            return Redirect("/Admin/Branches");
+        }
+
+        #endregion
+
+        public IActionResult Costumers()
+        {
+            List<User> costumers = _context.Users.ToList();
+            List<Order> orders = _context.Orders.ToList();
+
+            List<CostumerViewModel> costumerView = orders.GroupBy(g => g.User.Id)
+                .Select(g =>
+                {
+                    User costumer = costumers.Single(c => c.Id == g.Key);
+                    return new CostumerViewModel
+                    {
+                        ID = g.Key,
+                        FullName = costumer.FullName,
+                        Email = costumer.Email,
+                        OrdersNumber = g.Count()
+                    };
+                }).ToList();
+
+            ViewBag.CostumersView = costumerView;
+            return View();
+        }
+
+        public IActionResult Statistics()
+        {
+            return View();
+        }
+
+
 
         private async Task<string> SaveImageFile(IFormFile img, string name)
         {
