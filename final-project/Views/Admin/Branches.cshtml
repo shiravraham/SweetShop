@@ -16,17 +16,16 @@
                     <input type="text" name="address" value="@branch.addressInfo" class="form-control ds-input" />
                 </div>
                 <div class="col">
-                    <input type="number" name="x" value="@branch.locationX" step="0.00001" class="form-control ds-input" />
+                    <input type="number" name="x" value="@branch.locationX" step="0.00001" pattern="[0-9]{2}\.[0-9]{5,}" class="form-control ds-input" />
                 </div>
                 <div class="col">
-                    <input type="number" name="y" value="@branch.locationY" step="0.00001" class="form-control ds-input" />
+                    <input type="number" name="y" value="@branch.locationY" step="0.00001" pattern="[0-9]{2}\.[0-9]{5,}" class="form-control ds-input" />
                 </div>
 
                 <div class="col">
                     <button type="submit" asp-controller="Admin" asp-action="EditBranch" asp-route-id="@branch.ID">
                         <i class="pnl-icon fa fa-save fa-lg"></i>
                     </button>
-                    <!-- Button trigger modal -->
                     <button type="submit" asp-route-id="@branch.ID" asp-controller="Admin" asp-action="RemoveBranch">
                         <i class="pnl-icon fa fa-trash fa-lg"></i>
                     </button>
@@ -45,21 +44,13 @@
             <input type="text" name="address" placeholder="Address" required class="form-control ds-input" />
         </div>
         <div class="col">
-            <input type="text" name="x" placeholder="X" step="0.00001" required class="form-control ds-input" />
+            <input type="text" name="x" placeholder="X" step="0.00001"  pattern="[0-9]{2}\.[0-9]{5,}"  required class="form-control ds-input" />
         </div>
         <div class="col">
-            <input type="text" name="y" placeholder="Y" step="0.00001" required class="form-control ds-input" />
+            <input type="text" name="y" placeholder="Y" step="0.00001"  pattern="[0-9]{2}\.[0-9]{5,}"  required class="form-control ds-input" />
         </div>
         <input type="submit" id="search-button" class="btn btn-primary btn-sm" value="Add">
     </div>
 </form>
-
-@*<form id="add-category-form" class="horizontal" asp-action="AddBranch" asp-controller="Admin" method="POST">
-        <input type="text" name="name" placeholder="Name" required class="form-control ds-input"/>
-        <input type="text" name="address" placeholder="Address" required class="form-control ds-input"/>
-        <input type="text" name="x" placeholder="X" step="0.00001" required class="form-control ds-input"/>
-        <input type="text" name="y" placeholder="Y" step="0.00001" required class="form-control ds-input"/>
-        <input type="submit" id="search-button" class="btn btn-primary btn-sm" value="Add">
-    </form>*@
 
 
