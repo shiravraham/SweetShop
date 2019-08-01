@@ -50,8 +50,6 @@ namespace final_project.Controllers
         {
             List<Category> categories = _context.Categories.ToList();
             ViewBag.Categories = categories;
-            ViewBag.RemovalFailed = removalFailed;
-
             return View();
         }
 
@@ -65,7 +63,7 @@ namespace final_project.Controllers
             }
             catch (Exception)
             {
-                return RedirectToAction("Categories", new { removalFailed = true });
+                TempData["removalFailed"] = true;
             }
 
             return Redirect("/Admin/Categories");
