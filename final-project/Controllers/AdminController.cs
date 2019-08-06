@@ -39,6 +39,10 @@ namespace final_project.Controllers
 
         public IActionResult Orders()
         {
+            if(HttpContext.Session.GetString("username") == null)
+            {
+                return View("Views/Users/NotFound.cshtml");
+            }
             List<Order> orders = _context.Orders.ToList();
             List<User> users = _context.Users.ToList();
             List<OrderStatus> statuses = _context.OrderStatuses.ToList();
@@ -51,6 +55,10 @@ namespace final_project.Controllers
         [HttpPost]
         public IActionResult Orders(int orderId, int orderStatus, DateTime? orderDate)
         {
+            if (HttpContext.Session.GetString("username") == null)
+            {
+                return View("Views/Users/NotFound.cshtml");
+            }
             List<Order> orders;
 
             if (orderId != 0)
@@ -79,6 +87,10 @@ namespace final_project.Controllers
 
         public IActionResult Categories(bool removalFailed = false)
         {
+            if (HttpContext.Session.GetString("username") == null)
+            {
+                return View("Views/Users/NotFound.cshtml");
+            }
             List<Category> categories = _context.Categories.ToList();
             ViewBag.Categories = categories;
             return View();
@@ -86,6 +98,10 @@ namespace final_project.Controllers
 
         public IActionResult RemoveCategory(int id)
         {
+            if (HttpContext.Session.GetString("username") == null)
+            {
+                return View("Views/Users/NotFound.cshtml");
+            }
             _context.Remove(_context.Categories.Single(c => c.ID == id));
 
             try
@@ -102,6 +118,10 @@ namespace final_project.Controllers
 
         public IActionResult AddCategory(string name)
         {
+            if (HttpContext.Session.GetString("username") == null)
+            {
+                return View("Views/Users/NotFound.cshtml");
+            }
             Category newCategory = new Category() { Name = name };
 
             _context.Add(newCategory);
@@ -111,6 +131,10 @@ namespace final_project.Controllers
 
         public IActionResult EditCategory(int id, string name)
         {
+            if (HttpContext.Session.GetString("username") == null)
+            {
+                return View("Views/Users/NotFound.cshtml");
+            }
             Category categoryToEdit = _context.Categories.Single(c => c.ID == id);
             categoryToEdit.Name = name;
 
@@ -124,6 +148,10 @@ namespace final_project.Controllers
 
         public IActionResult EditProducts()
         {
+            if (HttpContext.Session.GetString("username") == null)
+            {
+                return View("Views/Users/NotFound.cshtml");
+            }
             List<Product> products = _context.Products.ToList();
             List<Category> categories = _context.Categories.ToList();
 
@@ -134,6 +162,11 @@ namespace final_project.Controllers
 
         public IActionResult RemoveProduct(int id)
         {
+
+            if (HttpContext.Session.GetString("username") == null)
+            {
+                return View("Views/Users/NotFound.cshtml");
+            }
             _context.Remove(_context.Products.Single(p => p.ID == id));
             _context.SaveChanges();
             return Redirect("/Admin/EditProducts");
@@ -143,6 +176,10 @@ namespace final_project.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddProduct(string name, int category, int price, IFormFile img)
         {
+            if (HttpContext.Session.GetString("username") == null)
+            {
+                return View("Views/Users/NotFound.cshtml");
+            }
             string pathToSave = await SaveImageFile(img, name);
 
             Product newProduct = new Product()
@@ -166,6 +203,10 @@ namespace final_project.Controllers
                                                      int price,
                                                      IFormFile img)
         {
+            if (HttpContext.Session.GetString("username") == null)
+            {
+                return View("Views/Users/NotFound.cshtml");
+            }
             Product productToEdit = _context.Products.Single(p => p.ID == id);
 
             productToEdit.Name = name;
@@ -188,6 +229,10 @@ namespace final_project.Controllers
 
         public IActionResult Branches()
         {
+            if (HttpContext.Session.GetString("username") == null)
+            {
+                return View("Views/Users/NotFound.cshtml");
+            }
             List<Branch> branches = _context.Branches.ToList();
             ViewBag.Branches = branches;
             return View();
@@ -195,6 +240,10 @@ namespace final_project.Controllers
 
         public IActionResult RemoveBranch(int id)
         {
+            if (HttpContext.Session.GetString("username") == null)
+            {
+                return View("Views/Users/NotFound.cshtml");
+            }
             _context.Remove(_context.Branches.Single(b => b.ID == id));
             _context.SaveChanges();
             return Redirect("/Admin/Branches");
@@ -202,6 +251,10 @@ namespace final_project.Controllers
 
         public IActionResult EditBranch(int id, string name, string address, float x, float y)
         {
+            if (HttpContext.Session.GetString("username") == null)
+            {
+                return View("Views/Users/NotFound.cshtml");
+            }
             Branch branchToEdit = _context.Branches.Single(b => b.ID == id);
 
             branchToEdit.branchName = name;
@@ -216,6 +269,10 @@ namespace final_project.Controllers
 
         public IActionResult AddBranch(int id, string name, string address, float x, float y)
         {
+            if (HttpContext.Session.GetString("username") == null)
+            {
+                return View("Views/Users/NotFound.cshtml");
+            }
             Branch branchToEdit = new Branch()
             {
                 branchName = name,
@@ -233,6 +290,10 @@ namespace final_project.Controllers
 
         public IActionResult Costumers()
         {
+            if (HttpContext.Session.GetString("username") == null)
+            {
+                return View("Views/Users/NotFound.cshtml");
+            }
             List<User> costumers = _context.Users.ToList();
             List<Order> orders = _context.Orders.ToList();
 
@@ -255,6 +316,10 @@ namespace final_project.Controllers
 
         public IActionResult Statistics()
         {
+            if (HttpContext.Session.GetString("username") == null)
+            {
+                return View("Views/Users/NotFound.cshtml");
+            }
             return View();
         }
 

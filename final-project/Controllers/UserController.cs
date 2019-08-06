@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using final_project.Models;
 using final_project.Data;
+using Microsoft.AspNetCore.Http;
 
 namespace final_project.Controllers
 {
@@ -17,25 +18,29 @@ namespace final_project.Controllers
         {
             _context = context;
         }
+        [HttpPost]
+        public async Task<IActionResult> Login(string email, string password)
+        {
+            if (email == null || password == null)
+            {
+                return View();
+            }
 
-        public IActionResult Get()
-        {
-            var a = _context.Users;
-            return View();
-        }
+            var user = _context.Users.SingleOrDefault(u => u.Email == email && u.Password == password);
+            if (user == null)
+            {
+                return View("Views/Users/NotFound.cshtml");
+            }
 
-        public IActionResult Post()
-        {
-            return View();
-        }
+            //HttpContext.Session.SetString("isAdmin",  "true");
+            HttpContext.Session.SetString("username", user.Username);
+            //HttpContext.Session.SetString("userid", user.Id.ToString());
 
-        public IActionResult Put()
-        {
-            return View();
-        }
-        public IActionResult Delete()
-        {
-            return View();
+            if (user != null)
+            {
+                return RedirectToAction("EditProducts", "Admin", null);
+            }
+            return RedirectToAction("Index", "Home", null);
         }
     }
 }
