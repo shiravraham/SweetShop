@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using final_project.Models;
 using final_project.Data;
 using Accord.MachineLearning.Rules;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace final_project.Controllers
 {
@@ -58,6 +60,22 @@ namespace final_project.Controllers
 
             // Return the first row of the suggestion - the most fit suggesion (can return the whole suggestions instead)
             return Json(decideProd[0]);
+        }
+        [AllowAnonymous]
+        public ActionResult MostOrderedCake()
+        {
+            var mostSoldFlights = _context.OrderItems
+                .Include(order => order.Product)
+                .GroupBy(Order => Order.Product)
+                .Select(o => new SoldDesert
+                {
+                    product = o.Key.Name,
+                    count = o.Sum(order => order.Quantity)
+                })
+                .OrderByDescending(o => o.count)
+                .ToList();
+
+            return Json(mostSoldFlights);
         }
     }
 }
