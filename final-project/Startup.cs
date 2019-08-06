@@ -36,7 +36,8 @@ namespace final_project
             });
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddSessionStateTempDataProvider();
+            services.AddSession();
             services.AddDbContext<SweetShopContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("SweetShopContext")));
             services.AddSingleton<IFileProvider>(
@@ -60,6 +61,7 @@ namespace final_project
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

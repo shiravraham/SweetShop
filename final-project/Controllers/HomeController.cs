@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using final_project.Models;
 using final_project.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
 using Accord.MachineLearning.Rules;
 
@@ -27,6 +28,15 @@ namespace final_project.Controllers
         }
         public IActionResult Cart()
         {
+            var keys = HttpContext.Session.Keys;
+            Dictionary<int, int> quantites = new Dictionary<int, int>();
+            List<Product> productsInBag = _context.Products.Where(x => keys.Contains(x.ID.ToString())).ToList();
+            ViewBag.productsInBag = productsInBag;
+            foreach(var key in keys)
+            {
+                quantites.Add(int.Parse(key), int.Parse(HttpContext.Session.GetString(key)));
+            }
+            ViewBag.quantites = quantites;
             return View();
         }
 
