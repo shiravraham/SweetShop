@@ -8,7 +8,6 @@ using final_project.Models;
 using final_project.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
-using Accord.MachineLearning.Rules;
 
 namespace final_project.Controllers
 {
@@ -83,39 +82,6 @@ namespace final_project.Controllers
 
             ViewBag.Products = products;
             return View();
-        }
-
-        public IActionResult Statistics(Product[] productToReturn)
-        {
-            Apriori<Product> apriori = new Apriori<Product>(0, 0);
-
-            List<Order> orders = _context.Orders.ToList();
-            List<Product> products = _context.Products.ToList();
-            List<OrderItem> orderItems = _context.OrderItems.ToList();
-            List<IGrouping<int, OrderItem>> groupItems = orderItems.GroupBy(o => o.Order.Id).ToList();
-            SortedSet<Product>[] productSets = new SortedSet<Product>[groupItems.Count];
-
-            int i = 0;
-
-            foreach (IGrouping<int, OrderItem> group in groupItems)
-            {
-                productSets[i] = new SortedSet<Product>();
-
-                foreach (OrderItem item in group)
-                {
-                    productSets[i].Add(item.Product);
-                }
-
-                i++;
-            }
-
-            AssociationRuleMatcher<Product> productsRules = apriori.Learn(productSets);
-
-            //Product[] productToReturn = new Product[] { products[0] };
-
-            Product[][] decideProd = productsRules.Decide(productToReturn);
-
-            return Json(decideProd[0]);
         }
 
         public IActionResult Checkout()
