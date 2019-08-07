@@ -123,11 +123,10 @@ nav {
 }
 
 .edit-form input {
-    border: none;
     margin: 2px;
 }
 
-.edit-form button{
+.icon-button {
     border: none;
     background-color:transparent;
 }

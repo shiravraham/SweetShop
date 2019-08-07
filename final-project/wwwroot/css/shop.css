@@ -23,9 +23,6 @@
     width: 20%;
 }
 
-input[type="number"] {
-    border:none;
-}
 ::-webkit-input-placeholder {
     font-size:small;
 }
@@ -111,6 +108,8 @@ input[type="number"] {
 
 #qantity {
     height: 100%;
+    border: none;
+    text-align:center;
 }
 
 .pnl-description {
