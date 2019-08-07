@@ -64,7 +64,7 @@ namespace final_project.Controllers
         [AllowAnonymous]
         public ActionResult MostOrderedCake()
         {
-            var mostSoldFlights = _context.OrderItems
+            var amountOfProductsSold = _context.OrderItems
                 .Include(order => order.Product)
                 .GroupBy(Order => Order.Product)
                 .Select(o => new SoldDesert
@@ -75,7 +75,36 @@ namespace final_project.Controllers
                 .OrderByDescending(o => o.count)
                 .ToList();
 
-            return Json(mostSoldFlights);
+            return Json(amountOfProductsSold);
+        }
+
+        public ActionResult CategoriesGraph()
+        {
+
+            var sellesbyCategories = _context.OrderItems
+                .Join(_context.Products,
+                order => order.Product.ID,
+                product => product.ID, 
+                (order, product) => new {
+                    product = product,
+                    order = order
+                }).Join(_context.Categories,
+                order => order.product.Category.ID,
+                category=>category.ID,
+                (order, category) => new {
+                    order = order.order,
+                    product = order.product,
+                    category = category
+                })
+                .GroupBy(x => x.category)
+                .Select(o => new SoldDesert
+                {
+                    product = o.Key.Name,
+                    count = o.Sum(order => order.order.Quantity)
+                })
+                .ToList();
+
+            return Json(sellesbyCategories);
         }
     }
 }
