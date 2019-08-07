@@ -1,5 +1,11 @@
-﻿<div class="container view-container">
+﻿
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    string Name = ViewBag.Name;
+}
+<div class="container view-container">
     <div>
-        welcome admin!
+        <h2>welcome @Name</h2>
+        <h5>Now you can control the shop, edit products, view statistics and more</h5>
     </div>
 </div>

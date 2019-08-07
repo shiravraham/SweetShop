@@ -34,11 +34,11 @@ namespace final_project.Controllers
 
             //HttpContext.Session.SetString("isAdmin",  "true");
             HttpContext.Session.SetString("username", user.Username);
-            //HttpContext.Session.SetString("userid", user.Id.ToString());
+            HttpContext.Session.SetString("fullName", user.FullName);
 
             if (user != null)
             {
-                return RedirectToAction("EditProducts", "Admin", null);
+                return RedirectToAction("Welcome", "Admin", null);
             }
             return RedirectToAction("Index", "Home", null);
         }

@@ -144,6 +144,17 @@ namespace final_project.Controllers
         }
         #endregion
 
+        public IActionResult Welcome()
+        {
+            if (HttpContext.Session.GetString("username") == null)
+            {
+                return View("Views/Users/NotFound.cshtml");
+            }
+            ViewBag.Name = HttpContext.Session.GetString("fullName");
+            return View();
+        }
+
+
         #region Products
 
         public IActionResult EditProducts()
