@@ -29,7 +29,7 @@ namespace final_project.Controllers
             var user = _context.Users.SingleOrDefault(u => u.Email == email && u.Password == password);
             if (user == null)
             {
-                return View("Views/Users/NotFound.cshtml");
+                return View("Views/Registration/FailedLogin.cshtml");
             }
 
             //HttpContext.Session.SetString("isAdmin",  "true");
