@@ -1,12 +1,11 @@
 ﻿@{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     List<Category> categories = ViewBag.Categories;
-    //   bool removalFailed = ViewBag.RemovalFailed;
 }
 
 <h2>Categories</h2>
 
-@{ if (TempData.ContainsKey("removalFailed") && (bool)TempData["removalFailed"] == true)
+@{ if (TempData.ContainsKey("CategoryRemovalFailed") && (bool)TempData["CategoryRemovalFailed"] == true)
     {
         {
             <div class="alert alert-danger alert-dismissible fade show" role="alert">

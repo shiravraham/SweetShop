@@ -85,7 +85,7 @@ namespace final_project.Controllers
 
         #region Categories
 
-        public IActionResult Categories(bool removalFailed = false)
+        public IActionResult Categories()
         {
             if (HttpContext.Session.GetString("username") == null)
             {
@@ -110,7 +110,7 @@ namespace final_project.Controllers
             }
             catch (Exception)
             {
-                TempData["removalFailed"] = true;
+                TempData["CategoryRemovalFailed"] = true;
             }
 
             return Redirect("/Admin/Categories");
@@ -152,6 +152,7 @@ namespace final_project.Controllers
             {
                 return View("Views/Users/NotFound.cshtml");
             }
+
             List<Product> products = _context.Products.ToList();
             List<Category> categories = _context.Categories.ToList();
 
@@ -162,13 +163,22 @@ namespace final_project.Controllers
 
         public IActionResult RemoveProduct(int id)
         {
-
             if (HttpContext.Session.GetString("username") == null)
             {
                 return View("Views/Users/NotFound.cshtml");
             }
+
             _context.Remove(_context.Products.Single(p => p.ID == id));
-            _context.SaveChanges();
+
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                TempData["ProductRemovalFailed"] = true;
+            }
+
             return Redirect("/Admin/EditProducts");
         }
 
@@ -180,6 +190,7 @@ namespace final_project.Controllers
             {
                 return View("Views/Users/NotFound.cshtml");
             }
+
             string pathToSave = await SaveImageFile(img, name);
 
             Product newProduct = new Product()
@@ -207,8 +218,8 @@ namespace final_project.Controllers
             {
                 return View("Views/Users/NotFound.cshtml");
             }
-            Product productToEdit = _context.Products.Single(p => p.ID == id);
 
+            Product productToEdit = _context.Products.Single(p => p.ID == id);
             productToEdit.Name = name;
             productToEdit.Category = _context.Categories.Single(c => c.ID == category);
             productToEdit.Price = price;
@@ -294,9 +305,9 @@ namespace final_project.Controllers
             {
                 return View("Views/Users/NotFound.cshtml");
             }
+
             List<User> costumers = _context.Users.ToList();
             List<Order> orders = _context.Orders.ToList();
-
             List<CostumerViewModel> costumerView = orders.GroupBy(g => g.User.Id)
                 .Select(g =>
                 {
@@ -320,10 +331,9 @@ namespace final_project.Controllers
             {
                 return View("Views/Users/NotFound.cshtml");
             }
+
             return View();
         }
-
-
 
         private async Task<string> SaveImageFile(IFormFile img, string name)
         {

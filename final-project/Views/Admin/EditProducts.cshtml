@@ -5,6 +5,19 @@
     List<Category> categories = ViewBag.Categories;
 }
 
+@{ if (TempData.ContainsKey("ProductRemovalFailed") && (bool)TempData["ProductRemovalFailed"] == true)
+    {
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Oh no!</strong> You can't delete this product, because it's related to some orders :(
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+    }
+}
+
 <a data-toggle="modal" data-target="#add-product-modal">
     <button id="add-button" type="button" class="btn btn-success">Add</button>
 </a>
@@ -20,24 +33,24 @@
                         string editIdTarget = "#edit-product" + product.ID;
 
                         <li class="grid-tile">
-                                            <div class="item">
-                                                <img class="item-img" src="@product.ImgPath"
-                                                     asp-append-version="true" alt="@product.ImgPath" />
-                                                <div class="pnl-wrapper">
-                                                    <div class="pnl-description">
-                                                        <span class="pnl-label">@product.Name</span>
-                                                        <span class="pnl-category">@product.Category.Name</span>
-                                                        <span class="pnl-price">@product.Price</span>
-                                                    </div>
-                                                    <a data-toggle="modal" data-target="@editIdTarget">
-                                                        <i class="pnl-icon fa fa-pencil fa-lg"></i>
-                                                    </a>
-                                                    <!-- Button trigger modal -->
-                                                    <a asp-route-id="@product.ID" asp-controller="Admin" asp-action="RemoveProduct">
-                                                        <i class="pnl-icon fa fa-trash fa-lg"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
+                            <div class="item">
+                                <img class="item-img" src="@product.ImgPath"
+                                     asp-append-version="true" alt="@product.ImgPath" />
+                                <div class="pnl-wrapper">
+                                    <div class="pnl-description">
+                                        <span class="pnl-label">@product.Name</span>
+                                        <span class="pnl-category">@product.Category.Name</span>
+                                        <span class="pnl-price">@product.Price</span>
+                                    </div>
+                                    <a data-toggle="modal" data-target="@editIdTarget">
+                                        <i class="pnl-icon fa fa-pencil fa-lg"></i>
+                                    </a>
+                                    <!-- Button trigger modal -->
+                                    <a asp-route-id="@product.ID" asp-controller="Admin" asp-action="RemoveProduct">
+                                        <i class="pnl-icon fa fa-trash fa-lg"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </li>
 
                         <!--Edit Product Modal -->
@@ -50,7 +63,7 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form class="" asp-action="EditProduct" asp-controller="Admin" asp-route-id="@product.ID"  method="POST" enctype="multipart/form-data">
+                                    <form class="" asp-action="EditProduct" asp-controller="Admin" asp-route-id="@product.ID" method="POST" enctype="multipart/form-data">
                                         <div class="modal-body">
                                             <div class="form-group">
                                                 <label for="editName">Product Name:</label>
@@ -125,12 +138,12 @@
 
                                 <div class="form-group">
                                     <label for="addImage">Add Image</label>
-                                    <input name="img" type="file" class="form-control-file" id="addImage" >
+                                    <input name="img" type="file" class="form-control-file" id="addImage">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="addPrice">Price:</label>
-                                    <input id="addPrice" name="price" type="number" class="form-control ds-input" />
+                                    <input min="1" id="addPrice" name="price" type="number" class="form-control ds-input" />
                                 </div>
                             </div>
                             <div class="modal-footer">
