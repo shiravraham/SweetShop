@@ -21,26 +21,17 @@
                             <td>
                              @Quantites[product.ID]
                             </td>
-                            <td>@product.Price$</td>
+                            <td>@product.Price₪</td>
                             <td>
-                                @(Quantites[product.ID] * product.Price)$<a asp-controller="Cart" asp-action="DeleteProducet" asp-route-id=@product.ID><i class="cart-trash fa fa-trash-o"></i></a>
+                                @(Quantites[product.ID] * product.Price)₪<a asp-controller="Cart" asp-action="DeleteProducet" asp-route-id=@product.ID><i class="cart-trash fa fa-trash-o"></i></a>
                             </td>
                         </tr>
                         }
                     }
                         <tr>
-                            <td colspan="3" class="text-right">Total Product</td>
-                            <td>@(ProductsInBag.Sum(p => p.Price * Quantites[p.ID]))$</td>
+                            <td colspan="3" class="text-right">Total</td>
+                            <td>@(ProductsInBag.Sum(p => p.Price * Quantites[p.ID]))₪</td>
                         </tr>
-                        <tr>
-                            <td colspan="3" class="text-right">Total Shipping</td>
-                            <td>$2.00</td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" class="text-right"><strong>Total</strong></td>
-                            <td>@(ProductsInBag.Sum(p => p.Price * Quantites[p.ID]) + 2)$</td>
-                        </tr>
-                    
                 </tbody>
             </table>
             <a asp-controller="Home" asp-action="Shop" id="cart-continue-btn" class="btn btn-primary" data-dismiss="modal">Continue Shopping</a>

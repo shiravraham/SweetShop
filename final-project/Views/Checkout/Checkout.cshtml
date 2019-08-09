@@ -4,21 +4,24 @@
 }
 <div class="container view-container">
     <div class="row">
-        <div class="col-md-4 order-md-2 mb-4">
+        <aside class="col-md-4 order-md-2 mb-4">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
                 <span class="text-muted">Your cart</span>
                 <span class="badge badge-secondary badge-pill">@ViewBag.CartSize</span>
             </h4>
             <ul class="list-group mb-3">
-                @foreach (var product in ViewBag.Cart)
+                @foreach (var orderItem in ViewBag.Cart)
                 {
                     <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">@product.Name</h6>
-                            <small class="text-muted">@product.Category.Name</small>
+                        <div class="col-1 px-0" >
+                            <span class="badge badge-pill badge-secondary">@orderItem.Quantity</span>
                         </div>
-                        <span class="text-muted">
-                            <span class="value">@ViewBag.ConvertToCurrentCurrency(product.Price).ToString("N2")</span><span class="currency">@((char) ViewBag.CurrentCurrency)</span>
+                        <div class="col-8 pl-1 pr-0">
+                            <h6 class="my-0">@orderItem.Product.Name</h6>
+                            <small class="text-muted">@orderItem.Product.Category.Name</small>
+                        </div>
+                        <span class="text-muted col-3 pr-0">
+                            <span class="value">@ViewBag.ConvertToCurrentCurrency(orderItem.Product.Price * orderItem.Quantity).ToString("N2")</span><span class="currency">@((char) ViewBag.CurrentCurrency)</span>
                         </span>
                     </li>
                 }
@@ -53,7 +56,7 @@
             </form>
 
 
-        </div>
+        </aside>
         <div class="col-md-8 order-md-1">
             <h4 class="mb-3">Billing address</h4>
             <form class="needs-validation" novalidate asp-action="AddOrder" asp-controller="Checkout" method="POST">
@@ -144,7 +147,7 @@
                     Continue to checkout
                 </button>
             </form>
-        </div>
+        </div></aside>
     </div>
 </div>
 

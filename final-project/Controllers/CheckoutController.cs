@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using final_project.Data;
 using Microsoft.AspNetCore.Mvc;
 using final_project.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
@@ -27,7 +28,7 @@ namespace final_project.Controllers
 
         public double CurrencyExchangeRate { get; set; }
 
-        public List<Product> Cart { get; set; }
+        public List<OrderItem> Cart { get; set; }
 
         public CheckoutController(SweetShopContext context)
         {
@@ -81,7 +82,7 @@ namespace final_project.Controllers
 
         public double GetCartSum()
         {
-            return Cart.Sum(x => x.Price);
+            return Cart.Sum(x => x.Product.Price * x.Quantity);
         }
 
         public double ConvertToCurrentCurrency(double value)
@@ -116,12 +117,11 @@ namespace final_project.Controllers
         }
 
 
-        public IEnumerable<Product> GetCartFormSession()
+        public IEnumerable<OrderItem> GetCartFormSession()
         {
             var cartIDs = HttpContext.Session.Keys.Where(id => int.TryParse(id, out var num)).Select(int.Parse);
-            return _context.Products.Where(product => cartIDs.Contains(product.ID)).Include("Category");
+            return _context.Products.Where(product => cartIDs.Contains(product.ID)).Include("Category")
+                .Select(product => new OrderItem() {Product = product, Quantity = int.Parse(HttpContext.Session.GetString(product.ID.ToString()))});
         }
-
-
     }
 }
