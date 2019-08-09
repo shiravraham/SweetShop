@@ -4,91 +4,170 @@
 }
 
 <h2>Statistics</h2>
-<h5>
-    Product popularity(Total orders of products)
-
-</h5>
-<section id="popular-cake-graph">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-    <script type='text/javascript'>
-        $.ajax({
-            url: '/Statistics/MostOrderedCake',
-            success: function (result) {
-                var data = result;
-                createPopularDesertGraph(data);
-            },
-            error: function (hxr, status, err) {
-                console.log('status: ' + status + ', error: ' + err);
-            }
-        });
-
-        function createPopularDesertGraph(data) {
-
-            console.log(data);
-            var margin = { top: 20, right: 20, bottom: 170, left: 40 },
-                width = 600,
-                height = 300;
-
-            //set the ranges
-            var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
-            var y = d3.scale.linear().range([height, 0]);
-
-            var xAxis = d3.svg.axis()
-                .scale(x)
-                .orient("bottom");
-
-            var yAxis = d3.svg.axis()
-                .scale(y)
-                .orient("left")
-                .ticks(10);
-
-            // add the SVG element
-            var svg = d3.select("#popular-cake-graph").append("svg")
-                .attr("fill","lightsalmon")
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-                .append("g")
-                .attr("transform",
-                    "translate(" + margin.left + "," + margin.top + ")");
-
-
-            // scale the range of the data
-            x.domain(data.map(function (d) { return d.product; }));
-            y.domain([0, d3.max(data, function (d) { return d.count; })]);
-
-            // add axis
-            svg.append("g")
-                .attr("class", "x axis")
-                .attr("transform", "translate(0," + height + ")")
-                .call(xAxis)
-                .selectAll("text")
-                .style("text-anchor", "end")
-                .attr("dx", "-.8em")
-                .attr("dy", "-1.8em")
-                .attr("transform", "rotate(-90)");
-
-            svg.append("g")
-                .attr("class", "y axis")
-                .call(yAxis)
-                .append("text")
-                .attr("transform", "rotate(-90)")
-                .attr("y", 0)
-                .attr("dy", "1em")
-                .style("text-anchor", "end")
-
-
-            // Add bar chart
-            svg.selectAll()
-                .data(data)
-                .enter()
-                .append("rect")
-                .attr("class", "bar")
-                .attr("x", function (d) { return x(d.product) + 10; })
-                .attr("width", x.rangeBand() / 2)
-                .attr("y", function (d) { return y(d.count); })
-                .attr("height", function (d) { return height - y(d.count); });
+<h5>Distribution of orders By categories</h5>
+<section id="categories"></section>
+<h5>Product popularity(Total orders of products)</h5>
+<section id="graphs"></section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script type='text/javascript'>
+    $.ajax({
+        url: '/Statistics/MostOrderedCake',
+        success: function (result) {
+            var data = result;
+            createPopularDesertGraph(data);
+        },
+        error: function (hxr, status, err) {
+            console.log('status: ' + status + ', error: ' + err);
         }
-    </script>
-    </section>
+    });
+
+    $.ajax({
+        url: '/Statistics/CategoriesGraph',
+        success: function (result) {
+            var pieData = result;
+            createPopularCategoryPie(pieData);
+        },
+        error: function (hxr, status, err) {
+            console.log('status: ' + status + ', error: ' + err);
+        }
+    });
+
+    function createPopularDesertGraph(data) {
+
+        console.log(data);
+        var margin = { top: 20, right: 20, bottom: 170, left: 40 },
+            width = 600,
+            height = 300;
+
+        //set the ranges
+        var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
+        var y = d3.scale.linear().range([height, 0]);
+
+        var xAxis = d3.svg.axis()
+            .scale(x)
+            .orient("bottom");
+
+        var yAxis = d3.svg.axis()
+            .scale(y)
+            .orient("left")
+            .ticks(10);
+
+        // add the SVG element
+        var svg = d3.select("#graphs").append("svg")
+            .attr("fill", "lightsalmon")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")");
+
+
+        // scale the range of the data
+        x.domain(data.map(function (d) { return d.product; }));
+        y.domain([0, d3.max(data, function (d) { return d.count; })]);
+
+        // add axis
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis)
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", "-1.8em")
+            .attr("transform", "rotate(-90)");
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0)
+            .attr("dy", "1em")
+            .style("text-anchor", "end")
+
+
+        // Add bar chart
+        svg.selectAll()
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("class", "bar")
+            .attr("x", function (d) { return x(d.product) + 10; })
+            .attr("width", x.rangeBand() / 2)
+            .attr("y", function (d) { return y(d.count); })
+            .attr("height", function (d) { return height - y(d.count); });
+        console.log("fine")
+    }
+
+    function createPopularCategoryPie(data) {
+
+        var width = 400,
+            height = 400,
+            radius = Math.min(width, height) / 2;
+
+        var color = d3.scale.ordinal().range([
+            "rgb(66, 136, 181)",
+            "#6b486b",
+            "rgb(162, 217, 163)",
+            "rgb(216, 239, 159)",
+            "rgb(253, 245, 172)",
+            "rgb(253, 191, 112)",
+            "rgb(209, 60, 75)"
+        ]);
+
+        var arc = d3.svg.arc()
+            .outerRadius(radius - 10)
+            .innerRadius(0);
+
+        var pie = d3.layout.pie()
+            .sort(null)
+            .value(function (d) { return d.count; });
+
+        var svg = d3.select("#categories").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .append("g")
+            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+        var g = svg.selectAll(".arc")
+            .data(pie(data))
+            .enter().append("g")
+            .attr("stroke", "white")
+            .attr("class", "arc");
+
+        g.append("path")
+            .attr("d", arc)
+            .style("fill", function (d) { return color(d.data.product); });
+
+        g.append("text")
+            .attr("transform", function (d) { return "translate(" + arc.centroid(d) + ")"; })
+            .attr("dy", ".35em")
+            .style("text-anchor", "middle")
+            .call(text => text.append("tspan")
+                .attr("y", "-0.8em")
+                .text(d => d.data.product))
+            .call(text => text.filter(d => (d.endAngle - d.startAngle) > 0.25).append("tspan")
+                .attr("x", 0)
+                .attr("y", "0.6em")
+                .attr("opacity", 0.7)
+                .text(d => d.data.count.toLocaleString()));
+        //svg.append("g")
+        //.attr("font-family", "sans-serif")
+        //.attr("font-size", 12)
+        //.attr("text-anchor", "middle")
+        //.selectAll("text")
+        //.join("text")
+        //    .call(text => text.append("tspan")
+        //        .attr("y", "-0.4em")
+        //        .attr("font-weight", "bold")
+        //        .text(d => d.data.product))
+        //    .call(text => text.filter(d => (d.endAngle - d.startAngle) > 0.25).append("tspan")
+        //        .attr("x", 0)
+        //        .attr("y", "0.7em")
+        //        .attr("fill-opacity", 0.7)
+        //        .text(d => d.data.count.toLocaleString()));
+    }
+
+</script>
