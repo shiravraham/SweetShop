@@ -29,6 +29,8 @@
 
                 @{ foreach (Product product in products)
                     {
+                        if (product.IsDeleted) { continue; }
+
                         string editId = "edit-product" + product.ID;
                         string editIdTarget = "#edit-product" + product.ID;
 

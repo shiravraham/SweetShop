@@ -7,46 +7,48 @@
     <div class="layout">
         <section class="inner">
             <div id="search" class="horizontal">
-				<form id="searchForm" class="horizontal" asp-action="Shop" asp-controller="Home" method="POST">
+                <form id="searchForm" class="horizontal" asp-action="Shop" asp-controller="Home" method="POST">
                     <input id="searchText" name="searchText" type="search" class="form-control ds-input" />
                     <select name="category">
                         <option value=0>Choose category</option>
-                    @{ foreach (Category category in categories)
-                        {
-                            <option value=@category.ID >@category.Name</option>
+                        @{ foreach (Category category in categories)
+                            {
+                                <option value=@category.ID>@category.Name</option>
+                            }
                         }
-                    }
                     </select>
-                    <input type="number" name="minPrice" placeholder="Min price"/><span>-</span> 
-                    <input type="number" name="maxPrice" placeholder="Max price"/>
+                    <input type="number" name="minPrice" placeholder="Min price" /><span>-</span>
+                    <input type="number" name="maxPrice" placeholder="Max price" />
                     <input type="submit" id="search-button" class="btn btn-primary btn-sm" value="Search">
                 </form>
             </div>
-			<ul class="grid">
-            @{ foreach (Product product in products)
-                {
-                    <li class="grid-tile">
-                                    <div class="item">
-                                        <img class="item-img" src="@product.ImgPath"
-                                             asp-append-version="true" alt="@product.ImgPath" />
-                                        <div class="pnl-wrapper">
-                                            <div class="pnl-description">
-                                                <span class="pnl-label">@product.Name</span>
-                                                <span class="pnl-category">@product.Category.Name</span>
-                                                <span class="pnl-price">@product.Price&#8362;</span>
-                                            </div>
-                                            @using (Html.BeginForm("AddToCart", "Cart", FormMethod.Post))
-                                            {
-                                                <input type="hidden" name="Id" value="@product.ID" id="id" />
-                                                <input id="qantity" type="number" name="quantity" value=1 min="1" max="100">
-                                                <button type="submit" class="icon-button"><i class="pnl-icon fa fa-plus-circle fa-lg"></i></button>
-                                            }
-                                            </div>
+            <ul class="grid">
+                @{ foreach (Product product in products)
+                    {
+                        if (product.IsDeleted) { continue; }
+
+                        <li class="grid-tile">
+                            <div class="item">
+                                <img class="item-img" src="@product.ImgPath"
+                                     asp-append-version="true" alt="@product.ImgPath" />
+                                <div class="pnl-wrapper">
+                                    <div class="pnl-description">
+                                        <span class="pnl-label">@product.Name</span>
+                                        <span class="pnl-category">@product.Category.Name</span>
+                                        <span class="pnl-price">@product.Price&#8362;</span>
                                     </div>
-                    </li>
+                                    @using (Html.BeginForm("AddToCart", "Cart", FormMethod.Post))
+                                    {
+                                        <input type="hidden" name="Id" value="@product.ID" id="id" />
+                                        <input id="qantity" type="number" name="quantity" value=1 min="1" max="100">
+                                        <button type="submit" class="icon-button"><i class="pnl-icon fa fa-plus-circle fa-lg"></i></button>
+                                    }
+                                </div>
+                            </div>
+                        </li>
+                    }
                 }
-            }
-			</ul>
+            </ul>
         </section>
     </div>
 </div>
