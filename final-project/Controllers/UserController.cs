@@ -18,28 +18,28 @@ namespace final_project.Controllers
         {
             _context = context;
         }
+
         [HttpPost]
         public async Task<IActionResult> Login(string email, string password)
         {
             if (email == null || password == null)
             {
-                return View();
+                TempData["LoginFailed"] = true;
+                return Redirect("/Registration/SignIn");
             }
 
             var admin = _context.Admins.SingleOrDefault(u => u.Email == email && u.Password == password);
+
             if (admin == null)
             {
-                return View("Views/Registration/FailedLogin.cshtml");
+                TempData["LoginFailed"] = true;
+                return Redirect("/Registration/SignIn");
             }
 
             HttpContext.Session.SetString("username", admin.Email);
             HttpContext.Session.SetString("fullName", admin.FullName);
 
-            if (admin != null)
-            {
-                return RedirectToAction("Welcome", "Admin", null);
-            }
-            return RedirectToAction("Index", "Home", null);
+            return RedirectToAction("Welcome", "Admin", null);
         }
 
         public async Task<IActionResult> Logout()
