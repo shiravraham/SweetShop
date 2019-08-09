@@ -26,17 +26,16 @@ namespace final_project.Controllers
                 return View();
             }
 
-            var user = _context.Users.SingleOrDefault(u => u.Email == email && u.Password == password);
-            if (user == null)
+            var admin = _context.Admins.SingleOrDefault(u => u.Email == email && u.Password == password);
+            if (admin == null)
             {
                 return View("Views/Registration/FailedLogin.cshtml");
             }
 
-            //HttpContext.Session.SetString("isAdmin",  "true");
-            HttpContext.Session.SetString("username", user.Username);
-            HttpContext.Session.SetString("fullName", user.FullName);
+            HttpContext.Session.SetString("username", admin.Email);
+            HttpContext.Session.SetString("fullName", admin.FullName);
 
-            if (user != null)
+            if (admin != null)
             {
                 return RedirectToAction("Welcome", "Admin", null);
             }
