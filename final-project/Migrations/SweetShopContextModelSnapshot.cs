@@ -6,17 +6,35 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using final_project.Data;
 
-namespace final_project.Migrations
+namespace finalproject.Migrations
 {
     [DbContext(typeof(SweetShopContext))]
     partial class SweetShopContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
+#pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("final_project.Models.Admin", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("FullName");
+
+                    b.Property<string>("Password");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Admins");
+                });
 
             modelBuilder.Entity("final_project.Models.Branch", b =>
                 {
@@ -158,28 +176,11 @@ namespace final_project.Migrations
 
                     b.Property<string>("Password");
 
-                    b.Property<int?>("UserTypeId");
-
                     b.Property<string>("Username");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserTypeId");
-
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("final_project.Models.UserType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("TypeName");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserType");
                 });
 
             modelBuilder.Entity("final_project.Models.Order", b =>
@@ -210,13 +211,7 @@ namespace final_project.Migrations
                         .WithMany()
                         .HasForeignKey("CategoryID");
                 });
-
-            modelBuilder.Entity("final_project.Models.User", b =>
-                {
-                    b.HasOne("final_project.Models.UserType", "UserType")
-                        .WithMany()
-                        .HasForeignKey("UserTypeId");
-                });
+#pragma warning restore 612, 618
         }
     }
 }

@@ -3,21 +3,59 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using final_project.Data;
 
-namespace final_project.Migrations
+namespace finalproject.Migrations
 {
     [DbContext(typeof(SweetShopContext))]
-    partial class SweetShopContextModelSnapshot : ModelSnapshot
+    [Migration("20190809083315_addAdmin")]
+    partial class addAdmin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("final_project.Models.Admin", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("FullName");
+
+                    b.Property<string>("Password");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Admins");
+                });
+
+            modelBuilder.Entity("final_project.Models.Branch", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("addressInfo");
+
+                    b.Property<string>("branchName");
+
+                    b.Property<float>("locationX");
+
+                    b.Property<float>("locationY");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Branches");
+                });
 
             modelBuilder.Entity("final_project.Models.Category", b =>
                 {
@@ -71,6 +109,27 @@ namespace final_project.Migrations
                     b.ToTable("Orders");
                 });
 
+            modelBuilder.Entity("final_project.Models.OrderItem", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("OrderId");
+
+                    b.Property<int?>("ProductID");
+
+                    b.Property<int>("Quantity");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("OrderItems");
+                });
+
             modelBuilder.Entity("final_project.Models.OrderStatus", b =>
                 {
                     b.Property<int>("ID")
@@ -119,28 +178,11 @@ namespace final_project.Migrations
 
                     b.Property<string>("Password");
 
-                    b.Property<int?>("UserTypeId");
-
                     b.Property<string>("Username");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserTypeId");
-
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("final_project.Models.UserType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("TypeName");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserType");
                 });
 
             modelBuilder.Entity("final_project.Models.Order", b =>
@@ -154,18 +196,22 @@ namespace final_project.Migrations
                         .HasForeignKey("UserId");
                 });
 
+            modelBuilder.Entity("final_project.Models.OrderItem", b =>
+                {
+                    b.HasOne("final_project.Models.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId");
+
+                    b.HasOne("final_project.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductID");
+                });
+
             modelBuilder.Entity("final_project.Models.Product", b =>
                 {
                     b.HasOne("final_project.Models.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryID");
-                });
-
-            modelBuilder.Entity("final_project.Models.User", b =>
-                {
-                    b.HasOne("final_project.Models.UserType", "UserType")
-                        .WithMany()
-                        .HasForeignKey("UserTypeId");
                 });
 #pragma warning restore 612, 618
         }
