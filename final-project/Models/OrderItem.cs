@@ -4,9 +4,13 @@ namespace final_project.Models
 {
     public class OrderItem
     {
-        [Key]
+        //[Key]
         public int ID { get; set; }
+
+        [Key]
         public Order Order { get; set; }
+
+        [Key]
         public Product Product{ get; set; }
         public int Quantity{ get; set; }
      }

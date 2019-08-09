@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -30,6 +31,8 @@ namespace final_project.Models
         public string CCCvv{ get; set; }
 
         public DateTime OrderDate { get; set; }
+
+        public List<OrderItem> OrderProduct { get; set; }
 
     }
 }

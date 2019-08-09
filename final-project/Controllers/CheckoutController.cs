@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using final_project.Data;
 using Microsoft.AspNetCore.Mvc;
 using final_project.Models;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
+using Remotion.Linq.Clauses;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,21 +21,23 @@ namespace final_project.Controllers
     public class CheckoutController : Controller
     {
         private const string BaseCurrencyApiURL = "https://api.exchangeratesapi.io/latest?base=ILS&symbols=";
+        private readonly SweetShopContext _context;
 
         public Currency CurrentCurrency { get; set; }
 
         public double CurrencyExchangeRate { get; set; }
 
-        public List<Product> Cart { get; set; } = new List<Product>()
+        public List<Product> Cart { get; set; }
+
+        public CheckoutController(SweetShopContext context)
         {
-            new Product()
-                {ID = 1, Name = "chocolate cake", Price = 12, Category = new Category() {ID = 1, Name = "cakes"}},
-            new Product() {ID = 1, Name = "cheese cake", Price = 12, Category = new Category() {ID = 1, Name = "cakes"}}
-        }; //TODO: get cart from session
+            _context = context;
+        }
 
         // GET: /<controller>/{choosenCurrency}
         public async Task<IActionResult> Checkout(List<string> invalidFieldsList, Currency choosenCurrency = Currency.ILS)
         {
+            Cart = GetCartFormSession().ToList();
             await UpdateCurrency(choosenCurrency);
             ViewBag.CurrentCurrency = CurrentCurrency;
             ViewBag.Cart = Cart;
@@ -109,6 +115,12 @@ namespace final_project.Controllers
             return invalidFieldsList.Contains(inputName) ? "form-control is-invalid" : "form-control is-valid";
         }
 
+
+        public IEnumerable<Product> GetCartFormSession()
+        {
+            var cartIDs = HttpContext.Session.Keys.Where(id => int.TryParse(id, out var num)).Select(int.Parse);
+            return _context.Products.Where(product => cartIDs.Contains(product.ID)).Include("Category");
+        }
 
 
     }
