@@ -44,13 +44,12 @@ namespace final_project.Controllers
 
         public async Task<IActionResult> Logout()
         {
-
             if (HttpContext.Session.GetString("username") == null)
             {
                 return View("Views/Users/NotFound.cshtml");
             }
-            HttpContext.Session.Remove("username");
 
+            HttpContext.Session.Remove("username");
             return RedirectToAction("Index", "Home", null);
         }
     }
