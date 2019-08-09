@@ -22,6 +22,15 @@
 
   <ItemGroup>
     <PackageReference Include="Accord.MachineLearning" Version="3.8.0" />
+    <Compile Remove="Migrations\20190530080037_InitialCreate.cs" />
+    <Compile Remove="Migrations\20190530080037_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20190530080329_InitialCreate.cs" />
+    <Compile Remove="Migrations\20190530080329_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20190530080800_InitialCreate2.cs" />
+    <Compile Remove="Migrations\20190530080800_InitialCreate2.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
 	<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.1">
 	  <PrivateAssets>all</PrivateAssets>
@@ -64,7 +73,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
+    <Folder Include="finalproject\Migrations\" />
   </ItemGroup>
 
 </Project>

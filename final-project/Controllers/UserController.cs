@@ -29,17 +29,29 @@ namespace final_project.Controllers
             var user = _context.Users.SingleOrDefault(u => u.Email == email && u.Password == password);
             if (user == null)
             {
-                return View("Views/Users/NotFound.cshtml");
+                return View("Views/Registration/FailedLogin.cshtml");
             }
 
             //HttpContext.Session.SetString("isAdmin",  "true");
             HttpContext.Session.SetString("username", user.Username);
-            //HttpContext.Session.SetString("userid", user.Id.ToString());
+            HttpContext.Session.SetString("fullName", user.FullName);
 
             if (user != null)
             {
-                return RedirectToAction("EditProducts", "Admin", null);
+                return RedirectToAction("Welcome", "Admin", null);
             }
+            return RedirectToAction("Index", "Home", null);
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+
+            if (HttpContext.Session.GetString("username") == null)
+            {
+                return View("Views/Users/NotFound.cshtml");
+            }
+            HttpContext.Session.Remove("username");
+
             return RedirectToAction("Index", "Home", null);
         }
     }
