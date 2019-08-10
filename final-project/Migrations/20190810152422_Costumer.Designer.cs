@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using final_project.Data;
 
 namespace finalproject.Migrations
 {
     [DbContext(typeof(SweetShopContext))]
-    partial class SweetShopContextModelSnapshot : ModelSnapshot
+    [Migration("20190810152422_Costumer")]
+    partial class Costumer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,7 +81,7 @@ namespace finalproject.Migrations
 
                     b.HasKey("Email");
 
-                    b.ToTable("Costumers");
+                    b.ToTable("Costumer");
                 });
 
             modelBuilder.Entity("final_project.Models.Order", b =>
@@ -163,8 +165,6 @@ namespace finalproject.Migrations
 
                     b.Property<string>("ImgPath");
 
-                    b.Property<bool>("IsDeleted");
-
                     b.Property<string>("Name");
 
                     b.Property<int>("Price");
@@ -215,7 +215,7 @@ namespace finalproject.Migrations
             modelBuilder.Entity("final_project.Models.OrderItem", b =>
                 {
                     b.HasOne("final_project.Models.Order", "Order")
-                        .WithMany("OrderItems")
+                        .WithMany("OrderProducts")
                         .HasForeignKey("OrderId");
 
                     b.HasOne("final_project.Models.Product", "Product")

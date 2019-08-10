@@ -10,13 +10,10 @@ namespace final_project.Models
         [Key]
         public int Id { get; set; }
         public User User { get; set; }
+
+        public Costumer Costumer { get; set; }
+
         public OrderStatus Status { get; set; }
-
-        public string FirstName { get; set; }
-
-        public string LastName { get; set; }
-
-        public string Email { get; set; }
 
         public string Address { get; set; }
 
@@ -32,7 +29,7 @@ namespace final_project.Models
 
         public DateTime OrderDate { get; set; }
 
-        public List<OrderItem> OrderProduct { get; set; }
+        public List<OrderItem> OrderItems { get; set; }
 
     }
 }
