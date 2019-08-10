@@ -18,7 +18,6 @@ namespace final_project.Controllers
     {
         public class CostumerViewModel
         {
-            public int ID { get; set; }
             public string FullName { get; set; }
             public string Email { get; set; }
             public int OrdersNumber { get; set; }
@@ -43,8 +42,7 @@ namespace final_project.Controllers
             {
                 return View("Views/Users/NotFound.cshtml");
             }
-            List<Order> orders = _context.Orders.ToList();
-            List<User> users = _context.Users.ToList();
+            List<Order> orders = _context.Orders.Include("Costumer").ToList();
             List<OrderStatus> statuses = _context.OrderStatuses.ToList();
             ViewBag.Orders = orders;
             ViewBag.statuses = statuses;
@@ -63,17 +61,16 @@ namespace final_project.Controllers
 
             if (orderId != 0)
             {
-                orders = _context.Orders.Where((order) => order.Id == orderId).ToList();
+                orders = _context.Orders.Where((order) => order.Id == orderId).Include("Costumer").ToList();
             }
             else
             {
                 orders = _context.Orders.Where((order) => (orderStatus != 0 && orderDate != null && orderStatus == order.Status.ID) ||
                         (orderStatus != 0 && orderStatus == order.Status.ID) ||
-                        (orderDate != null && orderDate.Equals(order.OrderDate))).ToList();
+                        (orderDate != null && orderDate.Equals(order.OrderDate))).Include("Costumer").ToList();
             }
 
             List<OrderStatus> statuses = _context.OrderStatuses.ToList();
-            List<User> users = _context.Users.ToList();
 
             ViewBag.Orders = orders;
             ViewBag.statuses = statuses;
@@ -317,16 +314,15 @@ namespace final_project.Controllers
                 return View("Views/Users/NotFound.cshtml");
             }
 
-            List<User> costumers = _context.Users.ToList();
+            List<Costumer> costumers = _context.Costumers.ToList();
             List<Order> orders = _context.Orders.ToList();
-            List<CostumerViewModel> costumerView = orders.GroupBy(g => g.User.Id)
+            List<CostumerViewModel> costumerView = orders.GroupBy(g => g.Costumer.Email)
                 .Select(g =>
                 {
-                    User costumer = costumers.Single(c => c.Id == g.Key);
+                    var costumer = costumers.Single(c => c.Email == g.Key);
                     return new CostumerViewModel
                     {
-                        ID = g.Key,
-                        FullName = costumer.FullName,
+                        FullName = $"{costumer.FirstName} {costumer.LastName}",
                         Email = costumer.Email,
                         OrdersNumber = g.Count()
                     };
