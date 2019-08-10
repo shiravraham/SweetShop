@@ -176,7 +176,7 @@ namespace final_project.Controllers
                 return View("Views/Users/NotFound.cshtml");
             }
 
-            _context.Remove(_context.Products.Single(p => p.ID == id));
+            _context.Products.Single(p => p.ID == id).IsDeleted = true;
 
             try
             {

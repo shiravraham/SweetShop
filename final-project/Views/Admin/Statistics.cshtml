@@ -1,17 +1,26 @@
-﻿
-@{
+﻿@{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h2>Statistics</h2>
-<h5>Distribution of orders By categories</h5>
-<section id="categories"></section>
-<h5>Sumury of Income per month</h5>
-<section id="sumOfMonth"></section>
-<h5>Product popularity(Total orders of products)</h5>
-<section id="graphs"></section>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h5>Distribution of orders By categories</h5>
+            <section id="categories"></section>
+        </div>
+        <div class="col">
+            <h5>Sumury of Income per month</h5>
+            <section id="sumOfMonth"></section>
+        </div>
+        <div class="col">
+            <h5>Product popularity(Total orders of products)</h5>
+            <section id="graphs"></section>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    </div>
+</div>
 <script type='text/javascript'>
     $.ajax({
         url: '/Statistics/MostOrderedCake',
