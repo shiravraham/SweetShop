@@ -53,6 +53,8 @@ namespace final_project.Controllers
         [HttpPost]
         public IActionResult AddOrder(Order order)
         {
+            Cart = GetCartFormSession().ToList();
+
             var invalidFields = new List<string>();
 
             if (order.Costumer.FirstName == null) invalidFields.Add("FirstName");

@@ -12,6 +12,9 @@ namespace final_project.Models
 
         [Key]
         public Product Product{ get; set; }
+
+        public int OrderID { get; set; }
+
         public int Quantity{ get; set; }
      }
 }
