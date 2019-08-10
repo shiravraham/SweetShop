@@ -9,7 +9,6 @@ namespace final_project.Models
     {
         [Key]
         public int Id { get; set; }
-        public User User { get; set; }
 
         public Costumer Costumer { get; set; }
 
