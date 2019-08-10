@@ -20,7 +20,7 @@ namespace final_project.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(string email, string password)
+        public IActionResult Login(string email, string password)
         {
             if (email == null || password == null)
             {
@@ -42,7 +42,7 @@ namespace final_project.Controllers
             return RedirectToAction("Welcome", "Admin", null);
         }
 
-        public async Task<IActionResult> Logout()
+        public IActionResult Logout()
         {
             if (HttpContext.Session.GetString("username") == null)
             {

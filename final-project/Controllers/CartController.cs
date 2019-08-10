@@ -45,7 +45,7 @@ namespace final_project.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddToCart(int id, int quantity)
+        public IActionResult AddToCart(int id, int quantity)
         {
             if(HttpContext.Session.GetString(id.ToString()) ==null)
             {
@@ -62,11 +62,10 @@ namespace final_project.Controllers
             return RedirectToAction("Shop", "Home");
         }
 
-        public async Task<IActionResult> DeleteProducet(int id)
+        public IActionResult DeleteProduct(int id)
         {
             HttpContext.Session.Remove(id.ToString());
-            
-            return RedirectToAction("Cart", "Home");
+            return RedirectToAction("Cart", "Cart");
         }
 
         public IEnumerable<Product> GetCartFormSession()
