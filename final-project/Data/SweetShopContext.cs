@@ -16,5 +16,17 @@ namespace final_project.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderStatus> OrderStatuses { get; set; }
         public DbSet<Product> Products { get; set; }
+
+        public DbSet<Costumer> Costumers { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<OrderItem>()
+                .HasOne(p => p.Order)
+                .WithMany(b => b.OrderItems)
+                .HasForeignKey(p => p.OrderID);
+
         }
+
+    }
 }

@@ -53,13 +53,15 @@ namespace final_project.Controllers
         [HttpPost]
         public IActionResult AddOrder(Order order)
         {
+            Cart = GetCartFormSession().ToList();
+
             var invalidFields = new List<string>();
 
-            if (order.FirstName == null) invalidFields.Add("FirstName");
+            if (order.Costumer.FirstName == null) invalidFields.Add("FirstName");
 
-            if (order.LastName == null) invalidFields.Add("LastName");
+            if (order.Costumer.LastName == null) invalidFields.Add("LastName");
 
-            if (order.Email == null || !(new EmailAddressAttribute().IsValid(order.Email))) invalidFields.Add("Email");
+            if (order.Costumer.Email == null || !(new EmailAddressAttribute().IsValid(order.Costumer.Email))) invalidFields.Add("Email");
 
             if (order.Address == null) invalidFields.Add("Address");
 
@@ -76,7 +78,16 @@ namespace final_project.Controllers
             if (invalidFields.Count != 0) return RedirectToAction("Checkout", new { invalidFieldsList = invalidFields, choosenCurrency = CurrentCurrency});
 
             order.OrderDate = DateTime.Today;
-            order.OrderProduct = Cart;
+            order.Status = _context.OrderStatuses.Single(x => x.Name == "New");
+            order.OrderItems = Cart;
+            order.Costumer.Email = order.Costumer.Email.ToLower();
+
+            var existingCostumer = _context.Costumers.SingleOrDefault(x => x.Email == order.Costumer.Email);
+
+            if (existingCostumer != null)
+            {
+                order.Costumer = existingCostumer;
+            }
 
             try
             {
@@ -86,10 +97,7 @@ namespace final_project.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                throw;
             }
-
-            // Add to DB
 
             return View("OrderComplete");
         }

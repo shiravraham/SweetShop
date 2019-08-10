@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using final_project.Data;
 
 namespace finalproject.Migrations
 {
     [DbContext(typeof(SweetShopContext))]
-    partial class SweetShopContextModelSnapshot : ModelSnapshot
+    [Migration("20190810155732_orderItms")]
+    partial class orderItms
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,7 +127,7 @@ namespace finalproject.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("OrderID");
+                    b.Property<int?>("OrderId");
 
                     b.Property<int?>("ProductID");
 
@@ -133,7 +135,7 @@ namespace finalproject.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("OrderID");
+                    b.HasIndex("OrderId");
 
                     b.HasIndex("ProductID");
 
@@ -162,8 +164,6 @@ namespace finalproject.Migrations
                     b.Property<int?>("CategoryID");
 
                     b.Property<string>("ImgPath");
-
-                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("Name");
 
@@ -216,8 +216,7 @@ namespace finalproject.Migrations
                 {
                     b.HasOne("final_project.Models.Order", "Order")
                         .WithMany("OrderItems")
-                        .HasForeignKey("OrderID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("OrderId");
 
                     b.HasOne("final_project.Models.Product", "Product")
                         .WithMany()

@@ -199,7 +199,7 @@ namespace finalproject.Migrations
             modelBuilder.Entity("final_project.Models.OrderItem", b =>
                 {
                     b.HasOne("final_project.Models.Order", "Order")
-                        .WithMany("OrderProduct")
+                        .WithMany("OrderProducts")
                         .HasForeignKey("OrderId");
 
                     b.HasOne("final_project.Models.Product", "Product")
