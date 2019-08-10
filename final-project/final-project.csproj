@@ -76,6 +76,7 @@
 
   <ItemGroup>
     <Folder Include="finalproject\Migrations\" />
+    <Folder Include="wwwroot\ImageFiles\" />
   </ItemGroup>
 
 </Project>

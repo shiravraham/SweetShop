@@ -22,11 +22,11 @@
     {
         <form class="edit-form d-flex">
             <input id="@category.ID" value="@category.Name" name="name" type="search" class="form-control ds-input" />
-            <button type="submit" asp-controller="Admin" asp-action="EditCategory" asp-route-id="@category.ID">
+            <button class="icon-button" type="submit" asp-controller="Admin" asp-action="EditCategory" asp-route-id="@category.ID">
                 <i class="pnl-icon fa fa-save fa-lg"></i>
             </button>
             <!-- Button trigger modal -->
-            <button type="submit" asp-route-id="@category.ID" asp-controller="Admin" asp-action="RemoveCategory">
+            <button class="icon-button" type="submit" asp-route-id="@category.ID" asp-controller="Admin" asp-action="RemoveCategory">
                 <i class="pnl-icon fa fa-trash fa-lg"></i>
             </button>
             <br />
