@@ -75,6 +75,20 @@ namespace final_project.Controllers
 
             if (invalidFields.Count != 0) return RedirectToAction("Checkout", new { invalidFieldsList = invalidFields, choosenCurrency = CurrentCurrency});
 
+            order.OrderDate = DateTime.Today;
+            order.OrderProduct = Cart;
+
+            try
+            {
+                _context.Add(order);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
             // Add to DB
 
             return View("OrderComplete");
