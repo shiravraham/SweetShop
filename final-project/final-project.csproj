@@ -58,7 +58,7 @@
     <Content Update="Views\Checkout\Checkout.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Home\Cart.cshtml">
+    <Content Update="Views\Cart\Cart.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Registration\SignUp.cshtml">

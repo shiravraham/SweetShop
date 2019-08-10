@@ -22,20 +22,6 @@ namespace final_project.Controllers
 
         public IActionResult Index()
         {
-            var a = _context.Users;
-            return View();
-        }
-        public IActionResult Cart()
-        {
-            var keys = HttpContext.Session.Keys.Where(key=> key != "username" && key != "fullName");
-            Dictionary<int, int> quantites = new Dictionary<int, int>();
-            List<Product> productsInBag = _context.Products.Where(x => keys.Contains(x.ID.ToString())).ToList();
-            ViewBag.productsInBag = productsInBag;
-            foreach(var key in keys)
-            {
-                quantites.Add(int.Parse(key), int.Parse(HttpContext.Session.GetString(key)));
-            }
-            ViewBag.quantites = quantites;
             return View();
         }
 

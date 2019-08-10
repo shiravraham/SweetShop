@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace final_project.Models
 {
-    public class SoldDesert
+    public class GraphData
     {
-        public string product;
-        public int count;
+        public string Name;
+        public int Value;
     }
 }
