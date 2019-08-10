@@ -38,7 +38,7 @@ namespace final_project.Controllers
                 quantites.Add(int.Parse(key), int.Parse(HttpContext.Session.GetString(key)));
             }
 
-            ViewBag.Statistics = Statistics().ToList();
+            ViewBag.Statistics = GetRecommendedProducts().ToList();
             ViewBag.quantites = quantites;
 
             return View();
@@ -74,7 +74,7 @@ namespace final_project.Controllers
             return _context.Products.Include(prod => prod.Category).Where(product => cartIDs.Contains(product.ID));
         }
 
-        public Product[] Statistics()
+        public Product[] GetRecommendedProducts()
         {
             Product[] productToReturn = GetCartFormSession().ToArray();
             Apriori<Product> apriori = new Apriori<Product>(0, 0);
@@ -83,7 +83,8 @@ namespace final_project.Controllers
             List<Order> orders = _context.Orders.ToList();
             List<Product> products = _context.Products.ToList();
             List<OrderItem> orderItems = _context.OrderItems.ToList();
-
+            List<Category> categories = _context.Categories.ToList();
+            
             // Group the oredered products by orders
             List<IGrouping<int, OrderItem>> groupItems = orderItems.GroupBy(o => o.Order.Id).ToList();
 
