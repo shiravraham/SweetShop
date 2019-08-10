@@ -28,6 +28,8 @@
     <Compile Remove="Migrations\20190530080329_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20190530080800_InitialCreate2.cs" />
     <Compile Remove="Migrations\20190530080800_InitialCreate2.Designer.cs" />
+    <Compile Remove="Migrations\20190810141353_Initial.cs" />
+    <Compile Remove="Migrations\20190810141353_Initial.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,7 +60,7 @@
     <Content Update="Views\Checkout\Checkout.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Home\Cart.cshtml">
+    <Content Update="Views\Cart\Cart.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Registration\SignUp.cshtml">

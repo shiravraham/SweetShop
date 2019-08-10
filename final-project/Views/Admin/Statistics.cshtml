@@ -6,6 +6,8 @@
 <h2>Statistics</h2>
 <h5>Distribution of orders By categories</h5>
 <section id="categories"></section>
+<h5>Sumury of Income per month</h5>
+<section id="sumOfMonth"></section>
 <h5>Product popularity(Total orders of products)</h5>
 <section id="graphs"></section>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -14,8 +16,17 @@
     $.ajax({
         url: '/Statistics/MostOrderedCake',
         success: function (result) {
-            var data = result;
-            createPopularDesertGraph(data);
+            createBarGraph(result);
+        },
+        error: function (hxr, status, err) {
+            console.log('status: ' + status + ', error: ' + err);
+        }
+    });
+
+    $.ajax({
+        url: '/Statistics/SumOrdersPerMonthGraph',
+        success: function (result) {
+            creatPieGraphForMoney(result);
         },
         error: function (hxr, status, err) {
             console.log('status: ' + status + ', error: ' + err);
@@ -25,15 +36,15 @@
     $.ajax({
         url: '/Statistics/CategoriesGraph',
         success: function (result) {
-            var pieData = result;
-            createPopularCategoryPie(pieData);
+
+            creatPieGraph(result);
         },
         error: function (hxr, status, err) {
             console.log('status: ' + status + ', error: ' + err);
         }
     });
 
-    function createPopularDesertGraph(data) {
+    function createBarGraph(data) {
 
         console.log(data);
         var margin = { top: 20, right: 20, bottom: 170, left: 40 },
@@ -64,8 +75,8 @@
 
 
         // scale the range of the data
-        x.domain(data.map(function (d) { return d.product; }));
-        y.domain([0, d3.max(data, function (d) { return d.count; })]);
+        x.domain(data.map(function (d) { return d.name; }));
+        y.domain([0, d3.max(data, function (d) { return d.value; })]);
 
         // add axis
         svg.append("g")
@@ -94,14 +105,14 @@
             .enter()
             .append("rect")
             .attr("class", "bar")
-            .attr("x", function (d) { return x(d.product) + 10; })
+            .attr("x", function (d) { return x(d.name) + 10; })
             .attr("width", x.rangeBand() / 2)
-            .attr("y", function (d) { return y(d.count); })
-            .attr("height", function (d) { return height - y(d.count); });
+            .attr("y", function (d) { return y(d.value); })
+            .attr("height", function (d) { return height - y(d.value); });
         console.log("fine")
     }
 
-    function createPopularCategoryPie(data) {
+    function creatPieGraph(data) {
 
         var width = 400,
             height = 400,
@@ -123,7 +134,7 @@
 
         var pie = d3.layout.pie()
             .sort(null)
-            .value(function (d) { return d.count; });
+            .value(function (d) { return d.value; });
 
         var svg = d3.select("#categories").append("svg")
             .attr("width", width)
@@ -139,7 +150,7 @@
 
         g.append("path")
             .attr("d", arc)
-            .style("fill", function (d) { return color(d.data.product); });
+            .style("fill", function (d) { return color(d.data.name); });
 
         g.append("text")
             .attr("transform", function (d) { return "translate(" + arc.centroid(d) + ")"; })
@@ -147,27 +158,66 @@
             .style("text-anchor", "middle")
             .call(text => text.append("tspan")
                 .attr("y", "-0.8em")
-                .text(d => d.data.product))
+                .text(d => d.data.name))
             .call(text => text.filter(d => (d.endAngle - d.startAngle) > 0.25).append("tspan")
                 .attr("x", 0)
                 .attr("y", "0.6em")
                 .attr("opacity", 0.7)
-                .text(d => d.data.count.toLocaleString()));
-        //svg.append("g")
-        //.attr("font-family", "sans-serif")
-        //.attr("font-size", 12)
-        //.attr("text-anchor", "middle")
-        //.selectAll("text")
-        //.join("text")
-        //    .call(text => text.append("tspan")
-        //        .attr("y", "-0.4em")
-        //        .attr("font-weight", "bold")
-        //        .text(d => d.data.product))
-        //    .call(text => text.filter(d => (d.endAngle - d.startAngle) > 0.25).append("tspan")
-        //        .attr("x", 0)
-        //        .attr("y", "0.7em")
-        //        .attr("fill-opacity", 0.7)
-        //        .text(d => d.data.count.toLocaleString()));
+                .text(d => d.data.value.toLocaleString()));
+    }
+
+    function creatPieGraphForMoney(data) {
+
+        var width = 400,
+            height = 400,
+            radius = Math.min(width, height) / 2;
+
+        var color = d3.scale.ordinal().range([
+            "rgb(209, 60, 75)",
+            "rgb(253, 191, 112)",
+            "rgb(253, 245, 172)",
+            "rgb(216, 239, 159)",
+            "rgb(162, 217, 163)",
+            "#6b486b",
+            "rgb(66, 136, 181)",
+        ]);
+
+        var arc = d3.svg.arc()
+            .outerRadius(radius - 10)
+            .innerRadius(0);
+
+        var pie = d3.layout.pie()
+            .sort(null)
+            .value(function (d) { return d.value; });
+
+        var svg = d3.select("#sumOfMonth").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .append("g")
+            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+        var g = svg.selectAll(".arc")
+            .data(pie(data))
+            .enter().append("g")
+            .attr("stroke", "white")
+            .attr("class", "arc");
+
+        g.append("path")
+            .attr("d", arc)
+            .style("fill", function (d) { return color(d.data.name); });
+
+        g.append("text")
+            .attr("transform", function (d) { return "translate(" + arc.centroid(d) + ")"; })
+            .attr("dy", ".35em")
+            .style("text-anchor", "middle")
+            .call(text => text.append("tspan")
+                .attr("y", "-0.8em")
+                .text(d => d.data.name))
+            .call(text => text.filter(d => (d.endAngle - d.startAngle) > 0.25).append("tspan")
+                .attr("x", 0)
+                .attr("y", "0.6em")
+                .attr("opacity", 0.7)
+                .text(d => d.data.value.toLocaleString() + "₪"));
     }
 
 </script>

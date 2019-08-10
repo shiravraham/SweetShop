@@ -10,8 +10,8 @@ using final_project.Data;
 namespace finalproject.Migrations
 {
     [DbContext(typeof(SweetShopContext))]
-    [Migration("20190809083315_addAdmin")]
-    partial class addAdmin
+    [Migration("20190810141418_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -199,7 +199,7 @@ namespace finalproject.Migrations
             modelBuilder.Entity("final_project.Models.OrderItem", b =>
                 {
                     b.HasOne("final_project.Models.Order", "Order")
-                        .WithMany()
+                        .WithMany("OrderProduct")
                         .HasForeignKey("OrderId");
 
                     b.HasOne("final_project.Models.Product", "Product")

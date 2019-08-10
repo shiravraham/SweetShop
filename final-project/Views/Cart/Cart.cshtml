@@ -1,0 +1,74 @@
+﻿@{
+    List<Product> ProductsInBag = ViewBag.ProductsInBag;
+    Dictionary<int, int> Quantites = ViewBag.quantites;
+    List<Product> Recommendations = ViewBag.Statistics;
+}
+
+<div class="container view-container">
+    <div id="reco">
+        <h4>
+            recommendations for you
+        </h4>
+        <div class="reco-container">
+            @{ foreach (Product product in Recommendations)
+                {
+                    <div class="reco-item">
+                        <img class="reco-img" src="@product.ImgPath"
+                             asp-append-version="true" alt="@product.ImgPath" />
+                        <divs>
+                            <div class="pnl-description">
+                                <span class="pnl-label">@product.Name</span>
+                                <span class="pnl-category">@product.Category.Name</span>
+                                <span class="pnl-price">@product.Price&#8362;</span>
+                            </div>
+                            @using (Html.BeginForm("AddToCart", "Cart", FormMethod.Post))
+                            {
+                                <input type="hidden" name="Id" value="@product.ID" id="id" />
+                                <input id="qantity" type="number" name="quantity" value=1 min="1" max="100">
+                                <button type="submit" class="icon-button"><i class="pnl-icon fa fa-plus-circle fa-lg"></i></button>
+                            }
+                        </divs>
+                    </div>
+                }
+            }
+        </div>
+       
+    </div>
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ foreach (Product product in ProductsInBag)
+                    {
+                        <tr>
+                            <td><strong>@product.Name</strong></td>
+                            <td>
+                                @Quantites[product.ID]
+                            </td>
+                            <td>@product.Price₪</td>
+                            <td>
+                                @(Quantites[product.ID] * product.Price)₪<a asp-controller="Cart" asp-action="DeleteProducet" asp-route-id=@product.ID><i class="cart-trash fa fa-trash-o"></i></a>
+                            </td>
+                        </tr>
+                    }
+                }
+                <tr>
+                    <td colspan="3" class="text-right">Total</td>
+                    <td>@(ProductsInBag.Sum(p => p.Price * Quantites[p.ID]))₪</td>
+                </tr>
+            </tbody>
+        </table>
+        <a asp-controller="Home" asp-action="Shop" id="cart-continue-btn" class="btn btn-primary" data-dismiss="modal">Continue Shopping</a>
+        <a asp-controller="Checkout" asp-action="Checkout" id="cart-checkout-btn" class="pull-right btn btn-success">
+            Checkout
+            <canvas id="canvas" width="10" height="10"></canvas>
+        </a>
+    </div>
+</div>
