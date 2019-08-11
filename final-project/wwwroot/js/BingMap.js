@@ -3,9 +3,9 @@
 function GetMap() {
     const map = new Microsoft.Maps.Map('#map', {
         credentials: 'ApxKkcD7MByeyxSCRDPy27su9HDczhlYFmI96NQDgpTtdHXdNkLr2922DcqjyKad',
-        center: new Microsoft.Maps.Location(32.091943, 34.820132), //SOKOLOV 14 EMPIRE
+        center: new Microsoft.Maps.Location(32.07511, 34.80000), //SOKOLOV 14 EMPIRE
         mapTypeId: Microsoft.Maps.MapTypeId.road,
-        zoom: 15
+        zoom: 13
     });
 
     infobox = new Microsoft.Maps.Infobox(map.getCenter(), {
