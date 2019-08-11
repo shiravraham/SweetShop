@@ -3,6 +3,7 @@
     ViewData["Title"] = "Shop";
     List<Product> products = ViewBag.Products;
     List<Category> categories = ViewBag.Categories;
+
 }
 
 @{ if (TempData.ContainsKey("ProductRemovalFailed") && (bool)TempData["ProductRemovalFailed"] == true)

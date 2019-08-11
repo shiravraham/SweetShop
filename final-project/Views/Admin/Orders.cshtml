@@ -2,9 +2,9 @@
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     List<Order> orders = ViewBag.Orders;
-	List<OrderStatus> statuses = ViewBag.statuses;
-
-}
+    List<OrderStatus> statuses = ViewBag.statuses;
+    Dictionary<int,List<SelectListItem>> statusSelect = new Dictionary<int, List<SelectListItem>>();
+    }
 <h2>Orders</h2>
 <div id="search" class="horizontal">
 	<form id="searchForm" asp-action="Orders" asp-controller="Admin" method="POST">
@@ -42,7 +42,17 @@
                     <th>@order.Id</th>
                     <td>@order.Costumer.FirstName @order.Costumer.LastName</td>
                     <td>@order.OrderDate.ToShortDateString()</td>
-                    <td>@order.Status.Name
+                    <td>
+                        @{ 
+                            statusSelect[order.Id] = new List<SelectListItem>();
+                            statuses.ForEach(status => statusSelect[order.Id].Add(new SelectListItem(status.Name, status.ID.ToString(), order.Status.ID == status.ID)));
+                        }
+                        @using (Html.BeginForm("UpdateOrderStatus", "Admin"))
+                        {
+                            @Html.Hidden("orderID", order.Id)
+                            @Html.DropDownList("id", statusSelect[order.Id], new { onchange = "this.form.submit();" })
+                        }
+                    </td>
                 </tr>
             }
         }

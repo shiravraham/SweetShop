@@ -50,6 +50,23 @@ namespace final_project.Controllers
             return View();
         }
 
+        public IActionResult UpdateOrderStatus(int  orderId, string id)
+        {
+            if (HttpContext.Session.GetString("username") == null)
+            {
+                return View("Views/Users/NotFound.cshtml");
+            }
+
+            Order orderToEdit = _context.Orders.Single(o => o.Id == orderId);
+            OrderStatus orderStatus = _context.OrderStatuses.Single(s => s.ID == int.Parse(id));
+            orderToEdit.Status = orderStatus;
+
+            _context.Update(orderToEdit);
+            _context.SaveChanges();
+
+            return Redirect("/Admin/Orders");
+        }
+
         [HttpPost]
         public IActionResult Orders(int orderId, int orderStatus, DateTime? orderDate)
         {
