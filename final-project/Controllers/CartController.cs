@@ -30,7 +30,7 @@ namespace final_project.Controllers
 
             var keys = HttpContext.Session.Keys.Where(key => key != "username" && key != "fullName");
             Dictionary<int, int> quantites = new Dictionary<int, int>();
-            List<Product> productsInBag = _context.Products.Where(x => keys.Contains(x.ID.ToString())).ToList();
+            List<Product> productsInBag = _context.Products.Where(x => keys.Contains(x.ID.ToString())).Include(product=>product.Category).ToList();
             ViewBag.productsInBag = productsInBag;
 
             foreach (var key in keys)
@@ -82,7 +82,7 @@ namespace final_project.Controllers
 
             // Get the Models
             List<Order> orders = _context.Orders.ToList();
-            List<Product> products = _context.Products.ToList();
+            List<Product> products = _context.Products.Include(product => product.Category).ToList();
             List<OrderItem> orderItems = _context.OrderItems.ToList();
 
             // Group the oredered products by orders

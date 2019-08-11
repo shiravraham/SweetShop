@@ -16,7 +16,7 @@
     $.ajax({
         url: '/Statistics/MostOrderedCake',
         success: function (result) {
-            createBarGraph(result);
+            createBarGraph(result, "graphs", "lightsalmon");
         },
         error: function (hxr, status, err) {
             console.log('status: ' + status + ', error: ' + err);
@@ -26,7 +26,7 @@
     $.ajax({
         url: '/Statistics/SumOrdersPerMonthGraph',
         success: function (result) {
-            creatPieGraphForMoney(result);
+            createBarGraph(result, "sumOfMonth","rgb(220,84,84)");
         },
         error: function (hxr, status, err) {
             console.log('status: ' + status + ', error: ' + err);
@@ -44,7 +44,7 @@
         }
     });
 
-    function createBarGraph(data) {
+    function createBarGraph(data, sectionId, color) {
 
         console.log(data);
         var margin = { top: 20, right: 20, bottom: 170, left: 40 },
@@ -65,8 +65,8 @@
             .ticks(10);
 
         // add the SVG element
-        var svg = d3.select("#graphs").append("svg")
-            .attr("fill", "lightsalmon")
+        var svg = d3.select("#"+sectionId).append("svg")
+            .attr("fill", color)
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
