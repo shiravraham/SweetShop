@@ -16,7 +16,6 @@ namespace final_project.Controllers
 {
     public class CartController : Controller
     {
-
         private readonly SweetShopContext _context;
 
         public CartController(SweetShopContext context)
@@ -57,6 +56,23 @@ namespace final_project.Controllers
             }
             return RedirectToAction("Shop", "Home");
         }
+
+        [HttpPost]
+        public IActionResult AddRecommendationToCart(int id, int quantity)
+        {
+            if (HttpContext.Session.GetString(id.ToString()) == null)
+            {
+                HttpContext.Session.SetString(id.ToString(), quantity.ToString());
+            }
+            else
+            {
+                var newQuantity = int.Parse(HttpContext.Session.GetString(id.ToString())) + quantity;
+                HttpContext.Session.SetString(id.ToString(), newQuantity.ToString());
+            }
+
+            return RedirectToAction("Cart", "Cart");
+        }
+        
 
         public IActionResult DeleteProduct(int id)
         {

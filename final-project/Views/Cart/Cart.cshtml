@@ -69,7 +69,7 @@
                                     <span class="pnl-category">@product.Category.Name</span>
                                     <span class="pnl-price">@product.Price&#8362;</span>
                                 </div>
-                                @using (Html.BeginForm("AddToCart", "Cart", FormMethod.Post))
+                                @using (Html.BeginForm("AddRecommendationToCart", "Cart", FormMethod.Post))
                                 {
                                     <input type="hidden" name="Id" value="@product.ID" id="id" />
                                     <input id="qantity" type="number" name="quantity" value=1 min="1" max="100">
