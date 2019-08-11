@@ -1,11 +1,24 @@
-﻿		<div class="view-container container">
-			<header>
-				<h2>Get in Touch</h2>
-			</header>
-			<section>
-			<div class="map-wrapper">
-				<div class="map-canvas" id="map-canvas"></div>
-				<div id="map"></div>
-			</div>
-			</section>
-		</div>
+﻿@{
+    List<Branch> branches = ViewBag.Branches;
+}
+
+<div class="view-container container">
+    <header>
+        <h2>Get in Touch</h2>
+    </header>
+    <section class="container">
+        <div class="row">
+            <div class="col">
+                @foreach (Branch branch in branches)
+                {
+                <h5>@branch.branchName</h5>
+                <span>@branch.addressInfo</span>
+                }
+            </div>
+            <div class="map-wrapper col">
+                <div class="map-canvas" id="map-canvas"></div>
+                <div id="map"></div>
+            </div>
+        </div>
+    </section>
+</div>
