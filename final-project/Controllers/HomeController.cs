@@ -85,7 +85,7 @@ namespace final_project.Controllers
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
-
+            ViewBag.Branches = _context.Branches.ToList();
             return View();
         }
 
