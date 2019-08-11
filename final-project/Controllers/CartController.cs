@@ -27,7 +27,6 @@ namespace final_project.Controllers
         // GET: /<controller>/
         public IActionResult Cart()
         {
-
             var keys = HttpContext.Session.Keys.Where(key => key != "username" && key != "fullName");
             Dictionary<int, int> quantites = new Dictionary<int, int>();
             List<Product> productsInBag = _context.Products.Where(x => keys.Contains(x.ID.ToString())).ToList();
@@ -50,14 +49,11 @@ namespace final_project.Controllers
             if(HttpContext.Session.GetString(id.ToString()) ==null)
             {
                 HttpContext.Session.SetString(id.ToString(), quantity.ToString());
-
             }
             else
             {
                 var newQuantity = int.Parse(HttpContext.Session.GetString(id.ToString())) + quantity;
                 HttpContext.Session.SetString(id.ToString(), newQuantity.ToString());
-
-                
             }
             return RedirectToAction("Shop", "Home");
         }

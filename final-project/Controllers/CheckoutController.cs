@@ -138,7 +138,6 @@ namespace final_project.Controllers
             return invalidFieldsList.Contains(inputName) ? "form-control is-invalid" : "form-control is-valid";
         }
 
-
         public IEnumerable<OrderItem> GetCartFormSession()
         {
             var cartIDs = HttpContext.Session.Keys.Where(id => int.TryParse(id, out var num)).Select(int.Parse);

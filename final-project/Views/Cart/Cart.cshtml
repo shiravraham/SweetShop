@@ -4,8 +4,17 @@
     List<Product> Recommendations = ViewBag.Statistics;
 }
 
-    <div class="container view-container">
-        <div class="panel-body">
+<div class="container view-container">
+    <div class="panel-body">
+        @if (ProductsInBag == null || ProductsInBag.Count == 0)
+        {
+            <h5>
+                Its seems like your cart is empty!
+                Here are some yummy things that we think you would like
+            </h5>
+        }
+        else
+        {
             <table class="table">
                 <thead>
                     <tr>
@@ -41,37 +50,38 @@
                 Checkout
                 <canvas id="canvas" width="10" height="10"></canvas>
             </a>
-        </div>
-        <div class="view-container">
-            <h4>
-                recommendations for you
-            </h4>
-            <div class="reco-container">
-                @{ foreach (Product product in Recommendations)
-                    {
-                        <div class="grid-tile">
-                            <div class="item">
-                                <img class="item-img" src="@product.ImgPath"
-                                     asp-append-version="true" alt="@product.ImgPath" />
-                                <div class="pnl-wrapper">
-                                    <div class="pnl-description">
-                                        <span class="pnl-label">@product.Name</span>
-                                        <span class="pnl-category">@product.Category.Name</span>
-                                        <span class="pnl-price">@product.Price&#8362;</span>
-                                    </div>
-                                    @using (Html.BeginForm("AddToCart", "Cart", FormMethod.Post))
-                                    {
-                                        <input type="hidden" name="Id" value="@product.ID" id="id" />
-                                        <input id="qantity" type="number" name="quantity" value=1 min="1" max="100">
-                                        <button type="submit" class="icon-button"><i class="pnl-icon fa fa-plus-circle fa-lg"></i></button>
-                                    }
+        }
+    </div>
+    <div class="view-container">
+        <h4>
+            recommendations for you
+        </h4>
+        <div class="reco-container">
+            @{ foreach (Product product in Recommendations)
+                {
+                    <div class="grid-tile">
+                        <div class="item">
+                            <img class="item-img" src="@product.ImgPath"
+                                 asp-append-version="true" alt="@product.ImgPath" />
+                            <div class="pnl-wrapper">
+                                <div class="pnl-description">
+                                    <span class="pnl-label">@product.Name</span>
+                                    <span class="pnl-category">@product.Category.Name</span>
+                                    <span class="pnl-price">@product.Price&#8362;</span>
                                 </div>
+                                @using (Html.BeginForm("AddToCart", "Cart", FormMethod.Post))
+                                {
+                                    <input type="hidden" name="Id" value="@product.ID" id="id" />
+                                    <input id="qantity" type="number" name="quantity" value=1 min="1" max="100">
+                                    <button type="submit" class="icon-button"><i class="pnl-icon fa fa-plus-circle fa-lg"></i></button>
+                                }
                             </div>
                         </div>
-                    }
+                    </div>
                 }
-            </div>
-
+            }
         </div>
 
     </div>
+
+</div>
