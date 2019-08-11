@@ -17,6 +17,11 @@
             <h5>Product popularity(Total orders of products)</h5>
             <section id="graphs"></section>
         </div>
+        <div class="col">
+            <h5>Amount of orders by status</h5>
+            <section id="orderStatus"></section>
+        </div>
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     </div>
@@ -45,8 +50,35 @@
     $.ajax({
         url: '/Statistics/CategoriesGraph',
         success: function (result) {
+            var color = d3.scale.ordinal().range([
+                "rgb(66, 136, 181)",
+                "#6b486b",
+                "rgb(162, 217, 163)",
+                "rgb(216, 239, 159)",
+                "rgb(253, 245, 172)",
+                "rgb(253, 191, 112)",
+                "rgb(209, 60, 75)"
+        ]);
+            creatPieGraph(result,"categories", color);
+        },
+        error: function (hxr, status, err) {
+            console.log('status: ' + status + ', error: ' + err);
+        }
+    });
 
-            creatPieGraph(result);
+
+    $.ajax({
+        url: '/Statistics/OrderStatusGraph',
+        success: function (result) {
+            var color = d3.scale.ordinal().range([
+                "#AF577F",
+                "#EAD385",
+                "#59A0B2",
+                "#156BA8",
+                "#AF577F",
+                "#B9CE67"
+        ]);
+            creatPieGraph(result,"orderStatus",color);
         },
         error: function (hxr, status, err) {
             console.log('status: ' + status + ', error: ' + err);
@@ -54,8 +86,6 @@
     });
 
     function createBarGraph(data, sectionId, color) {
-
-        console.log(data);
         var margin = { top: 20, right: 20, bottom: 170, left: 40 },
             width = 600,
             height = 300;
@@ -118,24 +148,13 @@
             .attr("width", x.rangeBand() / 2)
             .attr("y", function (d) { return y(d.value); })
             .attr("height", function (d) { return height - y(d.value); });
-        console.log("fine")
     }
 
-    function creatPieGraph(data) {
+    function creatPieGraph(data, sectionId, color) {
 
         var width = 400,
             height = 400,
             radius = Math.min(width, height) / 2;
-
-        var color = d3.scale.ordinal().range([
-            "rgb(66, 136, 181)",
-            "#6b486b",
-            "rgb(162, 217, 163)",
-            "rgb(216, 239, 159)",
-            "rgb(253, 245, 172)",
-            "rgb(253, 191, 112)",
-            "rgb(209, 60, 75)"
-        ]);
 
         var arc = d3.svg.arc()
             .outerRadius(radius - 10)
@@ -145,23 +164,23 @@
             .sort(null)
             .value(function (d) { return d.value; });
 
-        var svg = d3.select("#categories").append("svg")
+        var svg = d3.select("#"+sectionId).append("svg")
             .attr("width", width)
             .attr("height", height)
             .append("g")
             .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-        var g = svg.selectAll(".arc")
+        var graph = svg.selectAll(".arc")
             .data(pie(data))
             .enter().append("g")
             .attr("stroke", "white")
             .attr("class", "arc");
 
-        g.append("path")
+        graph.append("path")
             .attr("d", arc)
             .style("fill", function (d) { return color(d.data.name); });
 
-        g.append("text")
+        graph.append("text")
             .attr("transform", function (d) { return "translate(" + arc.centroid(d) + ")"; })
             .attr("dy", ".35em")
             .style("text-anchor", "middle")
@@ -174,59 +193,4 @@
                 .attr("opacity", 0.7)
                 .text(d => d.data.value.toLocaleString()));
     }
-
-    function creatPieGraphForMoney(data) {
-
-        var width = 400,
-            height = 400,
-            radius = Math.min(width, height) / 2;
-
-        var color = d3.scale.ordinal().range([
-            "rgb(209, 60, 75)",
-            "rgb(253, 191, 112)",
-            "rgb(253, 245, 172)",
-            "rgb(216, 239, 159)",
-            "rgb(162, 217, 163)",
-            "#6b486b",
-            "rgb(66, 136, 181)",
-        ]);
-
-        var arc = d3.svg.arc()
-            .outerRadius(radius - 10)
-            .innerRadius(0);
-
-        var pie = d3.layout.pie()
-            .sort(null)
-            .value(function (d) { return d.value; });
-
-        var svg = d3.select("#sumOfMonth").append("svg")
-            .attr("width", width)
-            .attr("height", height)
-            .append("g")
-            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-        var g = svg.selectAll(".arc")
-            .data(pie(data))
-            .enter().append("g")
-            .attr("stroke", "white")
-            .attr("class", "arc");
-
-        g.append("path")
-            .attr("d", arc)
-            .style("fill", function (d) { return color(d.data.name); });
-
-        g.append("text")
-            .attr("transform", function (d) { return "translate(" + arc.centroid(d) + ")"; })
-            .attr("dy", ".35em")
-            .style("text-anchor", "middle")
-            .call(text => text.append("tspan")
-                .attr("y", "-0.8em")
-                .text(d => d.data.name))
-            .call(text => text.filter(d => (d.endAngle - d.startAngle) > 0.25).append("tspan")
-                .attr("x", 0)
-                .attr("y", "0.6em")
-                .attr("opacity", 0.7)
-                .text(d => d.data.value.toLocaleString() + "₪"));
-    }
-
 </script>

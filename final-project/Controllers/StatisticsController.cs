@@ -92,5 +92,26 @@ namespace final_project.Controllers
 
             return Json(sellesbyCategories);
         }
+
+
+        public ActionResult OrderStatusGraph()
+        {
+            var ordersByStatus = _context.Orders
+                .Join(_context.OrderStatuses,
+                order => order.Status.ID,
+                status => status.ID,
+                (order, status) => new {
+                    order = order,
+                    status = status})
+                .GroupBy(x => x.status)
+                .Select(o => new GraphData
+                {
+                    Name = o.Key.Name,
+                    Value = o.Count()
+                })
+                .ToList();
+
+            return Json(ordersByStatus);
+        }
     }
 }
