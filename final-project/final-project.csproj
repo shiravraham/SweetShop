@@ -79,4 +79,23 @@
     <Folder Include="wwwroot\ImageFiles\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\lib\WOW-master\.gitignore" />
+    <None Include="wwwroot\lib\WOW-master\.travis.yml" />
+    <None Include="wwwroot\lib\WOW-master\dist\wow.js" />
+    <None Include="wwwroot\lib\WOW-master\dist\wow.js.map" />
+    <None Include="wwwroot\lib\WOW-master\dist\wow.min.js" />
+    <None Include="wwwroot\lib\WOW-master\dist\wow.min.js.gz" />
+    <None Include="wwwroot\lib\WOW-master\Gruntfile.js" />
+    <None Include="wwwroot\lib\WOW-master\LICENSE" />
+    <None Include="wwwroot\lib\WOW-master\README.md" />
+    <None Include="wwwroot\lib\WOW-master\spec\coffeescripts\helpers\SpecHelper.coffee" />
+    <None Include="wwwroot\lib\WOW-master\spec\coffeescripts\wow-spec.coffee" />
+    <None Include="wwwroot\lib\WOW-master\spec\javascripts\helpers\SpecHelper.js" />
+    <None Include="wwwroot\lib\WOW-master\spec\javascripts\libs\jasmine-jquery.js" />
+    <None Include="wwwroot\lib\WOW-master\spec\javascripts\libs\jquery.js" />
+    <None Include="wwwroot\lib\WOW-master\spec\javascripts\wow-spec.js" />
+    <None Include="wwwroot\lib\WOW-master\src\WOW.js" />
+  </ItemGroup>
+
 </Project>
