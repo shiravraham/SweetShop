@@ -93,6 +93,16 @@ namespace final_project.Controllers
             {
                 _context.Add(order);
                 _context.SaveChanges();
+
+                var keys = new List<string>(HttpContext.Session.Keys);
+
+                foreach (var key in keys)
+                {
+                    if (int.TryParse(key, out int keyNum))
+                    {
+                        HttpContext.Session.Remove(key);
+                    }
+                }
             }
             catch (Exception e)
             {
